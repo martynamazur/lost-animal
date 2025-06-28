@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "878112193729",
+    "project_id": "lostanimal-cf04e",
+    "storage_bucket": "lostanimal-cf04e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878112193729:android:403b843a6214ca05e52840",
+        "android_client_info": {
+          "package_name": "com.example.lostanimal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAI_aUXeqPA_NIjHcZrYvVaZJVm90L67bQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
