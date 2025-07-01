@@ -16,6 +16,9 @@ AuthError authErrorFromCode(String code) {
       return AuthError.wrongPassword;
     case 'too-many-requests':
       return AuthError.tooManyRequests;
+    case 'weak-password':
+      return AuthError.weakPassword;
+
     default:
       return AuthError.unknown;
   }

@@ -8,6 +8,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class UserRepository{
 
+  //FIREBASE AUTOMATYCZNIE LOGUJE PO STWORZENIU KONTA
+  // Jesli nie chcemy
   Future<Result> createAccount(String emailAddress, String password) async {
     try {
       final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -119,4 +121,30 @@ class UserRepository{
       return Result.failure(e.message ?? 'Something went wrong', code: code);
     }
   }
+
+  Future<Result> signInAnon() async{
+    try{
+      final credential = await FirebaseAuth.instance.signInAnonymously();
+      developer.log('Zalogowano anonimowo: UID = ${credential.user?.uid}');
+      return Result.success();
+    }on FirebaseAuth catch(e){
+      return Result.failure('Something went wrong');
+    }
+  }
+
+
+  Future<Result> linkWithCredential(AuthCredential authCredential) async{
+    try{
+      await FirebaseAuth.instance.currentUser?.linkWithCredential(authCredential);
+      return Result.success();
+
+    }on FirebaseAuthException catch(e){
+      final code = authErrorFromCode(e.code);
+      return Result.failure('Something went wrong');
+    }
+  }
+
+
+
+
 }

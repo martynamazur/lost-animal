@@ -1,8 +1,10 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lostanimal/provider/auth_notifier.dart';
 
 import '../nawigation/app_router.dart';
 
@@ -15,18 +17,59 @@ class MenuScreen extends ConsumerStatefulWidget {
 }
 
 class _MenuScreenState extends ConsumerState<MenuScreen> {
+  final bool? isAnonymous = FirebaseAuth.instance.currentUser?.isAnonymous;
   @override
   Widget build(BuildContext context) {
+
+    ref.listen<AsyncValue<void>>(authNotifierProvider, (previous, next) {
+      next.whenOrNull(
+        data: (_) {
+          context.router.replaceAll([DashboardRoute()]);
+        },
+        error: (err, stack) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(err.toString())),
+          );
+        },
+      );
+    });
     return Scaffold(
-      body: SafeArea(child: Column(
-        children: [
-          Text('MENU'),
-          OutlinedButton(
-              onPressed: () => context.pushRoute(SettingsRoute()),
-              child: Text('Settings')
-          )
-        ],
-      )),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              //mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                OutlinedButton(
+                    onPressed: () => context.pushRoute(SettingsRoute()),
+                    child: Text('Settings')
+                ),
+                if(isAnonymous == true)
+                  _linkAccount()
+
+              ],
+            ),
+          ),
+        )),
+    );
+  }
+
+  Widget _linkAccount(){
+    final authNotifier = ref.read(authNotifierProvider.notifier);
+    return Column(
+      children: [
+        Text('Link your current account with a sign-in method below to keep your data safe and easily accessible across devices.'),
+        OutlinedButton(
+            onPressed: () => context.router.push(SignUpRoute(isLinkingAccount: true)),
+            child: Text('Link with email')
+        ),
+        OutlinedButton(
+            onPressed: () async => authNotifier.onSignInGoogle(),
+            child: Text('Link google account')
+        )
+      ],
     );
   }
 }
