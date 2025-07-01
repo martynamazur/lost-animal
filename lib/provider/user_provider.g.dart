@@ -344,6 +344,23 @@ final signOutProvider = AutoDisposeFutureProvider<Result>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef SignOutRef = AutoDisposeFutureProviderRef<Result>;
+String _$signInAnonHash() => r'687353a3ed03c5267bde4c29b8e616152c943ce1';
+
+/// See also [signInAnon].
+@ProviderFor(signInAnon)
+final signInAnonProvider = AutoDisposeFutureProvider<Result>.internal(
+  signInAnon,
+  name: r'signInAnonProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$signInAnonHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef SignInAnonRef = AutoDisposeFutureProviderRef<Result>;
 String _$resetPasswordHash() => r'49ec84e6f38efcc08ea68ebc9f3c942d99b1670a';
 
 /// See also [resetPassword].
@@ -721,6 +738,130 @@ class _ReAuthenticateProviderElement
   String get email => (origin as ReAuthenticateProvider).email;
   @override
   String get password => (origin as ReAuthenticateProvider).password;
+}
+
+String _$linkWithCredentialHash() =>
+    r'6876144d9af2701282dbcfcda7d2cce829f3bb73';
+
+/// See also [linkWithCredential].
+@ProviderFor(linkWithCredential)
+const linkWithCredentialProvider = LinkWithCredentialFamily();
+
+/// See also [linkWithCredential].
+class LinkWithCredentialFamily extends Family<AsyncValue<Result>> {
+  /// See also [linkWithCredential].
+  const LinkWithCredentialFamily();
+
+  /// See also [linkWithCredential].
+  LinkWithCredentialProvider call(AuthCredential authCredential) {
+    return LinkWithCredentialProvider(authCredential);
+  }
+
+  @override
+  LinkWithCredentialProvider getProviderOverride(
+    covariant LinkWithCredentialProvider provider,
+  ) {
+    return call(provider.authCredential);
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'linkWithCredentialProvider';
+}
+
+/// See also [linkWithCredential].
+class LinkWithCredentialProvider extends AutoDisposeFutureProvider<Result> {
+  /// See also [linkWithCredential].
+  LinkWithCredentialProvider(AuthCredential authCredential)
+    : this._internal(
+        (ref) =>
+            linkWithCredential(ref as LinkWithCredentialRef, authCredential),
+        from: linkWithCredentialProvider,
+        name: r'linkWithCredentialProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$linkWithCredentialHash,
+        dependencies: LinkWithCredentialFamily._dependencies,
+        allTransitiveDependencies:
+            LinkWithCredentialFamily._allTransitiveDependencies,
+        authCredential: authCredential,
+      );
+
+  LinkWithCredentialProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.authCredential,
+  }) : super.internal();
+
+  final AuthCredential authCredential;
+
+  @override
+  Override overrideWith(
+    FutureOr<Result> Function(LinkWithCredentialRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: LinkWithCredentialProvider._internal(
+        (ref) => create(ref as LinkWithCredentialRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        authCredential: authCredential,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Result> createElement() {
+    return _LinkWithCredentialProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is LinkWithCredentialProvider &&
+        other.authCredential == authCredential;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, authCredential.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin LinkWithCredentialRef on AutoDisposeFutureProviderRef<Result> {
+  /// The parameter `authCredential` of this provider.
+  AuthCredential get authCredential;
+}
+
+class _LinkWithCredentialProviderElement
+    extends AutoDisposeFutureProviderElement<Result>
+    with LinkWithCredentialRef {
+  _LinkWithCredentialProviderElement(super.provider);
+
+  @override
+  AuthCredential get authCredential =>
+      (origin as LinkWithCredentialProvider).authCredential;
 }
 
 // ignore_for_file: type=lint

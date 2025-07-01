@@ -1,4 +1,7 @@
+import 'dart:developer' as developer;
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lostanimal/provider/user_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -11,7 +14,7 @@ class AuthNotifier extends _$AuthNotifier {
     return;
   }
 
-  Future<void> login(String email, String password) async {
+  Future<void> onSignInWithEmail(String email, String password) async {
     state = const AsyncLoading();
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -19,6 +22,7 @@ class AuthNotifier extends _$AuthNotifier {
         password: password,
       );
       state = const AsyncData(null);
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         state = AsyncError('No user found for that email.', StackTrace.current);
@@ -29,6 +33,34 @@ class AuthNotifier extends _$AuthNotifier {
       }
     } catch (e, st) {
       state = AsyncError('An unexpected error occurred.', st);
+    }
+  }
+
+  Future<void> onSignInAnon() async{
+    try{
+      final credential = await FirebaseAuth.instance.signInAnonymously();
+      developer.log('Zalogowano anonimowo: UID = ${credential.user?.uid}');
+      state = AsyncData(null);
+    }on FirebaseAuthException catch(e){
+      state = AsyncError(e, StackTrace.current);
+    }catch (e,st){
+      state = AsyncError('An unexpected error occurred.', st);
+
+    }
+  }
+
+  //TODO: Fix it
+  Future<void> onSignInGoogle() async{
+    try{
+      //final googleAuthService = GoogleAuthService();
+      final account = await GoogleSignIn.instance.authenticate();
+      developer.log(account.email);
+      state = AsyncData(null);
+
+    }on FirebaseAuthException catch(e, st){
+
+    }catch(e){
+
     }
   }
 }

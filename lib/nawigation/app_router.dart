@@ -1,6 +1,7 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:lostanimal/nawigation/auth_guard.dart';
 import 'package:lostanimal/presentation/dashboard_screen.dart';
 
 import '../presentation/auth_gate_screen.dart';
@@ -17,18 +18,18 @@ part 'app_router.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Screen|Page,Route')
 class AppRouter extends RootStackRouter {
+  final authGuard = AuthGuard();
 
   @override
   RouteType get defaultRouteType => RouteType.material();
 
   @override
   List<AutoRoute> get routes => [
-
-    AutoRoute(page: AuthGateRoute.page,initial: true),
-    AutoRoute(page: LoginRoute.page, ),
-    AutoRoute(page: SignUpRoute.page, ),
+    AutoRoute(page: LoginRoute.page,initial: true),
+    AutoRoute(page: SignUpRoute.page),
     AutoRoute(page: ResetPasswordRoute.page),
     AutoRoute(page: DashboardRoute.page,
+      guards: [authGuard],
       children: [
         AutoRoute(page: HomeRoute.page),
         AutoRoute(page: MenuRoute.page)
@@ -41,9 +42,8 @@ class AppRouter extends RootStackRouter {
     )
   ];
 
-
+  //TU SA GUARDY KTORE DZIALAJA NA WSZYSTKIE TRASY !!!! inaczej wystapi pętla :(
   @override
   List<AutoRouteGuard> get guards => [
-    // optionally add root guards here
   ];
 }

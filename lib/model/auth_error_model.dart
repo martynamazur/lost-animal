@@ -6,4 +6,5 @@ enum AuthError {
   networkError,
   unknown,
   wrongPassword, tooManyRequests,
+  weakPassword
 }

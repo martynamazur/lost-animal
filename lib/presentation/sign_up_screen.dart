@@ -12,36 +12,38 @@ import '../provider/sign_up_form_notifier.dart';
 
 @RoutePage()
 class SignUpScreen extends ConsumerStatefulWidget {
-  const SignUpScreen({super.key});
+  final bool isLinkingAccount;
+
+  const SignUpScreen({super.key, this.isLinkingAccount = false});
 
   @override
-  ConsumerState createState() => _SignOutScreenState();
+  ConsumerState createState() => _SignUpScreenState();
 }
 
-class _SignOutScreenState extends ConsumerState<SignUpScreen> {
+class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
 
-
+  @override
+  void initState() {
+    super.initState();
+    ref.listen(signUpFormNotifierProvider, (prev, next) {
+      next.whenOrNull(
+          data:  (_){
+            _showConfirmationDialog();
+          },
+          error: (err,stack){
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(err.toString()))
+            );
+          }
+      );
+    });
+  }
   
   @override
   Widget build(BuildContext context) {
     final signUpState = ref.watch(signUpFormNotifierProvider);
-    final signUpNotifier = ref.read(signUpFormNotifierProvider.notifier);
 
-    
-    ref.listen(signUpFormNotifierProvider, (prev, next) {
-      next.whenOrNull(
-        data:  (_){
-          _showConfirmationDialog();
-        },
-        error: (err,stack){
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(err.toString()))
-          );
-        }
-      );
-    });
-    
     return Scaffold(
       body: SafeArea(
           child: FormBuilder(
@@ -62,16 +64,8 @@ class _SignOutScreenState extends ConsumerState<SignUpScreen> {
                     ),
                     signUpState.isLoading ? CircularProgressIndicator() 
                       :OutlinedButton(
-                        onPressed: () async{
-                          if(_formKey.currentState?.saveAndValidate() ?? false){
-                            final formData = _formKey.currentState!.value;
-                            final emailAddress = formData['email'];
-                            final password = formData['password'];
-                            await signUpNotifier.signUp(emailAddress, password);
-                          }
-
-                        },
-                        child: Text('sign up'))
+                        onPressed: () => _onHandleSubmit(),
+                        child: Text(widget.isLinkingAccount ? 'Link account' : 'sign up'))
 
                   ],
                 ),
@@ -81,13 +75,31 @@ class _SignOutScreenState extends ConsumerState<SignUpScreen> {
     );
   }
 
+  void _onHandleSubmit() async{
+    final signUpNotifier = ref.read(signUpFormNotifierProvider.notifier);
+    if(_formKey.currentState?.saveAndValidate() ?? false){
+      final formData = _formKey.currentState!.value;
+      final emailAddress = formData['email'];
+      final password = formData['password'];
+      if(widget.isLinkingAccount){
+        await signUpNotifier.linkAnonymousAccount(emailAddress:emailAddress,password:password);
+      }else{
+        await signUpNotifier.signUp(emailAddress:emailAddress,password: password);
+      }
+    }
+  }
+
   void _showConfirmationDialog(){
     showDialog(
         context: context, 
         builder: (context){
           return AlertDialog(
             title: Text('Account created'),
-            content: Text('Your account has been successfully created.We\’ve sent you a verification email with an activation link.Please check your inbox and follow the instructions to verify your email address.'),
+            content: Text(
+                widget.isLinkingAccount
+                    ? 'Your anonymous account has been linked successfully.'
+                    : 'Your account has been successfully created. We’ve sent you a verification email...'
+            ),
             actions: [
               OutlinedButton(onPressed: () => context.pop(), child: Text('Ok'))
             ],

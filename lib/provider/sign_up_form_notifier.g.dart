@@ -7,7 +7,7 @@ part of 'sign_up_form_notifier.dart';
 // **************************************************************************
 
 String _$signUpFormNotifierHash() =>
-    r'9e2f5ff064fb7d8f9dbffa52c5883f2a517f066f';
+    r'be669c8206b7f1b74c543504424a2ab47178b714';
 
 /// See also [SignUpFormNotifier].
 @ProviderFor(SignUpFormNotifier)
