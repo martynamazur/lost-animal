@@ -14,6 +14,7 @@ class DashboardScreen extends StatelessWidget {
     return AutoTabsRouter(
       routes: const [
         HomeRoute(),
+        ReportRoute(),
         MenuRoute()
 
       ],
@@ -22,12 +23,7 @@ class DashboardScreen extends StatelessWidget {
         child: child,
       ),
       builder: (context, child) {
-        // obtain the scoped TabsRouter controller using context
         final tabsRouter = AutoTabsRouter.of(context);
-        // Here we're building our Scaffold inside of AutoTabsRouter
-        // to access the tabsRouter controller provided in this context
-        //
-        // alternatively, you could use a global key
         return Scaffold(
           body: child,
           bottomNavigationBar: BottomNavigationBar(
@@ -37,6 +33,7 @@ class DashboardScreen extends StatelessWidget {
             },
             items: [
               BottomNavigationBarItem(label: 'Users', icon: Icon(Icons.home)),
+              BottomNavigationBarItem(label: 'Add missing', icon: Icon(Icons.add)),
               BottomNavigationBarItem(label: 'Menu',icon: Icon(Icons.menu)),
             ],
           ),
