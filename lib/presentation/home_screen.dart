@@ -18,7 +18,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       body: SafeArea(
           child: Column(
             children: [
-              Text('HOME')
+              Text('Ostatnie zgłoszenia')
+              //wyswietlimy liste zgloszen
+              //wyzej mape
             ],
           ))
     );

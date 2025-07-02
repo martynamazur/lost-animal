@@ -17,7 +17,8 @@ class MenuScreen extends ConsumerStatefulWidget {
 }
 
 class _MenuScreenState extends ConsumerState<MenuScreen> {
-  final bool? isAnonymous = FirebaseAuth.instance.currentUser?.isAnonymous;
+  bool get isAnonymous => FirebaseAuth.instance.currentUser?.isAnonymous ?? false;
+
   @override
   Widget build(BuildContext context) {
 
@@ -39,8 +40,8 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
+              spacing: 12.0,
               crossAxisAlignment: CrossAxisAlignment.center,
-              //mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 OutlinedButton(
                     onPressed: () => context.pushRoute(SettingsRoute()),
@@ -48,7 +49,6 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
                 ),
                 if(isAnonymous == true)
                   _linkAccount()
-
               ],
             ),
           ),
@@ -59,6 +59,7 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
   Widget _linkAccount(){
     final authNotifier = ref.read(authNotifierProvider.notifier);
     return Column(
+      spacing: 12,
       children: [
         Text('Link your current account with a sign-in method below to keep your data safe and easily accessible across devices.'),
         OutlinedButton(
