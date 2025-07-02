@@ -1,16 +1,15 @@
-# lostanimal
+## lostanimal
+Lost Animal - helping you report and find missing or seen animals in your neighborhood
 
-A new Flutter project.
+## Project Goals
+Refreshing my knowledge about Firebase.
+Using Google Maps Api to display reports.
 
-## Getting Started
+#Firebase features:
+- Email, Google, and anonymous sign in/sign up (with account linking)
+- Real-time Chat between users
+- Data storage and management
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+App core functionality
+- Reporting a missing pet
+- Reporting a seen animal
