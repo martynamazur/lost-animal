@@ -19,6 +19,7 @@ class _RewardState extends ConsumerState<Reward> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Text('Is a reward offered?'),
         Switch(
             value: switchValue,
             onChanged: (value){
@@ -32,7 +33,7 @@ class _RewardState extends ConsumerState<Reward> {
             keyboardType: TextInputType.numberWithOptions(decimal: true),
             decoration: InputDecoration(
                 labelText: 'Price',
-                prefixText: 'PLN'
+                suffixText: 'PLN'
             ),
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),

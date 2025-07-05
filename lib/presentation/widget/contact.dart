@@ -4,7 +4,8 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Contact extends ConsumerWidget {
-  const Contact({super.key});
+  final void Function(String text) onSaved;
+  const Contact(this.onSaved, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -14,6 +15,9 @@ class Contact extends ConsumerWidget {
         TextFormField(
           keyboardType: TextInputType.phone,
           decoration: InputDecoration(labelText: 'Phone number'),
+          onSaved: (value){
+
+          },
         )
       ],
     );

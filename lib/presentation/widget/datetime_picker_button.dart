@@ -8,7 +8,13 @@ class DateTimePickerButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return OutlinedButton(onPressed: () => _selectDateTime(context), child: Text('Choose'));
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Date and time of disappearance'),
+        OutlinedButton(onPressed: () => _selectDateTime(context), child: Text('Choose')),
+      ],
+    );
   }
   Future<void> _selectDateTime(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(

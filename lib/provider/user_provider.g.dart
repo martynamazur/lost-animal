@@ -6,862 +6,565 @@ part of 'user_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+@ProviderFor(userRepository)
+const userRepositoryProvider = UserRepositoryProvider._();
+
+final class UserRepositoryProvider
+    extends $FunctionalProvider<UserRepository, UserRepository, UserRepository>
+    with $Provider<UserRepository> {
+  const UserRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'userRepositoryProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$userRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<UserRepository> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  UserRepository create(Ref ref) {
+    return userRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(UserRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<UserRepository>(value),
+    );
+  }
+}
+
 String _$userRepositoryHash() => r'8366fba5ac0d6b90c6a637882d24c5e759a5a92f';
 
-/// See also [userRepository].
-@ProviderFor(userRepository)
-final userRepositoryProvider = AutoDisposeProvider<UserRepository>.internal(
-  userRepository,
-  name: r'userRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$userRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef UserRepositoryRef = AutoDisposeProviderRef<UserRepository>;
-String _$createAccountHash() => r'd9713340ad778130cf9225b4c568cb016cd57862';
-
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-/// See also [createAccount].
 @ProviderFor(createAccount)
-const createAccountProvider = CreateAccountFamily();
+const createAccountProvider = CreateAccountFamily._();
 
-/// See also [createAccount].
-class CreateAccountFamily extends Family<AsyncValue<Result>> {
-  /// See also [createAccount].
-  const CreateAccountFamily();
-
-  /// See also [createAccount].
-  CreateAccountProvider call({
-    required String emailAddress,
-    required String password,
-  }) {
-    return CreateAccountProvider(
-      emailAddress: emailAddress,
-      password: password,
-    );
-  }
-
-  @override
-  CreateAccountProvider getProviderOverride(
-    covariant CreateAccountProvider provider,
-  ) {
-    return call(
-      emailAddress: provider.emailAddress,
-      password: provider.password,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'createAccountProvider';
-}
-
-/// See also [createAccount].
-class CreateAccountProvider extends AutoDisposeFutureProvider<Result> {
-  /// See also [createAccount].
-  CreateAccountProvider({
-    required String emailAddress,
-    required String password,
-  }) : this._internal(
-         (ref) => createAccount(
-           ref as CreateAccountRef,
-           emailAddress: emailAddress,
-           password: password,
-         ),
-         from: createAccountProvider,
+final class CreateAccountProvider
+    extends $FunctionalProvider<AsyncValue<Result>, Result, FutureOr<Result>>
+    with $FutureModifier<Result>, $FutureProvider<Result> {
+  const CreateAccountProvider._({
+    required CreateAccountFamily super.from,
+    required ({String emailAddress, String password}) super.argument,
+  }) : super(
+         retry: null,
          name: r'createAccountProvider',
-         debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-             ? null
-             : _$createAccountHash,
-         dependencies: CreateAccountFamily._dependencies,
-         allTransitiveDependencies:
-             CreateAccountFamily._allTransitiveDependencies,
-         emailAddress: emailAddress,
-         password: password,
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
        );
 
-  CreateAccountProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.emailAddress,
-    required this.password,
-  }) : super.internal();
-
-  final String emailAddress;
-  final String password;
+  @override
+  String debugGetCreateSourceHash() => _$createAccountHash();
 
   @override
-  Override overrideWith(
-    FutureOr<Result> Function(CreateAccountRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: CreateAccountProvider._internal(
-        (ref) => create(ref as CreateAccountRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        emailAddress: emailAddress,
-        password: password,
-      ),
-    );
+  String toString() {
+    return r'createAccountProvider'
+        ''
+        '$argument';
   }
 
+  @$internal
   @override
-  AutoDisposeFutureProviderElement<Result> createElement() {
-    return _CreateAccountProviderElement(this);
+  $FutureProviderElement<Result> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<Result> create(Ref ref) {
+    final argument = this.argument as ({String emailAddress, String password});
+    return createAccount(
+      ref,
+      emailAddress: argument.emailAddress,
+      password: argument.password,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is CreateAccountProvider &&
-        other.emailAddress == emailAddress &&
-        other.password == password;
+    return other is CreateAccountProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, emailAddress.hashCode);
-    hash = _SystemHash.combine(hash, password.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin CreateAccountRef on AutoDisposeFutureProviderRef<Result> {
-  /// The parameter `emailAddress` of this provider.
-  String get emailAddress;
+String _$createAccountHash() => r'd9713340ad778130cf9225b4c568cb016cd57862';
 
-  /// The parameter `password` of this provider.
-  String get password;
+final class CreateAccountFamily extends $Family
+    with
+        $FunctionalFamilyOverride<
+          FutureOr<Result>,
+          ({String emailAddress, String password})
+        > {
+  const CreateAccountFamily._()
+    : super(
+        retry: null,
+        name: r'createAccountProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  CreateAccountProvider call({
+    required String emailAddress,
+    required String password,
+  }) => CreateAccountProvider._(
+    argument: (emailAddress: emailAddress, password: password),
+    from: this,
+  );
+
+  @override
+  String toString() => r'createAccountProvider';
 }
 
-class _CreateAccountProviderElement
-    extends AutoDisposeFutureProviderElement<Result>
-    with CreateAccountRef {
-  _CreateAccountProviderElement(super.provider);
+@ProviderFor(signIn)
+const signInProvider = SignInFamily._();
+
+final class SignInProvider
+    extends $FunctionalProvider<AsyncValue<Result>, Result, FutureOr<Result>>
+    with $FutureModifier<Result>, $FutureProvider<Result> {
+  const SignInProvider._({
+    required SignInFamily super.from,
+    required ({String emailAddress, String password}) super.argument,
+  }) : super(
+         retry: null,
+         name: r'signInProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
-  String get emailAddress => (origin as CreateAccountProvider).emailAddress;
+  String debugGetCreateSourceHash() => _$signInHash();
+
   @override
-  String get password => (origin as CreateAccountProvider).password;
+  String toString() {
+    return r'signInProvider'
+        ''
+        '$argument';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<Result> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<Result> create(Ref ref) {
+    final argument = this.argument as ({String emailAddress, String password});
+    return signIn(
+      ref,
+      emailAddress: argument.emailAddress,
+      password: argument.password,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is SignInProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
 }
 
 String _$signInHash() => r'2a967fd57dbc6e3e4339468214bc7b5f2c582886';
 
-/// See also [signIn].
-@ProviderFor(signIn)
-const signInProvider = SignInFamily();
+final class SignInFamily extends $Family
+    with
+        $FunctionalFamilyOverride<
+          FutureOr<Result>,
+          ({String emailAddress, String password})
+        > {
+  const SignInFamily._()
+    : super(
+        retry: null,
+        name: r'signInProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
 
-/// See also [signIn].
-class SignInFamily extends Family<AsyncValue<Result>> {
-  /// See also [signIn].
-  const SignInFamily();
-
-  /// See also [signIn].
   SignInProvider call({
     required String emailAddress,
     required String password,
-  }) {
-    return SignInProvider(emailAddress: emailAddress, password: password);
-  }
+  }) => SignInProvider._(
+    argument: (emailAddress: emailAddress, password: password),
+    from: this,
+  );
 
   @override
-  SignInProvider getProviderOverride(covariant SignInProvider provider) {
-    return call(
-      emailAddress: provider.emailAddress,
-      password: provider.password,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'signInProvider';
+  String toString() => r'signInProvider';
 }
 
-/// See also [signIn].
-class SignInProvider extends AutoDisposeFutureProvider<Result> {
-  /// See also [signIn].
-  SignInProvider({required String emailAddress, required String password})
-    : this._internal(
-        (ref) => signIn(
-          ref as SignInRef,
-          emailAddress: emailAddress,
-          password: password,
-        ),
-        from: signInProvider,
-        name: r'signInProvider',
-        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-            ? null
-            : _$signInHash,
-        dependencies: SignInFamily._dependencies,
-        allTransitiveDependencies: SignInFamily._allTransitiveDependencies,
-        emailAddress: emailAddress,
-        password: password,
+@ProviderFor(signOut)
+const signOutProvider = SignOutProvider._();
+
+final class SignOutProvider
+    extends $FunctionalProvider<AsyncValue<Result>, Result, FutureOr<Result>>
+    with $FutureModifier<Result>, $FutureProvider<Result> {
+  const SignOutProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'signOutProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
       );
 
-  SignInProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.emailAddress,
-    required this.password,
-  }) : super.internal();
+  @override
+  String debugGetCreateSourceHash() => _$signOutHash();
 
-  final String emailAddress;
-  final String password;
+  @$internal
+  @override
+  $FutureProviderElement<Result> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
 
   @override
-  Override overrideWith(FutureOr<Result> Function(SignInRef provider) create) {
-    return ProviderOverride(
-      origin: this,
-      override: SignInProvider._internal(
-        (ref) => create(ref as SignInRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        emailAddress: emailAddress,
-        password: password,
-      ),
-    );
+  FutureOr<Result> create(Ref ref) {
+    return signOut(ref);
   }
-
-  @override
-  AutoDisposeFutureProviderElement<Result> createElement() {
-    return _SignInProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is SignInProvider &&
-        other.emailAddress == emailAddress &&
-        other.password == password;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, emailAddress.hashCode);
-    hash = _SystemHash.combine(hash, password.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin SignInRef on AutoDisposeFutureProviderRef<Result> {
-  /// The parameter `emailAddress` of this provider.
-  String get emailAddress;
-
-  /// The parameter `password` of this provider.
-  String get password;
-}
-
-class _SignInProviderElement extends AutoDisposeFutureProviderElement<Result>
-    with SignInRef {
-  _SignInProviderElement(super.provider);
-
-  @override
-  String get emailAddress => (origin as SignInProvider).emailAddress;
-  @override
-  String get password => (origin as SignInProvider).password;
 }
 
 String _$signOutHash() => r'2321bde52f098a03358a8bad28f46725e7abd739';
 
-/// See also [signOut].
-@ProviderFor(signOut)
-final signOutProvider = AutoDisposeFutureProvider<Result>.internal(
-  signOut,
-  name: r'signOutProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$signOutHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef SignOutRef = AutoDisposeFutureProviderRef<Result>;
-String _$signInAnonHash() => r'687353a3ed03c5267bde4c29b8e616152c943ce1';
-
-/// See also [signInAnon].
 @ProviderFor(signInAnon)
-final signInAnonProvider = AutoDisposeFutureProvider<Result>.internal(
-  signInAnon,
-  name: r'signInAnonProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$signInAnonHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const signInAnonProvider = SignInAnonProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef SignInAnonRef = AutoDisposeFutureProviderRef<Result>;
-String _$resetPasswordHash() => r'49ec84e6f38efcc08ea68ebc9f3c942d99b1670a';
-
-/// See also [resetPassword].
-@ProviderFor(resetPassword)
-const resetPasswordProvider = ResetPasswordFamily();
-
-/// See also [resetPassword].
-class ResetPasswordFamily extends Family<AsyncValue<Result>> {
-  /// See also [resetPassword].
-  const ResetPasswordFamily();
-
-  /// See also [resetPassword].
-  ResetPasswordProvider call({required String emailAddress}) {
-    return ResetPasswordProvider(emailAddress: emailAddress);
-  }
-
-  @override
-  ResetPasswordProvider getProviderOverride(
-    covariant ResetPasswordProvider provider,
-  ) {
-    return call(emailAddress: provider.emailAddress);
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'resetPasswordProvider';
-}
-
-/// See also [resetPassword].
-class ResetPasswordProvider extends AutoDisposeFutureProvider<Result> {
-  /// See also [resetPassword].
-  ResetPasswordProvider({required String emailAddress})
-    : this._internal(
-        (ref) =>
-            resetPassword(ref as ResetPasswordRef, emailAddress: emailAddress),
-        from: resetPasswordProvider,
-        name: r'resetPasswordProvider',
-        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-            ? null
-            : _$resetPasswordHash,
-        dependencies: ResetPasswordFamily._dependencies,
-        allTransitiveDependencies:
-            ResetPasswordFamily._allTransitiveDependencies,
-        emailAddress: emailAddress,
+final class SignInAnonProvider
+    extends $FunctionalProvider<AsyncValue<Result>, Result, FutureOr<Result>>
+    with $FutureModifier<Result>, $FutureProvider<Result> {
+  const SignInAnonProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'signInAnonProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
       );
 
-  ResetPasswordProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.emailAddress,
-  }) : super.internal();
+  @override
+  String debugGetCreateSourceHash() => _$signInAnonHash();
 
-  final String emailAddress;
+  @$internal
+  @override
+  $FutureProviderElement<Result> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
 
   @override
-  Override overrideWith(
-    FutureOr<Result> Function(ResetPasswordRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: ResetPasswordProvider._internal(
-        (ref) => create(ref as ResetPasswordRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        emailAddress: emailAddress,
-      ),
-    );
+  FutureOr<Result> create(Ref ref) {
+    return signInAnon(ref);
+  }
+}
+
+String _$signInAnonHash() => r'687353a3ed03c5267bde4c29b8e616152c943ce1';
+
+@ProviderFor(resetPassword)
+const resetPasswordProvider = ResetPasswordFamily._();
+
+final class ResetPasswordProvider
+    extends $FunctionalProvider<AsyncValue<Result>, Result, FutureOr<Result>>
+    with $FutureModifier<Result>, $FutureProvider<Result> {
+  const ResetPasswordProvider._({
+    required ResetPasswordFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'resetPasswordProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$resetPasswordHash();
+
+  @override
+  String toString() {
+    return r'resetPasswordProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  AutoDisposeFutureProviderElement<Result> createElement() {
-    return _ResetPasswordProviderElement(this);
+  $FutureProviderElement<Result> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<Result> create(Ref ref) {
+    final argument = this.argument as String;
+    return resetPassword(ref, emailAddress: argument);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is ResetPasswordProvider && other.emailAddress == emailAddress;
+    return other is ResetPasswordProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, emailAddress.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin ResetPasswordRef on AutoDisposeFutureProviderRef<Result> {
-  /// The parameter `emailAddress` of this provider.
-  String get emailAddress;
-}
+String _$resetPasswordHash() => r'49ec84e6f38efcc08ea68ebc9f3c942d99b1670a';
 
-class _ResetPasswordProviderElement
-    extends AutoDisposeFutureProviderElement<Result>
-    with ResetPasswordRef {
-  _ResetPasswordProviderElement(super.provider);
+final class ResetPasswordFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<Result>, String> {
+  const ResetPasswordFamily._()
+    : super(
+        retry: null,
+        name: r'resetPasswordProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  ResetPasswordProvider call({required String emailAddress}) =>
+      ResetPasswordProvider._(argument: emailAddress, from: this);
 
   @override
-  String get emailAddress => (origin as ResetPasswordProvider).emailAddress;
+  String toString() => r'resetPasswordProvider';
+}
+
+@ProviderFor(changeEmail)
+const changeEmailProvider = ChangeEmailFamily._();
+
+final class ChangeEmailProvider
+    extends $FunctionalProvider<AsyncValue<Result>, Result, FutureOr<Result>>
+    with $FutureModifier<Result>, $FutureProvider<Result> {
+  const ChangeEmailProvider._({
+    required ChangeEmailFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'changeEmailProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$changeEmailHash();
+
+  @override
+  String toString() {
+    return r'changeEmailProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<Result> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<Result> create(Ref ref) {
+    final argument = this.argument as String;
+    return changeEmail(ref, newEmail: argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ChangeEmailProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
 }
 
 String _$changeEmailHash() => r'cc6386f724479eabf466ae6f6172644c67506ad5';
 
-/// See also [changeEmail].
-@ProviderFor(changeEmail)
-const changeEmailProvider = ChangeEmailFamily();
-
-/// See also [changeEmail].
-class ChangeEmailFamily extends Family<AsyncValue<Result>> {
-  /// See also [changeEmail].
-  const ChangeEmailFamily();
-
-  /// See also [changeEmail].
-  ChangeEmailProvider call({required String newEmail}) {
-    return ChangeEmailProvider(newEmail: newEmail);
-  }
-
-  @override
-  ChangeEmailProvider getProviderOverride(
-    covariant ChangeEmailProvider provider,
-  ) {
-    return call(newEmail: provider.newEmail);
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'changeEmailProvider';
-}
-
-/// See also [changeEmail].
-class ChangeEmailProvider extends AutoDisposeFutureProvider<Result> {
-  /// See also [changeEmail].
-  ChangeEmailProvider({required String newEmail})
-    : this._internal(
-        (ref) => changeEmail(ref as ChangeEmailRef, newEmail: newEmail),
-        from: changeEmailProvider,
+final class ChangeEmailFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<Result>, String> {
+  const ChangeEmailFamily._()
+    : super(
+        retry: null,
         name: r'changeEmailProvider',
-        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-            ? null
-            : _$changeEmailHash,
-        dependencies: ChangeEmailFamily._dependencies,
-        allTransitiveDependencies: ChangeEmailFamily._allTransitiveDependencies,
-        newEmail: newEmail,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
       );
 
-  ChangeEmailProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.newEmail,
-  }) : super.internal();
-
-  final String newEmail;
+  ChangeEmailProvider call({required String newEmail}) =>
+      ChangeEmailProvider._(argument: newEmail, from: this);
 
   @override
-  Override overrideWith(
-    FutureOr<Result> Function(ChangeEmailRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: ChangeEmailProvider._internal(
-        (ref) => create(ref as ChangeEmailRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        newEmail: newEmail,
-      ),
+  String toString() => r'changeEmailProvider';
+}
+
+@ProviderFor(reAuthenticate)
+const reAuthenticateProvider = ReAuthenticateFamily._();
+
+final class ReAuthenticateProvider
+    extends $FunctionalProvider<AsyncValue<Result>, Result, FutureOr<Result>>
+    with $FutureModifier<Result>, $FutureProvider<Result> {
+  const ReAuthenticateProvider._({
+    required ReAuthenticateFamily super.from,
+    required ({String email, String password}) super.argument,
+  }) : super(
+         retry: null,
+         name: r'reAuthenticateProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$reAuthenticateHash();
+
+  @override
+  String toString() {
+    return r'reAuthenticateProvider'
+        ''
+        '$argument';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<Result> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<Result> create(Ref ref) {
+    final argument = this.argument as ({String email, String password});
+    return reAuthenticate(
+      ref,
+      email: argument.email,
+      password: argument.password,
     );
   }
 
   @override
-  AutoDisposeFutureProviderElement<Result> createElement() {
-    return _ChangeEmailProviderElement(this);
-  }
-
-  @override
   bool operator ==(Object other) {
-    return other is ChangeEmailProvider && other.newEmail == newEmail;
+    return other is ReAuthenticateProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, newEmail.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin ChangeEmailRef on AutoDisposeFutureProviderRef<Result> {
-  /// The parameter `newEmail` of this provider.
-  String get newEmail;
-}
-
-class _ChangeEmailProviderElement
-    extends AutoDisposeFutureProviderElement<Result>
-    with ChangeEmailRef {
-  _ChangeEmailProviderElement(super.provider);
-
-  @override
-  String get newEmail => (origin as ChangeEmailProvider).newEmail;
 }
 
 String _$reAuthenticateHash() => r'50d6c8840f6179cca9ef1c5e4b614819739e3bb7';
 
-/// See also [reAuthenticate].
-@ProviderFor(reAuthenticate)
-const reAuthenticateProvider = ReAuthenticateFamily();
+final class ReAuthenticateFamily extends $Family
+    with
+        $FunctionalFamilyOverride<
+          FutureOr<Result>,
+          ({String email, String password})
+        > {
+  const ReAuthenticateFamily._()
+    : super(
+        retry: null,
+        name: r'reAuthenticateProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
 
-/// See also [reAuthenticate].
-class ReAuthenticateFamily extends Family<AsyncValue<Result>> {
-  /// See also [reAuthenticate].
-  const ReAuthenticateFamily();
-
-  /// See also [reAuthenticate].
   ReAuthenticateProvider call({
     required String email,
     required String password,
-  }) {
-    return ReAuthenticateProvider(email: email, password: password);
-  }
+  }) => ReAuthenticateProvider._(
+    argument: (email: email, password: password),
+    from: this,
+  );
 
   @override
-  ReAuthenticateProvider getProviderOverride(
-    covariant ReAuthenticateProvider provider,
-  ) {
-    return call(email: provider.email, password: provider.password);
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'reAuthenticateProvider';
+  String toString() => r'reAuthenticateProvider';
 }
 
-/// See also [reAuthenticate].
-class ReAuthenticateProvider extends AutoDisposeFutureProvider<Result> {
-  /// See also [reAuthenticate].
-  ReAuthenticateProvider({required String email, required String password})
-    : this._internal(
-        (ref) => reAuthenticate(
-          ref as ReAuthenticateRef,
-          email: email,
-          password: password,
-        ),
-        from: reAuthenticateProvider,
-        name: r'reAuthenticateProvider',
-        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-            ? null
-            : _$reAuthenticateHash,
-        dependencies: ReAuthenticateFamily._dependencies,
-        allTransitiveDependencies:
-            ReAuthenticateFamily._allTransitiveDependencies,
-        email: email,
-        password: password,
-      );
+@ProviderFor(linkWithCredential)
+const linkWithCredentialProvider = LinkWithCredentialFamily._();
 
-  ReAuthenticateProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.email,
-    required this.password,
-  }) : super.internal();
-
-  final String email;
-  final String password;
+final class LinkWithCredentialProvider
+    extends $FunctionalProvider<AsyncValue<Result>, Result, FutureOr<Result>>
+    with $FutureModifier<Result>, $FutureProvider<Result> {
+  const LinkWithCredentialProvider._({
+    required LinkWithCredentialFamily super.from,
+    required AuthCredential super.argument,
+  }) : super(
+         retry: null,
+         name: r'linkWithCredentialProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
-  Override overrideWith(
-    FutureOr<Result> Function(ReAuthenticateRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: ReAuthenticateProvider._internal(
-        (ref) => create(ref as ReAuthenticateRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        email: email,
-        password: password,
-      ),
-    );
+  String debugGetCreateSourceHash() => _$linkWithCredentialHash();
+
+  @override
+  String toString() {
+    return r'linkWithCredentialProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  AutoDisposeFutureProviderElement<Result> createElement() {
-    return _ReAuthenticateProviderElement(this);
+  $FutureProviderElement<Result> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<Result> create(Ref ref) {
+    final argument = this.argument as AuthCredential;
+    return linkWithCredential(ref, argument);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is ReAuthenticateProvider &&
-        other.email == email &&
-        other.password == password;
+    return other is LinkWithCredentialProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, email.hashCode);
-    hash = _SystemHash.combine(hash, password.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin ReAuthenticateRef on AutoDisposeFutureProviderRef<Result> {
-  /// The parameter `email` of this provider.
-  String get email;
-
-  /// The parameter `password` of this provider.
-  String get password;
-}
-
-class _ReAuthenticateProviderElement
-    extends AutoDisposeFutureProviderElement<Result>
-    with ReAuthenticateRef {
-  _ReAuthenticateProviderElement(super.provider);
-
-  @override
-  String get email => (origin as ReAuthenticateProvider).email;
-  @override
-  String get password => (origin as ReAuthenticateProvider).password;
 }
 
 String _$linkWithCredentialHash() =>
     r'6876144d9af2701282dbcfcda7d2cce829f3bb73';
 
-/// See also [linkWithCredential].
-@ProviderFor(linkWithCredential)
-const linkWithCredentialProvider = LinkWithCredentialFamily();
-
-/// See also [linkWithCredential].
-class LinkWithCredentialFamily extends Family<AsyncValue<Result>> {
-  /// See also [linkWithCredential].
-  const LinkWithCredentialFamily();
-
-  /// See also [linkWithCredential].
-  LinkWithCredentialProvider call(AuthCredential authCredential) {
-    return LinkWithCredentialProvider(authCredential);
-  }
-
-  @override
-  LinkWithCredentialProvider getProviderOverride(
-    covariant LinkWithCredentialProvider provider,
-  ) {
-    return call(provider.authCredential);
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'linkWithCredentialProvider';
-}
-
-/// See also [linkWithCredential].
-class LinkWithCredentialProvider extends AutoDisposeFutureProvider<Result> {
-  /// See also [linkWithCredential].
-  LinkWithCredentialProvider(AuthCredential authCredential)
-    : this._internal(
-        (ref) =>
-            linkWithCredential(ref as LinkWithCredentialRef, authCredential),
-        from: linkWithCredentialProvider,
+final class LinkWithCredentialFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<Result>, AuthCredential> {
+  const LinkWithCredentialFamily._()
+    : super(
+        retry: null,
         name: r'linkWithCredentialProvider',
-        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-            ? null
-            : _$linkWithCredentialHash,
-        dependencies: LinkWithCredentialFamily._dependencies,
-        allTransitiveDependencies:
-            LinkWithCredentialFamily._allTransitiveDependencies,
-        authCredential: authCredential,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
       );
 
-  LinkWithCredentialProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.authCredential,
-  }) : super.internal();
-
-  final AuthCredential authCredential;
+  LinkWithCredentialProvider call(AuthCredential authCredential) =>
+      LinkWithCredentialProvider._(argument: authCredential, from: this);
 
   @override
-  Override overrideWith(
-    FutureOr<Result> Function(LinkWithCredentialRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: LinkWithCredentialProvider._internal(
-        (ref) => create(ref as LinkWithCredentialRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        authCredential: authCredential,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<Result> createElement() {
-    return _LinkWithCredentialProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is LinkWithCredentialProvider &&
-        other.authCredential == authCredential;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, authCredential.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin LinkWithCredentialRef on AutoDisposeFutureProviderRef<Result> {
-  /// The parameter `authCredential` of this provider.
-  AuthCredential get authCredential;
-}
-
-class _LinkWithCredentialProviderElement
-    extends AutoDisposeFutureProviderElement<Result>
-    with LinkWithCredentialRef {
-  _LinkWithCredentialProviderElement(super.provider);
-
-  @override
-  AuthCredential get authCredential =>
-      (origin as LinkWithCredentialProvider).authCredential;
+  String toString() => r'linkWithCredentialProvider';
 }
 
 // ignore_for_file: type=lint

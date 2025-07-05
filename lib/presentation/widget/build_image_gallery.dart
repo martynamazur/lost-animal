@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../provider/gallery_notifier.dart';
+import '../../provider/report_missing_notifier.dart';
 
 class BuildImageGallery extends ConsumerStatefulWidget {
-  const BuildImageGallery({super.key});
+  final void Function(List<String> urls) onSaveToForm;
+  const BuildImageGallery(this.onSaveToForm, {super.key});
 
   @override
   ConsumerState createState() => _BuildImageGalleryState();
@@ -40,7 +42,11 @@ class _BuildImageGalleryState extends ConsumerState<BuildImageGallery> {
             loading: () => Center(child: CircularProgressIndicator())
         ),
         OutlinedButton(
-            onPressed: () async => await ref.read(galleryNotifierProvider.notifier).addImage(),
+            onPressed: () async {
+              await ref.read(galleryNotifierProvider.notifier).addImage();
+              final imageUrls = await ref.read(galleryNotifierProvider.future);
+              widget.onSaveToForm(imageUrls);
+            },
             child: Text('Click here')
         )
       ],

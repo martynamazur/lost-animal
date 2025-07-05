@@ -1,9 +1,15 @@
+import 'dart:developer' as developer;
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lostanimal/model/animal_category.dart';
+import 'package:lostanimal/provider/report_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:flutter_riverpod/experimental/mutation.dart';
+
 
 import '../model/gender.dart';
 import '../model/report_missing_model.dart';
+import '../model/result_model.dart';
 
 part 'report_missing_notifier.g.dart';
 
@@ -14,6 +20,11 @@ class ReportMissingNotifier extends _$ReportMissingNotifier {
   ReportMissing build() {
     final report = ReportMissing.empty();
     return report;
+  }
+
+
+  ReportMissing getCurrentReport(){
+    return state;
   }
 
 
@@ -65,5 +76,24 @@ class ReportMissingNotifier extends _$ReportMissingNotifier {
 
   void updateAdditionalInfo(String newInfo) {
     state = state.copyWith(additionalInfo: newInfo);
+  }
+
+  void updatePhoneNumber(String newPhoneNumber){
+    state = state.copyWith(phoneNumber: newPhoneNumber);
+  }
+
+
+  Future<void> saveToFirestore() async {
+
+    final reportId = await ref.read(createReportProvider(collectionPath: 'reports').future);
+
+    updateId(reportId);
+
+    developer.log('Report id $reportId');
+
+    final report = state;
+
+    await ref.read(updateReportProvider('reports',null, report).future);
+
   }
 }
