@@ -21,6 +21,7 @@ abstract class ReportMissing with _$ReportMissing {
     required DateTime missingSince,
     double? reward,
     String? additionalInfo,
+    String? phoneNumber,
   }) = _ReportMissing;
 
   factory ReportMissing.fromJson(Map<String, dynamic> json) =>
@@ -36,6 +37,7 @@ abstract class ReportMissing with _$ReportMissing {
       coloration: '',
       reward: 0.0,
       additionalInfo: '',
-      breed: ''
+      breed: '',
+      phoneNumber: ''
   );
 }

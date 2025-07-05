@@ -20,9 +20,16 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  //await FirebaseAppCheck.instance.activate();
 
+  /*
+  await FirebaseAppCheck.instance.activate(
+    androidProvider: AndroidProvider.debug,
+  );
   await FirebaseAppCheck.instance.setTokenAutoRefreshEnabled(true);
+
+   */
+
+
 
 
   runApp(ProviderScope(child: MyApp()));

@@ -24,7 +24,7 @@ class ReportScreen extends StatelessWidget {
                     child: Text('Add missing')
                 ),
                 OutlinedButton(
-                    onPressed: () => context.router.push(ReportAnimalSightingFormRoute()),
+                    onPressed: () => context.router.push(ReportSeenFromRoute()),
                     child: Text('Report an Animal Sighting')
                 )
               ],

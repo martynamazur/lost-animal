@@ -4,7 +4,9 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lostanimal/provider/report_missing_notifier.dart';
+import 'package:lostanimal/provider/report_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -16,10 +18,11 @@ class GalleryNotifier extends _$GalleryNotifier {
 
   @override
   FutureOr<List<String>> build() async {
-    final reportId = await createReportInDatabase();
-    ref.read(reportMissingNotifierProvider.notifier).updateId(reportId);
+    //final reportId = await ref.read(createReportProvider(collectionPath : 'reports').future);
+    //ref.read(reportMissingNotifierProvider.notifier).updateId(reportId);
     return [] ;
   }
+
 
   Future<void> addImage() async{
     final pickedFiles = await ImagePicker().pickMultiImage();
@@ -27,10 +30,8 @@ class GalleryNotifier extends _$GalleryNotifier {
     final imageUrls = await uploadReportImages(files);
 
     if(imageUrls != null){
-      ref.read(reportMissingNotifierProvider.notifier).updatePictures(imageUrls);
       state = AsyncData([...state.value ?? [], ...imageUrls]);
     }
-
   }
 
   Future<List<String>?> uploadReportImages(List<File> files) async {
@@ -52,7 +53,7 @@ class GalleryNotifier extends _$GalleryNotifier {
     }
   }
 
-
+//TODO: Move to the repo
   Future<String> createReportInDatabase() async {
     final docRef = FirebaseFirestore.instance.collection('reports').doc();
     await docRef.set({

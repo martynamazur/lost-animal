@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,39 +16,51 @@ class Category extends ConsumerStatefulWidget {
 class _CategoryState extends ConsumerState<Category> {
   @override
   Widget build(BuildContext context) {
+    final selectedCategory = ref.watch(
+      reportMissingNotifierProvider.select((state) => state.category),
+    );
     return Column(
       children: [
         Text('Category'),
-        OutlinedButton(
-            onPressed: () => _showBottomSheetCategory(),
-            child: Text('Choose category')
+        SizedBox(
+          width: double.infinity,
+          child: OutlinedButton(
+              onPressed: () => _showBottomSheetCategory(selectedCategory),
+              child: Text(selectedCategory != AnimalCategory.unknown ? selectedCategory.name :  'Choose category')
+          ),
         )
       ],
     );
   }
-  void _showBottomSheetCategory(){
+  void _showBottomSheetCategory(AnimalCategory selectedCategory){
     final categories = AnimalCategory.values;
-    final selectedCategory = ref.watch(
-      reportMissingNotifierProvider.select((state) => state.category),
-    );
 
     showModalBottomSheet(
         context: context,
         builder: (context){
-          return Column(
-            children: [
-              Text('Choose category'),
-              ListView(
-                children: categories.map((category){
-                  return ListTile(
-                    title: Text(category.name),
-                    onTap: (){
-                      ref.read(reportMissingNotifierProvider.notifier).updateCategory(category);
-                    },
-                  );
-                }).toList(),
-              )
-            ],
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                Text('Choose category'),
+                ListView(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  children: categories.map((category){
+                    final isSelected = category == selectedCategory;
+                    return Container(
+                      color: isSelected? Colors.blueGrey[100] : null,
+                      child: ListTile(
+                        title: Text(category.name),
+                        onTap: () async{
+                          ref.read(reportMissingNotifierProvider.notifier).updateCategory(category);
+                          context.router.pop();
+                        },
+                      ),
+                    );
+                  }).toList(),
+                )
+              ],
+            ),
           );
         }
     );

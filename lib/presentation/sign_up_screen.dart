@@ -24,8 +24,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
 
   @override
-  void initState() {
-    super.initState();
+  Widget build(BuildContext context) {
+    final signUpState = ref.watch(signUpFormNotifierProvider);
+
     ref.listen(signUpFormNotifierProvider, (prev, next) {
       next.whenOrNull(
           data:  (_){
@@ -38,12 +39,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           }
       );
     });
-  }
-  
-  @override
-  Widget build(BuildContext context) {
-    final signUpState = ref.watch(signUpFormNotifierProvider);
-
     return Scaffold(
       body: SafeArea(
           child: FormBuilder(
@@ -101,6 +96,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     : 'Your account has been successfully created. We’ve sent you a verification email...'
             ),
             actions: [
+              //TODO : naviagte based on linked , not linked sign up
               OutlinedButton(onPressed: () => context.pop(), child: Text('Ok'))
             ],
           );
