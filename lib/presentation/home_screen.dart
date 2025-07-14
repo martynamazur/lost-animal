@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lostanimal/provider/location_permission_provider.dart';
 
 @RoutePage()
 class HomeScreen extends ConsumerStatefulWidget {
@@ -12,6 +13,13 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    _askPermission();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,5 +32,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ],
           ))
     );
+  }
+
+  Future<void> _askPermission() async {
+    final perms = ref.read(permissionServiceProvider);
+    final granted = await perms.requestLocation();
+    if (!granted && context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Lokalizacja wymagana do mapy')),
+      );
+    }
   }
 }

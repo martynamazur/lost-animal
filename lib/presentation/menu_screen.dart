@@ -44,6 +44,10 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 OutlinedButton(
+                    onPressed: () => context.router.push(AddedReportsRoute()),
+                    child: Text('My reports')
+                ),
+                OutlinedButton(
                     onPressed: () => context.pushRoute(SettingsRoute()),
                     child: Text('Settings')
                 ),

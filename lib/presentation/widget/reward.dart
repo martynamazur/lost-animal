@@ -19,7 +19,7 @@ class _RewardState extends ConsumerState<Reward> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('Is a reward offered?'),
+        Text('Is a reward offered?', style: Theme.of(context).textTheme.bodyMedium),
         Switch(
             value: switchValue,
             onChanged: (value){

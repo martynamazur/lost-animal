@@ -14,9 +14,11 @@ class AuthGuard extends AutoRouteGuard {
     if (user != null) {
       // Użytkownik zalogowany → kontynuuj
       // zatrzymuje oryginalną trasę i kończy przekierowanie — nie następuje ponowne wywołanie guardów.
+      developer.log('User logged in $user');
       resolver.next(true);
     } else {
       // Niezalogowany → jeśli nie jesteś już na loginie, przejdź tam i zakończ
+      developer.log('Przeszlo do login');
       if (curr != LoginRoute.name) {
         router.replace(const LoginRoute());
       }

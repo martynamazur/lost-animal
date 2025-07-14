@@ -6,6 +6,17 @@ import 'package:lostanimal/model/result_model.dart';
 
 class ReportRepository{
 
+  late final String userId;
+
+
+  ReportRepository(){
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      userId = user.uid;
+    } else {
+      throw Exception('User not logged in');
+    }
+  }
 
   Future<String> createReport(String collectionPath) async{
     final docRef = FirebaseFirestore.instance.collection(collectionPath).doc();
@@ -37,6 +48,35 @@ class ReportRepository{
 
     }on FirebaseAuthException catch(e){
       return Result.failure('something wentw rong');
+    }
+  }
+
+  Future<List<ReportMissing>> getUserMissingReports() async{
+
+    try{
+      final snapshot = await FirebaseFirestore.instance
+          .collection('reports')
+          .where('type',isEqualTo: 'missing')
+          .where('userId', isEqualTo: userId)
+          .get();
+
+      return snapshot.docs.map((report) => ReportMissing.fromJson(report.data())).toList();
+    }on FirebaseAuthException catch(e){
+      return [];
+    }
+  }
+
+  Future<List<ReportSeen>> getUserSeenReports() async{
+    try{
+      final snapshot = await FirebaseFirestore.instance
+          .collection('reports')
+          .where('type', isEqualTo: 'seen')
+          .where('userId', isEqualTo: userId)
+          .get();
+      return snapshot.docs.map((report) => ReportSeen.fromJson(report.data())).toList();
+
+    }on FirebaseAuthException catch(e){
+      return [];
     }
   }
 }

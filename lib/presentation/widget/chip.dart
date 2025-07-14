@@ -12,7 +12,7 @@ class ChipSwitch extends ConsumerWidget {
     final switchValue = ref.watch(reportMissingNotifierProvider.select((form) => form.hasChip));
     return Column(
       children: [
-        Text('Has it been microchipped?'),
+        Text('Has it been microchipped?', style: Theme.of(context).textTheme.bodyMedium),
         Switch(
             value: switchValue,
             onChanged: (value){

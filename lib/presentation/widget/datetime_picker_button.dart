@@ -11,7 +11,7 @@ class DateTimePickerButton extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Date and time of disappearance'),
+        Text('Date and time of disappearance', style: Theme.of(context).textTheme.bodyMedium),
         OutlinedButton(onPressed: () => _selectDateTime(context), child: Text('Choose')),
       ],
     );

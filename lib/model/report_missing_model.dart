@@ -12,7 +12,7 @@ part 'report_missing_model.g.dart';
 abstract class ReportMissing with _$ReportMissing {
   const factory ReportMissing({
     required String id,
-    required List<String> pictures,       // list of image URLs or local paths
+    required List<String> pictures,
     @JsonKey(unknownEnumValue: AnimalCategory.unknown)required AnimalCategory category,
     String? breed,
     @JsonKey(unknownEnumValue: Gender.unknown) required Gender gender,
@@ -22,6 +22,13 @@ abstract class ReportMissing with _$ReportMissing {
     double? reward,
     String? additionalInfo,
     String? phoneNumber,
+    String? type,
+    String? userId,
+
+    double? latitude,
+    double? longitude,
+    String? cityName
+
   }) = _ReportMissing;
 
   factory ReportMissing.fromJson(Map<String, dynamic> json) =>
@@ -38,6 +45,11 @@ abstract class ReportMissing with _$ReportMissing {
       reward: 0.0,
       additionalInfo: '',
       breed: '',
-      phoneNumber: ''
+      phoneNumber: '',
+      type: 'missing',
+      userId: '',
+      latitude: 0.0,
+      longitude: 0.0,
+      cityName: ''
   );
 }
