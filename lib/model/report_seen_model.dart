@@ -16,7 +16,10 @@ abstract class ReportSeen with _$ReportSeen {
     String? additionalInfo,
     required DateTime missingSince,
     @JsonKey(unknownEnumValue: AnimalCategory.unknown)required AnimalCategory category,
-
+    String? type,
+    String? userId,
+    double? latitude,
+    double? longitude,
 
   }) = _ReportSeen;
 
@@ -31,6 +34,10 @@ abstract class ReportSeen with _$ReportSeen {
       pictures: [],
       additionalInfo: '',
       phoneNumber: '',
-      category: AnimalCategory.unknown
+      category: AnimalCategory.unknown,
+      type: 'seen',
+      userId: '',
+      latitude: 0.0,
+      longitude: 0.0
   );
 }

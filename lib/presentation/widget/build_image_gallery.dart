@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,7 @@ class _BuildImageGalleryState extends ConsumerState<BuildImageGallery> {
     final galleryState = ref.watch(galleryNotifierProvider);
     return Column(
       children: [
-        Text('Add pictures'),
+        Text('Add pictures',  style: Theme.of(context).textTheme.bodyMedium,),
         galleryState.when(
             data: (imageList){
               return ListView.builder(
@@ -44,10 +46,11 @@ class _BuildImageGalleryState extends ConsumerState<BuildImageGallery> {
         OutlinedButton(
             onPressed: () async {
               await ref.read(galleryNotifierProvider.notifier).addImage();
-              final imageUrls = await ref.read(galleryNotifierProvider.future);
+              final imageUrls =  ref.read(galleryNotifierProvider).asData?.value ?? [];
+              developer.log('Image urls $imageUrls');
               widget.onSaveToForm(imageUrls);
             },
-            child: Text('Click here')
+            child: Text('Click here', style: Theme.of(context).textTheme.bodyMedium)
         )
       ],
     );

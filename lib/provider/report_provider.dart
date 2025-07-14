@@ -25,3 +25,13 @@ Future<Result> updateReport(Ref ref, String collectionPath,  ReportSeen? reportS
 Future<String> createReport(Ref ref,{required String collectionPath}) async {
   return ref.read(reportRepositoryProvider).createReport(collectionPath);
 }
+
+@riverpod
+Future<List<ReportMissing>> getUserMissingReports(Ref ref) async {
+  return ref.read(reportRepositoryProvider).getUserMissingReports();
+}
+
+@riverpod
+Future<List<ReportSeen>> getUserSeenReports(Ref ref) async {
+  return ref.read(reportRepositoryProvider).getUserSeenReports();
+}

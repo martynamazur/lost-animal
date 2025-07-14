@@ -11,13 +11,13 @@ import 'package:lostanimal/presentation/widget/chip.dart';
 import 'package:lostanimal/presentation/widget/contact.dart';
 import 'package:lostanimal/presentation/widget/datetime_picker_button.dart';
 import 'package:lostanimal/presentation/widget/description.dart';
+import 'package:lostanimal/presentation/widget/exit_confirmation_dialog.dart';
 import 'package:lostanimal/presentation/widget/gender.dart';
+import 'package:lostanimal/presentation/widget/location_picker.dart';
 import 'package:lostanimal/presentation/widget/reward.dart';
 
 import 'package:lostanimal/provider/report_missing_notifier.dart';
-import 'package:lostanimal/provider/report_seen_notifier.dart';
 
-import '../provider/report_provider.dart';
 
 @RoutePage()
 class ReportMissingFormScreen extends ConsumerStatefulWidget {
@@ -32,53 +32,77 @@ class _ReportMissingFormScreenState extends ConsumerState<ReportMissingFormScree
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-          child: Form(
-            key: keyForm,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 12,
-                  children: [
-                    BuildImageGallery((value){
-                      ref.read(reportSeenNotifierProvider.notifier).updatePictures(value);
-
-                    }),
-                    Category(),
-                    Breed(),
-                    GenderDropDown(),
-                    ChipSwitch(),
-                    Description((value){
-                      ref.read(reportMissingNotifierProvider.notifier).updateColoration(value);
-                    },
-                        'What is its coat color?'
-                    ),//color
-                    DateTimePickerButton(
-                        (value) async{
-                          ref.read(reportMissingNotifierProvider.notifier).updateMissingSince(value);
-                        }
-                    ),
-                    Reward(),
-                    Description((value){
-                      ref.read(reportMissingNotifierProvider.notifier).updateAdditionalInfo(value);
-                    },
-                      'Description'
-                    ),
-                    Contact((value){
-                      ref.read(reportMissingNotifierProvider.notifier).updatePhoneNumber(value);
-                    }),
-                    //TODO: add map, city, - last location, area
-                  ],
+    final notifier = ref.watch(reportMissingNotifierProvider.notifier);
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async{
+        if(didPop) return;
+        final shouldExit = await _showExitConfirmationDialog(context);
+        if(shouldExit){
+          context.router.pop();
+        }
+      },
+      child: Scaffold(
+        body: SafeArea(
+            child: Form(
+              key: keyForm,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 16,
+                    children: [
+                      LocationPicker(
+                        updateNotifier: (latitude, longitude, cityName){
+                          ref.read(reportMissingNotifierProvider.notifier).updateLatitude(latitude);
+                          ref.read(reportMissingNotifierProvider.notifier).updateLongitude(longitude);
+                          ref.read(reportMissingNotifierProvider.notifier).updateCityName(cityName);
+                        },
+                      ),
+                      BuildImageGallery((value){
+                        developer.log('Value ${value.length}');
+                         ref.read(reportMissingNotifierProvider.notifier).updatePictures(value);
+                      }),
+                      Category(),
+                      Breed(),
+                      GenderDropDown(),
+                      ChipSwitch(),
+                      Description((value){
+                        ref.read(reportMissingNotifierProvider.notifier).updateColoration(value);
+                      },
+                          'What is its coat color?'
+                      ),//color
+                      DateTimePickerButton(
+                          (value) async{
+                            ref.read(reportMissingNotifierProvider.notifier).updateMissingSince(value);
+                          }
+                      ),
+                      Reward(),
+                      Description((value){
+                        ref.read(reportMissingNotifierProvider.notifier).updateAdditionalInfo(value);
+                      },
+                        'Description'
+                      ),
+                      Contact((value){
+                        ref.read(reportMissingNotifierProvider.notifier).updatePhoneNumber(value);
+                      }),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          )
+            )
+        ),
+        bottomNavigationBar: SaveReportBtn(keyForm) ,
       ),
-      bottomNavigationBar: SaveReportBtn(keyForm) ,
     );
+  }
+
+  Future<bool> _showExitConfirmationDialog(BuildContext context) async {
+    return await showDialog<bool>(
+      context: context,
+      builder: (ctx) => const ExitConfirmationDialog(),
+    ) ?? false;
   }
 
 }

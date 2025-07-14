@@ -15,7 +15,7 @@ class Description extends ConsumerWidget {
       children: [
         Text(headline),
         TextFormField(
-          maxLines: 5,
+          maxLines: 3,
           decoration: frame,
           onSaved: (value){
             if(value != null && value.trim().isNotEmpty){

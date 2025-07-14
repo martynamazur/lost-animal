@@ -37,4 +37,13 @@ class ReportSeenNotifier extends _$ReportSeenNotifier {
   void updatePhoneNumber(String newPhoneNumber){
     state = state.copyWith(phoneNumber: newPhoneNumber);
   }
+
+  void updateLongitude(double newLongitude){
+    state = state.copyWith(longitude: newLongitude);
+  }
+
+  void updateLatitude(double newLatitude){
+    state = state.copyWith(longitude: newLatitude);
+  }
+
 }

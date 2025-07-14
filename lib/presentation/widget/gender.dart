@@ -15,7 +15,7 @@ class GenderDropDown extends ConsumerWidget {
 
     return Column(
       children: [
-        Text('Wybierz płeć'),
+        Text('Gender', style: Theme.of(context).textTheme.bodyMedium),
         DropdownButtonFormField<Gender>(
           value: selectedGender,
           decoration: InputDecoration(
@@ -35,7 +35,7 @@ class GenderDropDown extends ConsumerWidget {
           },
           validator: (value) {
             if (value == null) {
-              return 'Proszę wybrać płeć';
+              return 'Please choose gender';
             }
             return null;
           },

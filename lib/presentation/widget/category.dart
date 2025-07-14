@@ -20,13 +20,15 @@ class _CategoryState extends ConsumerState<Category> {
       reportMissingNotifierProvider.select((state) => state.category),
     );
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Category'),
+        Text('Category', style: Theme.of(context).textTheme.bodyMedium),
         SizedBox(
           width: double.infinity,
           child: OutlinedButton(
               onPressed: () => _showBottomSheetCategory(selectedCategory),
-              child: Text(selectedCategory != AnimalCategory.unknown ? selectedCategory.name :  'Choose category')
+              child: Text(selectedCategory != AnimalCategory.unknown ? selectedCategory.name :  'Choose category',
+                  style: Theme.of(context).textTheme.bodyMedium)
           ),
         )
       ],
