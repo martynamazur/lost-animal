@@ -35,8 +35,8 @@ class _AddedReportsScreenState extends ConsumerState<AddedReportsScreen> {
         ),
         body: TabBarView(
           children: [
-            ReportList(reportsSeenNotifier),
-            ReportList(reportsMissingNotifier)
+            ReportList(reportsSeenNotifier, null),
+            ReportList(reportsMissingNotifier, null)
           ],
         ),
       ),

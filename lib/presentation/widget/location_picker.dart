@@ -73,12 +73,16 @@ class _LocationPickerState extends ConsumerState<LocationPicker> {
                     onTap: (position) async{
                       final double lng = position.longitude;
                       final double lat = position.latitude;
+                      developer.log('Latifude $lat');
+                      developer.log('Long $lng');
                       final cityName = await LocationService.getCityName(lat, lng);
+
 
                       final Marker marker = Marker(
                         markerId: const MarkerId('picked'),
                         position: position
                       );
+
                       _mapController!.animateCamera(CameraUpdate.newLatLng(LatLng(lat, lng)));
                       setState(() {
                         _pickedLocation = position;
@@ -121,9 +125,10 @@ class _LocationPickerState extends ConsumerState<LocationPicker> {
       _markers.add(Marker(markerId: const MarkerId('user-location'), position: loc));
     });
 
+
     final cityName = await LocationService.getCityName(pos.latitude, pos.longitude);
     if (cityName != null) {
-      ref.read(reportMissingNotifierProvider.notifier).updateCityName(cityName);
+      ref.read(reportMissingNotifierProvider.notifier).updateLocation(pos.latitude,pos.longitude, cityName);
       developer.log('City name getCurrentLoc $cityName');
     }
     return loc;

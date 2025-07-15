@@ -1,18 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:lostanimal/model/report_missing_model.dart';
-import 'package:lostanimal/model/report_seen_model.dart';
-import 'package:lostanimal/model/result_model.dart';
+import 'package:lostanimal/model/report_model.dart';
+
+import '../model/result_model.dart';
+
 
 class ReportRepository{
-
-  late final String userId;
+  final _collection = FirebaseFirestore.instance.collection('reports');
+  late final String _userId;
 
 
   ReportRepository(){
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      userId = user.uid;
+      _userId = user.uid;
     } else {
       throw Exception('User not logged in');
     }
@@ -26,58 +27,60 @@ class ReportRepository{
     return docRef.id;
   }
 
-  Future<Result> updateReport(String collectionPath, ReportSeen? reportSeen, ReportMissing? reportMissing) async{
+  Future<Result> updateReport(String collectionPath, Report report) async{
     try{
-      late final String reportId;
-      if (reportSeen != null) reportId = reportSeen.id;
-      if (reportMissing != null) reportId = reportMissing.id;
+      final String? reportId = report.id;
+      final data = report.toJson();
 
       final ref = FirebaseFirestore.instance
           .collection(collectionPath)
-          .doc(reportId);
+          .doc(reportId).set(data, SetOptions(merge: true));
 
-      final Map<String, dynamic> data = {};
-      if (reportSeen != null) data.addAll(reportSeen.toJson());
-      if (reportMissing != null) data.addAll(reportMissing.toJson());
-
-      if (data.isEmpty) return Result.success();
-
-      await ref.set(data, SetOptions(merge: true));
       return Result.success();
 
 
-    }on FirebaseAuthException catch(e){
+    }on FirebaseException catch(e){
       return Result.failure('something wentw rong');
     }
   }
 
-  Future<List<ReportMissing>> getUserMissingReports() async{
+  Future<List<Report>> getUserMissingReports() async{
 
     try{
-      final snapshot = await FirebaseFirestore.instance
-          .collection('reports')
+      final snapshot = await _collection
           .where('type',isEqualTo: 'missing')
-          .where('userId', isEqualTo: userId)
+          .where('userId', isEqualTo: _userId)
           .get();
 
-      return snapshot.docs.map((report) => ReportMissing.fromJson(report.data())).toList();
-    }on FirebaseAuthException catch(e){
+      return snapshot.docs.map((report) => Report.fromJson(report.data())).toList();
+    }on FirebaseException catch(e){
       return [];
     }
   }
 
-  Future<List<ReportSeen>> getUserSeenReports() async{
+  Future<List<Report>> getUserSeenReports() async{
     try{
-      final snapshot = await FirebaseFirestore.instance
-          .collection('reports')
+      final snapshot = await _collection
           .where('type', isEqualTo: 'seen')
-          .where('userId', isEqualTo: userId)
+          .where('userId', isEqualTo: _userId)
           .get();
-      return snapshot.docs.map((report) => ReportSeen.fromJson(report.data())).toList();
+      return snapshot.docs.map((report) => Report.fromJson(report.data())).toList();
 
-    }on FirebaseAuthException catch(e){
+    }on FirebaseException catch(e){
       return [];
     }
+  }
+  Stream<List<Report>> getAllReports() {
+    return _collection
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs
+          .map((doc) => Report.fromJson(doc.data()))
+          .toList();
+    })
+        .handleError((error) {
+
+    });
   }
 }
 

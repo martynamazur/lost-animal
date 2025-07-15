@@ -55,9 +55,8 @@ class _ReportMissingFormScreenState extends ConsumerState<ReportMissingFormScree
                     children: [
                       LocationPicker(
                         updateNotifier: (latitude, longitude, cityName){
-                          ref.read(reportMissingNotifierProvider.notifier).updateLatitude(latitude);
-                          ref.read(reportMissingNotifierProvider.notifier).updateLongitude(longitude);
-                          ref.read(reportMissingNotifierProvider.notifier).updateCityName(cityName);
+                          ref.read(reportMissingNotifierProvider.notifier)
+                              .updateLocation(latitude, longitude, cityName);
                         },
                       ),
                       BuildImageGallery((value){

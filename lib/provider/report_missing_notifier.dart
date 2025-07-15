@@ -7,7 +7,7 @@ import 'package:lostanimal/provider/report_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../model/gender.dart';
-import '../model/report_missing_model.dart';
+import '../model/report_model.dart';
 
 
 part 'report_missing_notifier.g.dart';
@@ -16,13 +16,13 @@ part 'report_missing_notifier.g.dart';
 class ReportMissingNotifier extends _$ReportMissingNotifier {
 
   @override
-  ReportMissing build() {
-    final report = ReportMissing.empty();
+  Report build() {
+    final report = Report.empty();
     return report;
   }
 
 
-  ReportMissing getCurrentReport(){
+  Report getCurrentReport(){
     return state;
   }
 
@@ -101,6 +101,14 @@ class ReportMissingNotifier extends _$ReportMissingNotifier {
     state = state.copyWith(cityName : newCityName);
   }
 
+  Future<void> updateLocation(double lat, double lng, String cityName) async{
+    state = state.copyWith(
+      latitude: lat,
+      longitude: lng,
+      cityName: cityName
+    );
+  }
+
   Future<void> saveToFirestore() async {
 
     final reportId = await ref.read(createReportProvider(collectionPath: 'reports').future);
@@ -112,7 +120,7 @@ class ReportMissingNotifier extends _$ReportMissingNotifier {
     developer.log('Linki ${state.pictures.length}');
     final report = state;
 
-    await ref.read(updateReportProvider('reports',null, report).future);
+    await ref.read(updateReportProvider('reports', report).future);
 
   }
 }

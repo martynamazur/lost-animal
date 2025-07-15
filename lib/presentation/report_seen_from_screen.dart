@@ -89,7 +89,7 @@ class _ReportSeenFromScreenState extends ConsumerState<ReportSeenFromScreen> {
                   final form =  ref.read(reportSeenNotifierProvider.notifier).getCurrentReport();
                   developer.log('Zapisalo sie id ? ${form.missingSince}');
                   developer.log('Zapisalo sie id ? ${form.id}');
-                  final result = await ref.read(updateReportProvider('reports',form, null).future);
+                  final result = await ref.read(updateReportProvider('reports',form).future);
                   if(result.success){
                     developer.log('Success');
                     //Przenisc i zrobic ekran z podsumowaniem dodanych zgloszen,
