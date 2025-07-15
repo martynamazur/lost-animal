@@ -14,7 +14,7 @@ class ChipSwitch extends ConsumerWidget {
       children: [
         Text('Has it been microchipped?', style: Theme.of(context).textTheme.bodyMedium),
         Switch(
-            value: switchValue,
+            value: switchValue!,
             onChanged: (value){
               ref.read(reportMissingNotifierProvider.notifier).updateHasChip(value);
             }

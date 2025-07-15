@@ -2,11 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lostanimal/model/report_missing_model.dart';
-import 'package:lostanimal/model/report_seen_model.dart';
 import 'package:lostanimal/presentation/widget/style/decoration_style.dart';
 
-import '../../model/report.dart';
+import '../../model/animal_category.dart';
+import '../../model/report_model.dart';
 
 class ListReportTile extends ConsumerStatefulWidget {
   final Report report;
@@ -21,7 +20,7 @@ class _ListReportTileState extends ConsumerState<ListReportTile> {
 
   @override
   Widget build(BuildContext context) {
-    final hasPicture = widget.report.pictures != null && widget.report.pictures!.isNotEmpty;
+    final hasPicture = widget.report.pictures.isNotEmpty;
 
     return Container(
       decoration: inputBorder,
@@ -34,7 +33,7 @@ class _ListReportTileState extends ConsumerState<ListReportTile> {
             CachedNetworkImage(
               height: 100,
               width: 100,
-              imageUrl: widget.report.pictures![0],
+              imageUrl: widget.report.pictures[0],
               placeholder: (context, url) => CircularProgressIndicator(),
               errorWidget: (context, url, error) => const Icon(Icons.error),
               fit: BoxFit.fitWidth,
@@ -49,14 +48,12 @@ class _ListReportTileState extends ConsumerState<ListReportTile> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(widget.report.type),
-                Text(widget.report.category.toString()),
+                if (widget.report.type.isNotEmpty) Text(widget.report.type),
+                if (widget.report.category != AnimalCategory.unknown) Text(widget.report.category.toString()),
                 Text(widget.report.missingSince.toString()),
-                Text('Chip : ${widget.report.hasChip}'),
-                Text('Localization : ${widget.report.cityName}'),
+                if (widget.report.hasChip != null) Text('Chip: ${widget.report.hasChip! ? "Tak" : "Nie"}'),
+                if (widget.report.cityName?.isNotEmpty == true) Text('Lokalizacja: ${widget.report.cityName}'),
 
-                if(widget.report.reward != null)
-                  Text('Reward: ${widget.report.reward}'),
               ],
             )
           ],

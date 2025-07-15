@@ -4,11 +4,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lostanimal/presentation/widget/report_list_tile.dart';
 import 'package:lostanimal/provider/user_missing_reports_notifier.dart';
 
-import '../model/report.dart';
+import '../model/report_model.dart';
+
 
 class ReportList extends ConsumerWidget {
   final AsyncValue list;
-  const ReportList(this.list, {super.key});
+  final ScrollController? controller;
+
+
+  ReportList(this.list, this.controller, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,17 +24,12 @@ class ReportList extends ConsumerWidget {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: ListView.separated(
+                      controller: controller,
                       itemCount: reports.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index){
-                        final report = reports[index];
-                        final myReport = ReportMissing(
-                          category: report.category,
-                          hasChip: report.hasChip,
-                          missingSince: report.missingSince,
-                          pictures: report.pictures,
-                        );
-                        return ListReportTile(myReport);
+                        final Report report = reports[index];
+                        return ListReportTile(report);
                       }, separatorBuilder: (BuildContext context, int index) {
                         return SizedBox(height: 12);
                     },

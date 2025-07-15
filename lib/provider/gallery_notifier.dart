@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lostanimal/provider/report_missing_notifier.dart';
-import 'package:lostanimal/provider/report_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -18,8 +17,6 @@ class GalleryNotifier extends _$GalleryNotifier {
 
   @override
   FutureOr<List<String>> build() async {
-    //final reportId = await ref.read(createReportProvider(collectionPath : 'reports').future);
-    //ref.read(reportMissingNotifierProvider.notifier).updateId(reportId);
     return [] ;
   }
 

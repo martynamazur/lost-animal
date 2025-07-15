@@ -1,5 +1,6 @@
-import 'package:lostanimal/model/report_seen_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../model/report_model.dart';
 
 part 'report_seen_notifier.g.dart';
 
@@ -7,11 +8,11 @@ part 'report_seen_notifier.g.dart';
 class ReportSeenNotifier extends _$ReportSeenNotifier {
   
   @override
-   ReportSeen build() {
-    return ReportSeen.empty();
+   Report build() {
+    return Report.empty();
   }
 
-  ReportSeen getCurrentReport(){
+  Report getCurrentReport(){
     return state;
   }
 

@@ -4,8 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lostanimal/repository/report_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../model/report_missing_model.dart';
-import '../model/report_seen_model.dart';
+import '../model/report_model.dart';
 import '../model/result_model.dart';
 
 part 'report_provider.g.dart';
@@ -16,9 +15,9 @@ ReportRepository reportRepository(Ref ref) {
 }
 
 @riverpod
-Future<Result> updateReport(Ref ref, String collectionPath,  ReportSeen? reportSeen,ReportMissing? reportMissing) async {
+Future<Result> updateReport(Ref ref, String collectionPath, Report report) async {
   developer.log('CollectionPath $collectionPath');
-  return ref.read(reportRepositoryProvider).updateReport(collectionPath, reportSeen, reportMissing);
+  return ref.read(reportRepositoryProvider).updateReport(collectionPath, report);
 }
 
 @riverpod
@@ -27,11 +26,16 @@ Future<String> createReport(Ref ref,{required String collectionPath}) async {
 }
 
 @riverpod
-Future<List<ReportMissing>> getUserMissingReports(Ref ref) async {
+Future<List<Report>> getUserMissingReports(Ref ref) async {
   return ref.read(reportRepositoryProvider).getUserMissingReports();
 }
 
 @riverpod
-Future<List<ReportSeen>> getUserSeenReports(Ref ref) async {
+Future<List<Report>> getUserSeenReports(Ref ref) async {
   return ref.read(reportRepositoryProvider).getUserSeenReports();
+}
+
+@riverpod
+Stream<List<Report>> getAllReports(Ref ref) {
+  return ref.read(reportRepositoryProvider).getAllReports();
 }
