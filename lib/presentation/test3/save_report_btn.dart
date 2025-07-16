@@ -4,12 +4,13 @@ import 'package:flutter_riverpod/experimental/mutation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lostanimal/nawigation/app_router.dart';
 import 'package:lostanimal/presentation/test3/mutation_provider.dart';
-import 'package:lostanimal/provider/report_missing_notifier.dart';
+import 'package:lostanimal/provider/report_notifier.dart';
 import 'package:riverpod/experimental/mutation.dart';
 
 class SaveReportBtn extends ConsumerWidget {
   final GlobalKey<FormState> formKey;
-  const SaveReportBtn(this.formKey, {super.key});
+  final String formType;
+  const SaveReportBtn(this.formKey, this.formType, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -41,7 +42,7 @@ class SaveReportBtn extends ConsumerWidget {
           if (formKey.currentState?.validate() ?? false) {
             formKey.currentState?.save();
             saveFormMutation.run(ref, (ref) async {
-              await ref.get(reportMissingNotifierProvider.notifier).saveToFirestore();
+              await ref.get(reportNotifierProvider.notifier).saveToFirestore(formType);
             });
           }
         },
@@ -50,7 +51,7 @@ class SaveReportBtn extends ConsumerWidget {
       MutationError() => ElevatedButton(
         onPressed: () async{
             saveFormMutation.run(ref, (ref) async {
-              await ref.get(reportMissingNotifierProvider.notifier).saveToFirestore();
+              await ref.get(reportNotifierProvider.notifier).saveToFirestore(formType);
             });
         },
         child: const Text('Retry'),

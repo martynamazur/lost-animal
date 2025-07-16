@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../provider/gallery_notifier.dart';
-import '../../provider/report_missing_notifier.dart';
+import '../../provider/report_notifier.dart';
 
 class BuildImageGallery extends ConsumerStatefulWidget {
   final void Function(List<String> urls) onSaveToForm;

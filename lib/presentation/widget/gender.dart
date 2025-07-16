@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../model/gender.dart';
-import '../../provider/report_missing_notifier.dart';
+import '../../provider/report_notifier.dart';
 
 
 class GenderDropDown extends ConsumerWidget {
@@ -11,7 +11,7 @@ class GenderDropDown extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final  selectedGender = ref.watch(reportMissingNotifierProvider.select((form) => form.gender));
+    final  selectedGender = ref.watch(reportNotifierProvider.select((form) => form.gender));
 
     return Column(
       children: [
@@ -30,7 +30,7 @@ class GenderDropDown extends ConsumerWidget {
           }).toList(),
           onChanged: (newGender) {
             if (newGender != null) {
-              ref.read(reportMissingNotifierProvider.notifier).updateGender(newGender);
+              ref.read(reportNotifierProvider.notifier).updateGender(newGender);
             }
           },
           validator: (value) {

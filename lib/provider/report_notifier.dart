@@ -10,15 +10,14 @@ import '../model/gender.dart';
 import '../model/report_model.dart';
 
 
-part 'report_missing_notifier.g.dart';
+part 'report_notifier.g.dart';
 
 @riverpod
-class ReportMissingNotifier extends _$ReportMissingNotifier {
+class ReportNotifier extends _$ReportNotifier {
 
   @override
   Report build() {
-    final report = Report.empty();
-    return report;
+    return Report.empty();
   }
 
 
@@ -101,6 +100,10 @@ class ReportMissingNotifier extends _$ReportMissingNotifier {
     state = state.copyWith(cityName : newCityName);
   }
 
+  void updateType(String type){
+    state = state.copyWith(type: type);
+  }
+
   Future<void> updateLocation(double lat, double lng, String cityName) async{
     state = state.copyWith(
       latitude: lat,
@@ -109,8 +112,9 @@ class ReportMissingNotifier extends _$ReportMissingNotifier {
     );
   }
 
-  Future<void> saveToFirestore() async {
 
+  Future<void> saveToFirestore(String type) async {
+    updateType(type);
     final reportId = await ref.read(createReportProvider(collectionPath: 'reports').future);
     final userUuid = FirebaseAuth.instance.currentUser!.uid;
     updateId(reportId);

@@ -16,7 +16,7 @@ import 'package:lostanimal/presentation/widget/gender.dart';
 import 'package:lostanimal/presentation/widget/location_picker.dart';
 import 'package:lostanimal/presentation/widget/reward.dart';
 
-import 'package:lostanimal/provider/report_missing_notifier.dart';
+import 'package:lostanimal/provider/report_notifier.dart';
 
 
 @RoutePage()
@@ -32,7 +32,6 @@ class _ReportMissingFormScreenState extends ConsumerState<ReportMissingFormScree
 
   @override
   Widget build(BuildContext context) {
-    final notifier = ref.watch(reportMissingNotifierProvider.notifier);
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) async{
@@ -53,38 +52,33 @@ class _ReportMissingFormScreenState extends ConsumerState<ReportMissingFormScree
                     crossAxisAlignment: CrossAxisAlignment.start,
                     spacing: 16,
                     children: [
-                      LocationPicker(
-                        updateNotifier: (latitude, longitude, cityName){
-                          ref.read(reportMissingNotifierProvider.notifier)
-                              .updateLocation(latitude, longitude, cityName);
-                        },
-                      ),
+                      LocationPicker(),
                       BuildImageGallery((value){
                         developer.log('Value ${value.length}');
-                         ref.read(reportMissingNotifierProvider.notifier).updatePictures(value);
+                         ref.read(reportNotifierProvider.notifier).updatePictures(value);
                       }),
                       Category(),
                       Breed(),
                       GenderDropDown(),
                       ChipSwitch(),
                       Description((value){
-                        ref.read(reportMissingNotifierProvider.notifier).updateColoration(value);
+                        ref.read(reportNotifierProvider.notifier).updateColoration(value);
                       },
                           'What is its coat color?'
                       ),//color
                       DateTimePickerButton(
                           (value) async{
-                            ref.read(reportMissingNotifierProvider.notifier).updateMissingSince(value);
+                            ref.read(reportNotifierProvider.notifier).updateMissingSince(value);
                           }
                       ),
                       Reward(),
                       Description((value){
-                        ref.read(reportMissingNotifierProvider.notifier).updateAdditionalInfo(value);
+                        ref.read(reportNotifierProvider.notifier).updateAdditionalInfo(value);
                       },
                         'Description'
                       ),
                       Contact((value){
-                        ref.read(reportMissingNotifierProvider.notifier).updatePhoneNumber(value);
+                        ref.read(reportNotifierProvider.notifier).updatePhoneNumber(value);
                       }),
                     ],
                   ),
@@ -92,7 +86,7 @@ class _ReportMissingFormScreenState extends ConsumerState<ReportMissingFormScree
               ),
             )
         ),
-        bottomNavigationBar: SaveReportBtn(keyForm) ,
+        bottomNavigationBar: SaveReportBtn(keyForm, 'missing') ,
       ),
     );
   }

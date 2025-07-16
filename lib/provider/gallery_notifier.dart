@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lostanimal/provider/report_missing_notifier.dart';
+import 'package:lostanimal/provider/report_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -32,7 +32,7 @@ class GalleryNotifier extends _$GalleryNotifier {
   }
 
   Future<List<String>?> uploadReportImages(List<File> files) async {
-    final reportId = ref.watch(reportMissingNotifierProvider.select((form) => form.id));
+    final reportId = ref.watch(reportNotifierProvider.select((form) => form.id));
     try {
       final ref = FirebaseStorage.instance.ref().child('report/$reportId');
       final uploadTasks = files.map((file) async {

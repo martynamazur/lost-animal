@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../provider/report_missing_notifier.dart';
+import '../../provider/report_notifier.dart';
 
 class Reward extends ConsumerStatefulWidget {
   const Reward({super.key});
@@ -42,7 +42,7 @@ class _RewardState extends ConsumerState<Reward> {
               if(value != null && value.trim().isNotEmpty){
                 final parsed = double.tryParse(value.trim());
                 if (parsed != null) {
-                  ref.read(reportMissingNotifierProvider.notifier).updateReward(parsed);
+                  ref.read(reportNotifierProvider.notifier).updateReward(parsed);
                 }
               }
             },

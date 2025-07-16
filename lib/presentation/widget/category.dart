@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../model/animal_category.dart';
-import '../../provider/report_missing_notifier.dart';
+import '../../provider/report_notifier.dart';
 
 class Category extends ConsumerStatefulWidget {
   const Category({super.key});
@@ -17,7 +17,7 @@ class _CategoryState extends ConsumerState<Category> {
   @override
   Widget build(BuildContext context) {
     final selectedCategory = ref.watch(
-      reportMissingNotifierProvider.select((state) => state.category),
+      reportNotifierProvider.select((state) => state.category),
     );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,7 +54,7 @@ class _CategoryState extends ConsumerState<Category> {
                       child: ListTile(
                         title: Text(category.name),
                         onTap: () async{
-                          ref.read(reportMissingNotifierProvider.notifier).updateCategory(category);
+                          ref.read(reportNotifierProvider.notifier).updateCategory(category);
                           context.router.pop();
                         },
                       ),
