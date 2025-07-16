@@ -30,7 +30,7 @@ final class GalleryNotifierProvider
   GalleryNotifier create() => GalleryNotifier();
 }
 
-String _$galleryNotifierHash() => r'5bc7306e8392eb926918702318cb0b818bd1ae3c';
+String _$galleryNotifierHash() => r'9c186eac6553a309ddcc51745056f8846e1d0470';
 
 abstract class _$GalleryNotifier extends $AsyncNotifier<List<String>> {
   FutureOr<List<String>> build();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../provider/report_missing_notifier.dart';
+import '../../provider/report_notifier.dart';
 
 class Breed extends ConsumerWidget {
   const Breed({super.key});
@@ -15,7 +15,7 @@ class Breed extends ConsumerWidget {
           decoration: InputDecoration(labelText: 'Breed'),
           onSaved: (value){
             if(value != null && value.trim().isNotEmpty){
-              ref.read(reportMissingNotifierProvider.notifier).updateBreed(value);
+              ref.read(reportNotifierProvider.notifier).updateBreed(value);
             }
           },
         )

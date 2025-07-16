@@ -33,82 +33,85 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     final reports = ref.watch(reportsNotifierProvider);
     final categoryName = ref.watch(reportsNotifierProvider.notifier).currentCategory;
-    final isAscending = ref.watch(reportsNotifierProvider.notifier).currentToggle;
+    final isDescending = ref.watch(reportsNotifierProvider.notifier).currentToggle;
 
     return Scaffold(
       body: SafeArea(
         child: Stack(
           children: [
             ReportsMap(),
-            Expanded(
-              child: DraggableScrollableSheet(
-                initialChildSize: 0.60,
-                minChildSize: 0.1,
-                maxChildSize: 0.9,
-                builder: (context, scrollController) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-                      boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
-                    ),
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(top: 8, bottom: 8),
-                          width: 40,
-                          height: 6,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[400],
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                        ),
-
-                        //FILTRY
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            DraggableScrollableSheet(
+              initialChildSize: 0.60,
+              minChildSize: 0.1,
+              maxChildSize: 0.9,
+              builder: (context, scrollController) {
+                return Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+                    boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
+                  ),
+                  child: CustomScrollView(
+                    controller: scrollController,
+                      slivers: [
+                        SliverToBoxAdapter(
+                          child: Column(
                             children: [
-
                               Container(
-                                decoration: inputBorder,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(categoryName != null ? categoryName.toString() : 'All categories'),
-                                  )),
-
-                              Container(
-                                decoration: inputBorder,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text('Newest first'),
-                                  )),
-                              IconButton(onPressed: () async{
-                                  ref.read(reportsNotifierProvider.notifier).toggleSortOrder();
-                                  developer.log('Is Ascending $isAscending');
-                                },
-                                  icon: Icon( isAscending ?  Icons.arrow_upward : Icons.arrow_downward)
+                                margin: const EdgeInsets.only(top: 8, bottom: 8),
+                                width: 40,
+                                height: 6,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[400],
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
                               ),
 
-
-                              Icon(Icons.filter_list_alt)
-
+                              // Filtry
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      decoration: inputBorder,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(categoryName?.name ?? 'All categories'),
+                                      ),
+                                    ),
+                                    Container(
+                                      decoration: inputBorder,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(isDescending ? 'Newest first' : 'Oldest first'),
+                                      ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () async {
+                                        ref.read(reportsNotifierProvider.notifier).toggleSortOrder();
+                                        developer.log('Is Ascending $isDescending');
+                                      },
+                                      icon: Icon(isDescending ? Icons.arrow_upward : Icons.arrow_downward),
+                                    ),
+                                    const Icon(Icons.filter_list_alt),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         ),
-                        // Lista zgłoszeń
-                        Expanded(
+
+                        SliverFillRemaining(
                           child: ReportList(
-                              reports.whenData((state) => state.reports),
-                              scrollController
+                            reports.whenData((state) => state.reports),
+                            scrollController,
                           ),
                         ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+                      ]
+                  ),
+                );
+              },
             ),
           ],
         ),

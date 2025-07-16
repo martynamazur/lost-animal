@@ -1,11 +1,7 @@
 
-import 'package:flutter/cupertino.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lostanimal/model/animal_category.dart';
 import 'package:lostanimal/model/reports_state_model.dart';
-import 'package:lostanimal/provider/report_missing_notifier.dart';
 import 'package:lostanimal/provider/report_provider.dart';
-import 'package:lostanimal/provider/report_seen_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../model/report_model.dart';
@@ -66,17 +62,6 @@ class ReportsNotifier extends _$ReportsNotifier {
     });
   }
 
-
-  List<Marker> getReportsMarks() {
-    final current = state.value;
-    if (current == null) return [];
-
-    return current.reports.map((r) => Marker(
-      markerId: MarkerId(r.id!),
-      position: LatLng(r.latitude!, r.longitude!),
-      infoWindow: InfoWindow(title: r.type, snippet: r.cityName ?? ''),
-    )).toList();
-  }
 
 }
 

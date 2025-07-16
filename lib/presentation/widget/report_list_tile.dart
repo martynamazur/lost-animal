@@ -48,8 +48,13 @@ class _ListReportTileState extends ConsumerState<ListReportTile> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (widget.report.type.isNotEmpty) Text(widget.report.type),
-                if (widget.report.category != AnimalCategory.unknown) Text(widget.report.category.toString()),
+                Container(
+                  color:  widget.report.type == 'missing' ? Colors.red : Colors.green,
+                    child: Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Text(widget.report.type, style: TextStyle(color: Colors.white)),
+                    )),
+                if (widget.report.category != AnimalCategory.unknown) Text(widget.report.category.name.toUpperCase()),
                 Text(widget.report.missingSince.toString()),
                 if (widget.report.hasChip != null) Text('Chip: ${widget.report.hasChip! ? "Tak" : "Nie"}'),
                 if (widget.report.cityName?.isNotEmpty == true) Text('Lokalizacja: ${widget.report.cityName}'),

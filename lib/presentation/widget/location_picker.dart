@@ -6,14 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lostanimal/presentation/widget/style/decoration_style.dart';
-import 'package:lostanimal/provider/report_missing_notifier.dart';
+import 'package:lostanimal/provider/report_notifier.dart';
 import 'package:lostanimal/service/location_service.dart';
 
 import '../../provider/location_permission_provider.dart';
 
 class LocationPicker extends ConsumerStatefulWidget {
-  final void Function(double, double, String) updateNotifier;
-  const LocationPicker({required this.updateNotifier, super.key});
+  const LocationPicker({ super.key});
 
   @override
   ConsumerState createState() => _LocationPickerState();
@@ -98,7 +97,8 @@ class _LocationPickerState extends ConsumerState<LocationPicker> {
                           const SnackBar(content: Text('Nie udało się rozpoznać miejscowości')),
                         );
                       }
-                      widget.updateNotifier(lat,lng, _cityController.text);
+                      ref.read(reportNotifierProvider.notifier).updateLocation(lat, lng, _cityController.text);
+
                     },
                     markers: _markers
 
@@ -128,7 +128,7 @@ class _LocationPickerState extends ConsumerState<LocationPicker> {
 
     final cityName = await LocationService.getCityName(pos.latitude, pos.longitude);
     if (cityName != null) {
-      ref.read(reportMissingNotifierProvider.notifier).updateLocation(pos.latitude,pos.longitude, cityName);
+      ref.read(reportNotifierProvider.notifier).updateLocation(pos.latitude,pos.longitude, cityName);
       developer.log('City name getCurrentLoc $cityName');
     }
     return loc;
