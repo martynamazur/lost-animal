@@ -56,6 +56,7 @@ dependencies:
   permission_handler: ^12.0.1
   geolocator: ^14.0.2
   intl: ^0.20.2
+  icons_launcher: ^3.0.1
 
 
 dev_dependencies:
@@ -82,6 +83,15 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
+
+icons_launcher:
+  image_path: "assets/appIcon.png"
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: false
+
 flutter:
 
   # The following line ensures that the Material Icons font is
@@ -90,6 +100,7 @@ flutter:
   uses-material-design: true
   assets:
     - .env
+    - assets/appIcon.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

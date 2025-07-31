@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:lostanimal/nawigation/auth_guard.dart';
 import 'package:lostanimal/presentation/dashboard_screen.dart';
+import 'package:lostanimal/presentation/inbox_screen.dart';
 
 import '../presentation/added_reports.dart';
 import '../presentation/change_email_screen.dart';
@@ -37,6 +38,7 @@ class AppRouter extends RootStackRouter {
       children: [
         AutoRoute(page: HomeRoute.page),
         AutoRoute(page: ReportRoute.page),
+        AutoRoute(page: InboxRoute.page),
         AutoRoute(page: MenuRoute.page)
     ]),
     AutoRoute(page: SettingsRoute.page),

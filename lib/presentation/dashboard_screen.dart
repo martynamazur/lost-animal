@@ -15,6 +15,7 @@ class DashboardScreen extends StatelessWidget {
       routes: const [
         HomeRoute(),
         ReportRoute(),
+        InboxRoute(),
         MenuRoute()
 
       ],
@@ -26,17 +27,20 @@ class DashboardScreen extends StatelessWidget {
         final tabsRouter = AutoTabsRouter.of(context);
         return Scaffold(
           body: child,
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: tabsRouter.activeIndex,
-            onTap: (index) {
-              tabsRouter.setActiveIndex(index);
-            },
-            items: [
-              BottomNavigationBarItem(label: 'Users', icon: Icon(Icons.home)),
-              BottomNavigationBarItem(label: 'Add missing', icon: Icon(Icons.add)),
-              BottomNavigationBarItem(label: 'Menu',icon: Icon(Icons.menu)),
-            ],
-          ),
+            bottomNavigationBar: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              currentIndex: tabsRouter.activeIndex,
+              onTap: (index) => tabsRouter.setActiveIndex(index),
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              items: [
+                BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
+                BottomNavigationBarItem(label: 'Create', icon: Icon(Icons.add)),
+                BottomNavigationBarItem(label: 'Inbox', icon: Icon(Icons.inbox)),
+                BottomNavigationBarItem(label: 'Menu', icon: Icon(Icons.menu)),
+              ],
+            ),
+
         );
       },
     );
