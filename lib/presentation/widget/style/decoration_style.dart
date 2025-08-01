@@ -32,3 +32,13 @@ final InputDecoration frame = InputDecoration(
     ),
   ),
 );
+
+InputDecoration customInputDecoration(ThemeData theme) {
+  return InputDecoration(
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+    ),
+    filled: true,
+    fillColor: theme.colorScheme.surfaceContainerHighest,
+  );
+}

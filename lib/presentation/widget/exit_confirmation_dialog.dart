@@ -8,11 +8,25 @@ class ExitConfirmationDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Cancel Report?'),
-      content: Text('Are you sure you want to cancel? Any unsaved changes will be lost.'),
+      title: Text('Cancel Report?',style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+      content: Text(
+        'Are you sure you want to cancel? Any unsaved changes will be lost.',
+        style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+      ),
       actions: [
-        OutlinedButton(onPressed: () => context.router.pop(true), child: Text('Yes, Cancel')),
-        OutlinedButton(onPressed: () => context.router.pop(false), child: Text('No, Continue'))
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            OutlinedButton(
+              onPressed: () => context.router.pop(false),
+              child: Text('No, Continue'),
+            ),
+            FilledButton(
+              onPressed: () => context.router.pop(true),
+              child: Text('Yes, Cancel'),
+            ),
+          ],
+        )
       ],
     );
   }

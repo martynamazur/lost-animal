@@ -45,19 +45,23 @@ class _ReportSeenFromScreenState extends ConsumerState<ReportSeenFromScreen> {
             child: Form(
               key: keyForm,
                 child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      LocationPicker(),
-                      BuildImageGallery(),
-                      Category(),
-                      Description((value){
-                        safeCallIfNotEmpty(value, (value) {
-                          ref.read(reportNotifierProvider.notifier).updateAdditionalInfo(value);
-                        });
-                      },'Description'),
-                      Contact()
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      spacing: 32,
+                      children: [
+                        LocationPicker(),
+                        BuildImageGallery(),
+                        Category(),
+                        Description((value){
+                          safeCallIfNotEmpty(value, (value) {
+                            ref.read(reportNotifierProvider.notifier).updateAdditionalInfo(value);
+                          });
+                        },'Description'),
+                        Contact()
 
-                    ],
+                      ],
+                    ),
                   ),
                 )
             )

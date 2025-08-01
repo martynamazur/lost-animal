@@ -6,12 +6,15 @@ import 'package:lostanimal/presentation/dashboard_screen.dart';
 import 'package:lostanimal/presentation/inbox_screen.dart';
 
 import '../model/animal_category.dart';
+import '../presentation/about_app_screen.dart';
 import '../presentation/added_reports_screen.dart';
 import '../presentation/category_picker_screen.dart';
 import '../presentation/change_email_screen.dart';
 import '../presentation/home_screen.dart';
 import '../presentation/login_screen.dart';
 import '../presentation/menu_screen.dart';
+import '../presentation/notifications_screen.dart';
+import '../presentation/privacy_policy_screen.dart';
 import '../presentation/reauth_password_screen.dart';
 import '../presentation/report_form_screen.dart';
 import '../presentation/report_screen.dart';
@@ -53,11 +56,13 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: ReportMissingFormRoute.page),
     AutoRoute(page: ReportSeenFromRoute.page),
     AutoRoute(page: AddedReportsRoute.page),
-    AutoRoute(page: AnimalCategoryPickerRoute.page)
+    AutoRoute(page: AnimalCategoryPickerRoute.page),
+    AutoRoute(page: AboutAppRoute.page),
+    AutoRoute(page: PrivacyPolicyRoute.page),
+    AutoRoute(page: NotificationsRoute.page)
     
   ];
 
-  //TU SA GUARDY KTORE DZIALAJA NA WSZYSTKIE TRASY !!!! inaczej wystapi pętla :(
   @override
   List<AutoRouteGuard> get guards => [
   ];
