@@ -30,7 +30,7 @@ final class ReportsNotifierProvider
   ReportsNotifier create() => ReportsNotifier();
 }
 
-String _$reportsNotifierHash() => r'cca687e2e821475f561f8609243e108cfc3d97b8';
+String _$reportsNotifierHash() => r'7848a85957b0642f854d1a0d01cc83b901905422';
 
 abstract class _$ReportsNotifier extends $AsyncNotifier<ReportsState> {
   FutureOr<ReportsState> build();

@@ -48,20 +48,14 @@ class _ReportSeenFromScreenState extends ConsumerState<ReportSeenFromScreen> {
                   child: Column(
                     children: [
                       LocationPicker(),
-                      BuildImageGallery((imageUrls){
-                        ref.read(reportNotifierProvider.notifier).updatePictures(imageUrls);
-                      }),
+                      BuildImageGallery(),
                       Category(),
                       Description((value){
                         safeCallIfNotEmpty(value, (value) {
                           ref.read(reportNotifierProvider.notifier).updateAdditionalInfo(value);
                         });
                       },'Description'),
-                      Contact((value){
-                        safeCallIfNotEmpty(value, (value){
-                          ref.read(reportNotifierProvider.notifier).updatePhoneNumber(value);
-                        });
-                      })
+                      Contact()
 
                     ],
                   ),

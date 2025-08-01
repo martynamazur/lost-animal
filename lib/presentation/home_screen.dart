@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lostanimal/presentation/report_list.dart';
+import 'package:lostanimal/presentation/widget/filters.dart';
 import 'package:lostanimal/presentation/widget/map.dart';
 import 'package:lostanimal/presentation/widget/style/decoration_style.dart';
 import 'package:lostanimal/provider/location_permission_provider.dart';
@@ -30,10 +31,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     final reports = ref.watch(reportsNotifierProvider);
-    final categoryName = ref.watch(reportsNotifierProvider.notifier).currentCategory;
-    final isDescending = ref.watch(reportsNotifierProvider.notifier).currentToggle;
 
     return Scaffold(
       body: SafeArea(
@@ -45,13 +43,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               minChildSize: 0.1,
               maxChildSize: 0.9,
               builder: (context, scrollController) {
-                return Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-                    boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
-                  ),
-                  child: CustomScrollView(
+                return Material(
+                    color: Theme.of(context).colorScheme.surface,
+                    elevation: 2,
+                    borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                    child: CustomScrollView(
                     controller: scrollController,
                       slivers: [
                         SliverToBoxAdapter(
@@ -66,38 +62,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                   borderRadius: BorderRadius.circular(4),
                                 ),
                               ),
-
-                              // Filtry
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      decoration: inputBorder,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(categoryName?.name ?? 'All categories'),
-                                      ),
-                                    ),
-                                    Container(
-                                      decoration: inputBorder,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(isDescending ? 'Newest first' : 'Oldest first'),
-                                      ),
-                                    ),
-                                    IconButton(
-                                      onPressed: () async {
-                                        ref.read(reportsNotifierProvider.notifier).toggleSortOrder();
-                                        developer.log('Is Ascending $isDescending');
-                                      },
-                                      icon: Icon(isDescending ? Icons.arrow_upward : Icons.arrow_downward),
-                                    ),
-                                    const Icon(Icons.filter_list_alt),
-                                  ],
-                                ),
-                              ),
+                              Filters(),
                             ],
                           ),
                         ),

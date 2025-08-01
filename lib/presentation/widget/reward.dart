@@ -17,23 +17,39 @@ class _RewardState extends ConsumerState<Reward> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Column(
+      spacing: 12,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Is a reward offered?', style: Theme.of(context).textTheme.bodyMedium),
-        Switch(
+        SwitchListTile(
+          title: Text('Is a reward offered?', style: Theme.of(context).textTheme.bodyMedium),
             value: switchValue,
             onChanged: (value){
               setState(() {
                 switchValue = value;
               });
-            }
+            },
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            tileColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
         ),
+
         if(switchValue)
           TextFormField(
             keyboardType: TextInputType.numberWithOptions(decimal: true),
             decoration: InputDecoration(
                 labelText: 'Price',
-                suffixText: 'PLN'
+                suffixText: 'PLN',
+                filled: true,
+                fillColor: theme.colorScheme.surfaceContainerHighest,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide.none,
+                ),
             ),
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),

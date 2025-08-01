@@ -53,10 +53,7 @@ class _ReportMissingFormScreenState extends ConsumerState<ReportMissingFormScree
                     spacing: 16,
                     children: [
                       LocationPicker(),
-                      BuildImageGallery((value){
-                        developer.log('Value ${value.length}');
-                         ref.read(reportNotifierProvider.notifier).updatePictures(value);
-                      }),
+                      BuildImageGallery(),
                       Category(),
                       Breed(),
                       GenderDropDown(),
@@ -66,20 +63,14 @@ class _ReportMissingFormScreenState extends ConsumerState<ReportMissingFormScree
                       },
                           'What is its coat color?'
                       ),//color
-                      DateTimePickerButton(
-                          (value) async{
-                            ref.read(reportNotifierProvider.notifier).updateMissingSince(value);
-                          }
-                      ),
+                      DateTimePickerButton(),
                       Reward(),
                       Description((value){
                         ref.read(reportNotifierProvider.notifier).updateAdditionalInfo(value);
                       },
                         'Description'
                       ),
-                      Contact((value){
-                        ref.read(reportNotifierProvider.notifier).updatePhoneNumber(value);
-                      }),
+                      Contact(),
                     ],
                   ),
                 ),

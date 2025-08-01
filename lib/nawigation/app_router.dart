@@ -5,13 +5,15 @@ import 'package:lostanimal/nawigation/auth_guard.dart';
 import 'package:lostanimal/presentation/dashboard_screen.dart';
 import 'package:lostanimal/presentation/inbox_screen.dart';
 
-import '../presentation/added_reports.dart';
+import '../model/animal_category.dart';
+import '../presentation/added_reports_screen.dart';
+import '../presentation/category_picker_screen.dart';
 import '../presentation/change_email_screen.dart';
 import '../presentation/home_screen.dart';
 import '../presentation/login_screen.dart';
 import '../presentation/menu_screen.dart';
 import '../presentation/reauth_password_screen.dart';
-import '../presentation/report_missing_form_screen.dart';
+import '../presentation/report_form_screen.dart';
 import '../presentation/report_screen.dart';
 import '../presentation/report_seen_from_screen.dart';
 import '../presentation/reset_password_screen.dart';
@@ -50,7 +52,8 @@ class AppRouter extends RootStackRouter {
 
     AutoRoute(page: ReportMissingFormRoute.page),
     AutoRoute(page: ReportSeenFromRoute.page),
-    AutoRoute(page: AddedReportsRoute.page)
+    AutoRoute(page: AddedReportsRoute.page),
+    AutoRoute(page: AnimalCategoryPickerRoute.page)
     
   ];
 

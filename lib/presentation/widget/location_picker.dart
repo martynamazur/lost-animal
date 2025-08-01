@@ -11,6 +11,7 @@ import 'package:lostanimal/service/location_service.dart';
 
 import '../../provider/location_permission_provider.dart';
 
+//TODO: Move logic to Notifier provider
 class LocationPicker extends ConsumerStatefulWidget {
   const LocationPicker({ super.key});
 
@@ -36,75 +37,87 @@ class _LocationPickerState extends ConsumerState<LocationPicker> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return SafeArea(
       child: Column(
         spacing: 12,
         children: [
           Text('Tap on the map to select a location.', style: Theme.of(context).textTheme.bodyMedium,),
-          _pickedLocation != null ?
-          TextFormField(
-            controller: _cityController,
-            decoration: frame,
-          ) : SizedBox.shrink(),
-          SizedBox(
-            height: 400,
-            child: FutureBuilder(
-              future: _initLocation,
-              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                if (snapshot.connectionState != ConnectionState.done) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                final center = snapshot.data ?? const LatLng(52.2297, 21.0122);
-                return  GoogleMap(
-                    gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
-                      Factory<OneSequenceGestureRecognizer>(() => EagerGestureRecognizer())
-                    },
-                    onMapCreated: (controller) => _mapController = controller,
-                    initialCameraPosition: CameraPosition(
-                      target: center,
-                      zoom: 17,
-                    ),
-                    zoomGesturesEnabled: true,
-                    scrollGesturesEnabled: true,
-                    rotateGesturesEnabled: true,
-                    tiltGesturesEnabled: true,
-
-                    onTap: (position) async{
-                      final double lng = position.longitude;
-                      final double lat = position.latitude;
-                      developer.log('Latifude $lat');
-                      developer.log('Long $lng');
-                      final cityName = await LocationService.getCityName(lat, lng);
-
-
-                      final Marker marker = Marker(
-                        markerId: const MarkerId('picked'),
-                        position: position
-                      );
-
-                      _mapController!.animateCamera(CameraUpdate.newLatLng(LatLng(lat, lng)));
-                      setState(() {
-                        _pickedLocation = position;
-                        if(cityName != null){
-                          setState(() {
-                            _cityController.text = cityName;
-                            _markers = {marker};
-                          });
-                        }
-                      });
-                      if (cityName == null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Nie udało się rozpoznać miejscowości')),
+          if (_pickedLocation != null)
+            TextFormField(
+              controller: _cityController,
+              decoration: InputDecoration(
+                labelText: 'Miasto',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                filled: true,
+                fillColor: colorScheme.surfaceVariant,
+              ),
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: SizedBox(
+              height: 400,
+              child: FutureBuilder(
+                future: _initLocation,
+                builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  if (snapshot.connectionState != ConnectionState.done) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  final center = snapshot.data ?? const LatLng(52.2297, 21.0122);
+                  return  GoogleMap(
+                      gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+                        Factory<OneSequenceGestureRecognizer>(() => EagerGestureRecognizer())
+                      },
+                      onMapCreated: (controller) => _mapController = controller,
+                      initialCameraPosition: CameraPosition(
+                        target: center,
+                        zoom: 17,
+                      ),
+                      zoomGesturesEnabled: true,
+                      scrollGesturesEnabled: true,
+                      rotateGesturesEnabled: true,
+                      tiltGesturesEnabled: true,
+            
+                      onTap: (position) async{
+                        final double lng = position.longitude;
+                        final double lat = position.latitude;
+                        developer.log('Latifude $lat');
+                        developer.log('Long $lng');
+                        final cityName = await LocationService.getCityName(lat, lng);
+            
+            
+                        final Marker marker = Marker(
+                          markerId: const MarkerId('picked'),
+                          position: position
                         );
-                      }
-                      ref.read(reportNotifierProvider.notifier).updateLocation(lat, lng, _cityController.text);
-
-                    },
-                    markers: _markers
-
-                );
-              },
-
+            
+                        _mapController!.animateCamera(CameraUpdate.newLatLng(LatLng(lat, lng)));
+                        setState(() {
+                          _pickedLocation = position;
+                          if(cityName != null){
+                            setState(() {
+                              _cityController.text = cityName;
+                              _markers = {marker};
+                            });
+                          }
+                        });
+                        if (cityName == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Nie udało się rozpoznać miejscowości')),
+                          );
+                        }
+                        ref.read(reportNotifierProvider.notifier).updateLocation(lat, lng, _cityController.text);
+            
+                      },
+                      markers: _markers
+            
+                  );
+                },
+            
+              ),
             ),
           ),
         ],
