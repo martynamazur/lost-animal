@@ -4,13 +4,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lostanimal/presentation/widget/link_account.dart';
+import 'package:lostanimal/presentation/widget/menu_items_list.dart';
+import 'package:lostanimal/presentation/widget/user_profile.dart';
 import 'package:lostanimal/provider/auth_notifier.dart';
 
+import '../model/menu_item_model.dart';
 import '../nawigation/app_router.dart';
 
 @RoutePage()
 class MenuScreen extends ConsumerStatefulWidget {
   const MenuScreen({super.key});
+
 
   @override
   ConsumerState createState() => _MenuScreenState();
@@ -21,6 +26,19 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    final menuItems = [
+      MenuItem(
+        label: 'My reports',
+        route: AddedReportsRoute(),
+        icon: Icon(Icons.person_pin_circle_outlined),
+      ),
+      MenuItem(
+        label: 'Settings',
+        route: SettingsRoute(),
+        icon: Icon(Icons.person_pin_circle_outlined),
+      ),
+    ];
 
     ref.listen<AsyncValue<void>>(authNotifierProvider, (previous, next) {
       next.whenOrNull(
@@ -34,6 +52,7 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
         },
       );
     });
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -41,40 +60,17 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               spacing: 12.0,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                OutlinedButton(
-                    onPressed: () => context.router.push(AddedReportsRoute()),
-                    child: Text('My reports')
-                ),
-                OutlinedButton(
-                    onPressed: () => context.pushRoute(SettingsRoute()),
-                    child: Text('Settings')
-                ),
+                UserProfile(),
+                MenuItemsList(menuItems: menuItems),
+
                 if(isAnonymous == true)
-                  _linkAccount()
+                  LinkAccount()
               ],
             ),
           ),
         )),
-    );
-  }
-
-  Widget _linkAccount(){
-    final authNotifier = ref.read(authNotifierProvider.notifier);
-    return Column(
-      spacing: 12,
-      children: [
-        Text('Link your current account with a sign-in method below to keep your data safe and easily accessible across devices.'),
-        OutlinedButton(
-            onPressed: () => context.router.push(SignUpRoute(isLinkingAccount: true)),
-            child: Text('Link with email')
-        ),
-        OutlinedButton(
-            onPressed: () async => authNotifier.onSignInGoogle(),
-            child: Text('Link google account')
-        )
-      ],
     );
   }
 }

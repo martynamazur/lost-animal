@@ -11,6 +11,22 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [AboutAppScreen]
+class AboutAppRoute extends PageRouteInfo<void> {
+  const AboutAppRoute({List<PageRouteInfo>? children})
+    : super(AboutAppRoute.name, initialChildren: children);
+
+  static const String name = 'AboutAppRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AboutAppScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [AddedReportsScreen]
 class AddedReportsRoute extends PageRouteInfo<void> {
   const AddedReportsRoute({List<PageRouteInfo>? children})
@@ -175,6 +191,38 @@ class MenuRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const MenuScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [NotificationsScreen]
+class NotificationsRoute extends PageRouteInfo<void> {
+  const NotificationsRoute({List<PageRouteInfo>? children})
+    : super(NotificationsRoute.name, initialChildren: children);
+
+  static const String name = 'NotificationsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const NotificationsScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [PrivacyPolicyScreen]
+class PrivacyPolicyRoute extends PageRouteInfo<void> {
+  const PrivacyPolicyRoute({List<PageRouteInfo>? children})
+    : super(PrivacyPolicyRoute.name, initialChildren: children);
+
+  static const String name = 'PrivacyPolicyRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const PrivacyPolicyScreen();
     },
   );
 }
