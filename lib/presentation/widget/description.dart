@@ -13,10 +13,16 @@ class Description extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(headline),
         TextFormField(
           maxLines: 3,
-          decoration: frame,
+          decoration: InputDecoration(
+            labelText: headline,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            filled: true,
+            fillColor: Theme.of(context).colorScheme.surfaceVariant,
+          ),
           onSaved: (value){
             if(value != null && value.trim().isNotEmpty){
               onSaved(value.trim());

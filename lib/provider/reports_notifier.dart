@@ -29,19 +29,12 @@ class ReportsNotifier extends _$ReportsNotifier {
     );
   }
 
-  void setCategory(AnimalCategory category){
-    state = AsyncValue.data(
-      state.value!.copyWith(
-        categoryFilter: category,
-      ),
-    );
-  }
 
-
-  List<Report> filterByCategory(AnimalCategory category) {
-    final current = state.value;
-    if (current == null) return [];
-    return current.reports.where((r) => r.category == category).toList();
+  void filterByCategory(AnimalCategory category) {
+    state = AsyncData(
+        state.value!.copyWith(categoryFilter: category,
+        reports: state.value!.originalList.where((r) => r.category == category).toList()
+        ));
   }
 
   void clearFilters() async {
@@ -56,11 +49,19 @@ class ReportsNotifier extends _$ReportsNotifier {
 
   void toggleSortOrder() {
     update((current) {
+      final sortedReports = [...current.reports];
+
+      sortedReports.sort((a, b) => current.isAscending
+          ? b.missingSince.compareTo(a.missingSince)
+          : a.missingSince.compareTo(b.missingSince));
+
       return current.copyWith(
+        reports: sortedReports,
         isAscending: !current.isAscending,
       );
     });
   }
+
 
 
 }

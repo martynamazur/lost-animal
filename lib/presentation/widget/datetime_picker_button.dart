@@ -1,18 +1,59 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
+import 'package:lostanimal/provider/reports_notifier.dart';
 
-class DateTimePickerButton extends ConsumerWidget {
-  final void Function(DateTime) onDateTimeSelected;
-  const DateTimePickerButton(this.onDateTimeSelected, {super.key});
+import '../../provider/report_notifier.dart';
+
+class DateTimePickerButton extends ConsumerStatefulWidget {
+
+  const DateTimePickerButton({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<DateTimePickerButton> createState() => _DateTimePickerButtonState();
+}
+
+class _DateTimePickerButtonState extends ConsumerState<DateTimePickerButton> {
+  DateTime? selectedDateTime;
+
+  @override
+  Widget build(BuildContext context) {
+    final selectedDateTime = ref.watch(reportNotifierProvider.select((state) => state.missingSince));
+
+
+    final theme = Theme.of(context);
+    final dateText = selectedDateTime.isUtc
+        ? selectedDateTime
+        : 'Choose date and time';
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Date and time of disappearance', style: Theme.of(context).textTheme.bodyMedium),
-        OutlinedButton(onPressed: () => _selectDateTime(context), child: Text('Choose')),
+        Text(
+          'Date and time of disappearance',
+          style: theme.textTheme.labelLarge,
+        ),
+        const SizedBox(height: 8),
+        FilledButton.tonal(
+          style: FilledButton.styleFrom(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+          ),
+          onPressed: () => _selectDateTime(context),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                selectedDateTime.toString(),
+                style: theme.textTheme.bodyLarge,
+              ),
+              const Icon(Icons.calendar_today_outlined),
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -38,8 +79,9 @@ class DateTimePickerButton extends ConsumerWidget {
           pickedTime.hour,
           pickedTime.minute,
         );
-        // Przypisz selectedDateTime do odpowiedniego pola formularza
-        onDateTimeSelected(selectedDateTime);
+
+        ref.read(reportNotifierProvider.notifier).updateMissingSince(selectedDateTime);
+
       }
     }
   }

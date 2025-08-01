@@ -27,6 +27,63 @@ class AddedReportsRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [AnimalCategoryPickerScreen]
+class AnimalCategoryPickerRoute
+    extends PageRouteInfo<AnimalCategoryPickerRouteArgs> {
+  AnimalCategoryPickerRoute({
+    Key? key,
+    required void Function(AnimalCategory) onCategorySelected,
+    List<PageRouteInfo>? children,
+  }) : super(
+         AnimalCategoryPickerRoute.name,
+         args: AnimalCategoryPickerRouteArgs(
+           key: key,
+           onCategorySelected: onCategorySelected,
+         ),
+         initialChildren: children,
+       );
+
+  static const String name = 'AnimalCategoryPickerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<AnimalCategoryPickerRouteArgs>();
+      return AnimalCategoryPickerScreen(
+        key: args.key,
+        onCategorySelected: args.onCategorySelected,
+      );
+    },
+  );
+}
+
+class AnimalCategoryPickerRouteArgs {
+  const AnimalCategoryPickerRouteArgs({
+    this.key,
+    required this.onCategorySelected,
+  });
+
+  final Key? key;
+
+  final void Function(AnimalCategory) onCategorySelected;
+
+  @override
+  String toString() {
+    return 'AnimalCategoryPickerRouteArgs{key: $key, onCategorySelected: $onCategorySelected}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AnimalCategoryPickerRouteArgs) return false;
+    return key == other.key;
+  }
+
+  @override
+  int get hashCode => key.hashCode;
+}
+
+/// generated route for
 /// [ChangeEmailScreen]
 class ChangeEmailRoute extends PageRouteInfo<void> {
   const ChangeEmailRoute({List<PageRouteInfo>? children})

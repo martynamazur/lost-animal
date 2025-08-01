@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,52 +18,110 @@ class _CategoryState extends ConsumerState<Category> {
     final selectedCategory = ref.watch(
       reportNotifierProvider.select((state) => state.category),
     );
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Category', style: Theme.of(context).textTheme.bodyMedium),
+        Text(
+          'Category',
+          style: Theme.of(context).textTheme.labelLarge,
+        ),
+        const SizedBox(height: 8),
         SizedBox(
           width: double.infinity,
-          child: OutlinedButton(
-              onPressed: () => _showBottomSheetCategory(selectedCategory),
-              child: Text(selectedCategory != AnimalCategory.unknown ? selectedCategory.name :  'Choose category',
-                  style: Theme.of(context).textTheme.bodyMedium)
+          child: FilledButton.tonal(
+            style: FilledButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+            ),
+            onPressed: () => _showBottomSheetCategory(selectedCategory),
+            child: Text(
+              selectedCategory != AnimalCategory.unknown
+                  ? selectedCategory.name
+                  : 'Choose category',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
           ),
-        )
+        ),
       ],
     );
   }
-  void _showBottomSheetCategory(AnimalCategory selectedCategory){
+
+  void _showBottomSheetCategory(AnimalCategory selectedCategory) {
     final categories = AnimalCategory.values;
 
     showModalBottomSheet(
-        context: context,
-        builder: (context){
-          return SingleChildScrollView(
+      context: context,
+      showDragHandle: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: SingleChildScrollView(
             child: Column(
+              spacing: 8.0,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Text('Choose category'),
-                ListView(
-                  physics: NeverScrollableScrollPhysics(),
+                Text(
+                  'Choose category',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                ListView.builder(
                   shrinkWrap: true,
-                  children: categories.map((category){
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: categories.length,
+                  itemBuilder: (context, index) {
+                    final category = categories[index];
                     final isSelected = category == selectedCategory;
-                    return Container(
-                      color: isSelected? Colors.blueGrey[100] : null,
+                
+                    return Card(
+                      color: isSelected
+                          ? Theme.of(context).colorScheme.primaryContainer
+                          : null,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       child: ListTile(
-                        title: Text(category.name),
-                        onTap: () async{
-                          ref.read(reportNotifierProvider.notifier).updateCategory(category);
+                        leading: Icon(
+                          _iconForCategory(category),
+                          color: isSelected
+                              ? Theme.of(context).colorScheme.onPrimaryContainer
+                              : Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
+                        title: Text(
+                          category.name,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        onTap: () {
+                          ref
+                              .read(reportNotifierProvider.notifier)
+                              .updateCategory(category);
                           context.router.pop();
                         },
                       ),
                     );
-                  }).toList(),
-                )
+                  },
+                ),
               ],
             ),
-          );
-        }
+          ),
+        );
+      },
     );
+  }
+
+  IconData _iconForCategory(AnimalCategory category) {
+    switch (category) {
+      case AnimalCategory.dog:
+        return Icons.pets;
+      case AnimalCategory.cat:
+        return Icons.pets;
+      default:
+        return Icons.device_unknown;
+    }
   }
 }

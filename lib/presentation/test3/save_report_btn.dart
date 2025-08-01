@@ -15,6 +15,7 @@ class SaveReportBtn extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final saveForm = ref.watch(saveFormMutation);
+    final theme = Theme.of(context).colorScheme;
 
     //Obserwuje stan mutacji i nawiguje/wyswietlac snacbara
     ref.listen(saveFormMutation, (previous, next) {
@@ -37,18 +38,38 @@ class SaveReportBtn extends ConsumerWidget {
 
     //Co wyswietlam w roznych stanach
     return switch (saveForm) {
-      MutationIdle() => ElevatedButton(
-        onPressed: () {
-          if (formKey.currentState?.validate() ?? false) {
-            formKey.currentState?.save();
-            saveFormMutation.run(ref, (ref) async {
-              await ref.get(reportNotifierProvider.notifier).saveToFirestore(formType);
-            });
-          }
-        },
-        child: const Text('Submit'),
-    ),
+      MutationIdle() => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: theme.onSurface,
+            foregroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+
+          ),
+          onPressed: () {
+            if (formKey.currentState?.validate() ?? false) {
+              formKey.currentState?.save();
+              saveFormMutation.run(ref, (ref) async {
+                await ref.get(reportNotifierProvider.notifier).saveToFirestore(formType);
+              });
+            }
+          },
+          child: const Text('Submit'),
+            ),
+      ),
       MutationError() => ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.deepPurple,
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        ),
         onPressed: () async{
             saveFormMutation.run(ref, (ref) async {
               await ref.get(reportNotifierProvider.notifier).saveToFirestore(formType);

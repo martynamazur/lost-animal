@@ -9,15 +9,22 @@ class Breed extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Breed'),
+        Text('Breed', style: Theme.of(context).textTheme.labelLarge,),
         TextFormField(
-          decoration: InputDecoration(labelText: 'Breed'),
+          decoration: InputDecoration(
+              labelText: 'Enter breed',
+              border: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(12)),
+              )
+          ),
           onSaved: (value){
             if(value != null && value.trim().isNotEmpty){
               ref.read(reportNotifierProvider.notifier).updateBreed(value);
             }
           },
+          enabled: true,
         )
       ],
     );

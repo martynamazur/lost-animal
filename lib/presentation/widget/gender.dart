@@ -14,18 +14,28 @@ class GenderDropDown extends ConsumerWidget {
     final  selectedGender = ref.watch(reportNotifierProvider.select((form) => form.gender));
 
     return Column(
+      spacing: 8.0,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Gender', style: Theme.of(context).textTheme.bodyMedium),
+        Text('Gender',style: Theme.of(context).textTheme.labelLarge,),
         DropdownButtonFormField<Gender>(
           value: selectedGender,
           decoration: InputDecoration(
-            border: OutlineInputBorder(),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12)
+            ),
             contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
           ),
           items: Gender.values.map((gender) {
             return DropdownMenuItem<Gender>(
               value: gender,
-              child: Text(gender.name),
+                child: Row(
+                  spacing: 8.0,
+                  children: [
+                    Icon(gender == Gender.male ? Icons.male : Icons.female),
+                    Text(gender.name),
+                  ],
+                ),
             );
           }).toList(),
           onChanged: (newGender) {

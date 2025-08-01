@@ -1,16 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lostanimal/presentation/widget/style/decoration_style.dart';
-
+import 'package:intl/intl.dart';
+import 'package:lostanimal/model/result_model.dart';
 import '../../model/animal_category.dart';
 import '../../model/report_model.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../utils/format_data.dart';
 
 class ListReportTile extends ConsumerStatefulWidget {
   final Report report;
   final void Function()? addToFavourite;
-  const ListReportTile(this.report,{this.addToFavourite, super.key});
+  const ListReportTile(this.report, {this.addToFavourite, super.key});
 
   @override
   ConsumerState createState() => _ListReportTileState();
@@ -22,48 +24,88 @@ class _ListReportTileState extends ConsumerState<ListReportTile> {
   Widget build(BuildContext context) {
     final hasPicture = widget.report.pictures.isNotEmpty;
 
-    return Container(
-      decoration: inputBorder,
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+      ),
+      clipBehavior: Clip.antiAlias,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16),
         child: Row(
-          spacing: 8,
+          spacing: 16,
           children: [
-            hasPicture ?
-            CachedNetworkImage(
-              height: 100,
-              width: 100,
-              imageUrl: widget.report.pictures[0],
-              placeholder: (context, url) => CircularProgressIndicator(),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-              fit: BoxFit.fitWidth,
-            )
-                : Container(
-              height: 100,
-              width: 100,
-              color: Colors.grey[300],
-              child: const Icon(Icons.photo, color: Colors.grey),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: hasPicture
+                  ? CachedNetworkImage(
+                imageUrl: widget.report.pictures[0],
+                width: 100,
+                height: 100,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+              )
+                  : Container(
+                width: 100,
+                height: 100,
+                color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                child: const Icon(Icons.photo, color: Colors.grey, size: 48),
+              ),
             ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 8,
+                children: [
+                  Row(
+                    spacing: 8,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: widget.report.type == 'missing'
+                              ? Theme.of(context).colorScheme.error
+                              : Theme.of(context).colorScheme.primary,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        child: Text(
+                          widget.report.type,
+                          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+                        ),
+                      ),
 
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  color:  widget.report.type == 'missing' ? Colors.red : Colors.green,
-                    child: Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Text(widget.report.type, style: TextStyle(color: Colors.white)),
-                    )),
-                if (widget.report.category != AnimalCategory.unknown) Text(widget.report.category.name.toUpperCase()),
-                Text(widget.report.missingSince.toString()),
-                if (widget.report.hasChip != null) Text('Chip: ${widget.report.hasChip! ? "Tak" : "Nie"}'),
-                if (widget.report.cityName?.isNotEmpty == true) Text('Lokalizacja: ${widget.report.cityName}'),
+                      if (widget.report.category != AnimalCategory.unknown)
+                        Text(widget.report.category.name.toUpperCase(),
+                            style: Theme.of(context).textTheme.labelLarge),
 
-              ],
-            )
+                    ],
+                  ),
+
+                  _infoRow(Icons.timelapse_sharp,formatDate(widget.report.missingSince)),
+
+                  if (widget.report.hasChip != null)
+                    _infoRow(FontAwesomeIcons.microchip, 'Chip: ${widget.report.hasChip! ? "Tak" : "Nie"}'),
+
+                  if (widget.report.cityName?.isNotEmpty == true)
+                    _infoRow( Icons.location_on, widget.report.cityName!)
+
+                ],
+              ),
+            ),
           ],
         ),
       ),
+    );
+  }
+  Widget _infoRow(IconData icon, String text) {
+    return Row(
+      spacing: 4,
+      children: [
+        Icon(icon,size: 16, color: Colors.grey),
+        Expanded(child: Text(text, style: Theme.of(context).textTheme.bodySmall)),
+      ],
     );
   }
 }

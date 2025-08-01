@@ -17,7 +17,6 @@ class DashboardScreen extends StatelessWidget {
         ReportRoute(),
         InboxRoute(),
         MenuRoute()
-
       ],
       transitionBuilder: (context,child,animation) => FadeTransition(
         opacity: animation,

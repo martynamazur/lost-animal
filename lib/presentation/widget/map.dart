@@ -34,8 +34,7 @@ class _MapState extends ConsumerState<ReportsMap> {
     //final markers = ref.watch(reportsNotifierProvider.notifier).getReportsMarks();
     final markersAsync = ref.watch(mapNotifierProvider);
 
-    return SizedBox(
-      height: 400,
+    return Positioned.fill(
       child: FutureBuilder(
         future: _initLocation,
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
