@@ -9,7 +9,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 class UserRepository{
 
   //FIREBASE AUTOMATYCZNIE LOGUJE PO STWORZENIU KONTA
-  // Jesli nie chcemy
   Future<Result> createAccount(String emailAddress, String password) async {
     try {
       final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -96,6 +95,23 @@ class UserRepository{
       }
     }
     return Result.failure('error');
+  }
+
+  Future<Result> changePassword(String newPassword, String currentPassword) async {
+      try{
+        final user = FirebaseAuth.instance.currentUser!;
+
+        await reAuthenticate(user.email!, currentPassword);
+
+        await user.updatePassword(newPassword);
+
+        developer.log('Password changed successfully for user: ${user.email}');
+        return Result.success();
+
+      }on FirebaseAuthException catch(e){
+        final code = authErrorFromCode(e.code);
+        return Result.failure(e.message ?? 'Something went wrong', code: code);
+      }
   }
 
   Future<Result> reAuthenticate(String email, String password) async {

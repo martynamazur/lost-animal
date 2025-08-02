@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lostanimal/presentation/widget/confirmation_dialog.dart';
+import 'package:lostanimal/presentation/widget/dialog_confirmation.dart';
 import 'package:lostanimal/presentation/widget/email_field.dart';
 import 'package:lostanimal/provider/user_provider.dart';
 
@@ -21,27 +23,36 @@ class ResetPasswordScreen extends ConsumerWidget {
           child: FormBuilder(
             key: _keyForm,
             child: SingleChildScrollView(
-              child: Column(
-                spacing: 12,
-                children: [
-                  Text('Enter your email address and we’ll send you a link to reset your password.'),
-                  EmailField(),
-                  OutlinedButton(
-                      onPressed: () async{
-                        final messenger = ScaffoldMessenger.of(context);
-                        if(_keyForm.currentState?.saveAndValidate() ?? false){
-                          final email = _keyForm.currentState?.value['email'];
-                          final result = await ref.read(resetPasswordProvider(emailAddress: email).future);
-                          if(result.success){
-                            _showConfirmationDialog(context);
-                          }else{
-                            messenger.showSnackBar(SnackBar(content: Text(result.errorMessage ?? 'Unknown error')));
-                          }
-                        }
-                      },
-                      child: Text('Reset')
-                  )
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  spacing: 12,
+                  children: [
+                    Text('Enter your email address and we’ll send you a link to reset your password.'),
+                    EmailField(
+                        label: 'Email'
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: FilledButton(
+                          onPressed: () async{
+                            final messenger = ScaffoldMessenger.of(context);
+                            if(_keyForm.currentState?.saveAndValidate() ?? false){
+                              final email = _keyForm.currentState?.value['email'];
+                              final result = await ref.read(resetPasswordProvider(emailAddress: email).future);
+                              if(result.success){
+                                _showConfirmationDialog(context);
+                                context.router.pop();
+                              }else{
+                                messenger.showSnackBar(SnackBar(content: Text(result.errorMessage ?? 'Unknown error')));
+                              }
+                            }
+                          },
+                          child: Text('Reset')
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           )
@@ -52,21 +63,15 @@ class ResetPasswordScreen extends ConsumerWidget {
   }
 
 
-
 void _showConfirmationDialog(BuildContext context){
   showDialog(
       barrierDismissible: false,
       context: context,
       builder: (context){
-        return AlertDialog(
-          title: Text('Password Reset Email Sent'),
-          content: Text('If an account with this email exists, you will receive an email with instructions to reset your password shortly.'),
-          actions: [
-            TextButton(
-                onPressed: () => context.pop(),
-                child: Text('OK')
-            )
-          ],
+        return DialogConfirmation(
+            title: 'Check your email',
+            message: 'If an account with this email exists, you will receive an email with instructions to reset your password shortly.',
+            icon: Icons.email_outlined
         );
       }
   );

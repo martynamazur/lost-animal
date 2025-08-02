@@ -37,6 +37,7 @@ class AuthNotifier extends _$AuthNotifier {
   }
 
   Future<void> onSignInAnon() async{
+    state = AsyncLoading();
     try{
       final credential = await FirebaseAuth.instance.signInAnonymously();
       developer.log('Zalogowano anonimowo: UID = ${credential.user?.uid}');
@@ -49,8 +50,8 @@ class AuthNotifier extends _$AuthNotifier {
     }
   }
 
-  //TODO: Fix it
   Future<void> onSignInGoogle() async{
+    state = AsyncLoading();
     try{
       //final googleAuthService = GoogleAuthService();
       final account = await GoogleSignIn.instance.authenticate();

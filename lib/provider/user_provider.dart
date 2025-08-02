@@ -14,20 +14,17 @@ UserRepository userRepository(Ref ref) {
 
 @riverpod
 Future<Result> createAccount(Ref ref, {required String emailAddress, required String password}) async {
-  final repository = ref.read(userRepositoryProvider);
-  return repository.createAccount(emailAddress,password);
+  return ref.read(userRepositoryProvider).createAccount(emailAddress,password);
 }
 
 @riverpod
 Future<Result> signIn(Ref ref, {required String emailAddress, required String password}) async {
-  final repository = ref.read(userRepositoryProvider);
-  return repository.signIn(emailAddress,password);
+  return ref.read(userRepositoryProvider).signIn(emailAddress,password);
 }
 
 @riverpod
 Future<Result> signOut(Ref ref) async {
-  final repository = ref.read(userRepositoryProvider);
-  return repository.signOut();
+  return ref.read(userRepositoryProvider).signOut();
 }
 
 @riverpod
@@ -37,14 +34,17 @@ Future<Result> signInAnon(Ref ref) async {
 
 @riverpod
 Future<Result> resetPassword(Ref ref, {required String emailAddress}) async {
-  final repository = ref.read(userRepositoryProvider);
-  return repository.resetPassword(emailAddress);
+  return ref.read(userRepositoryProvider).resetPassword(emailAddress);
 }
 
 @riverpod
 Future<Result> changeEmail(Ref ref, {required String newEmail}) async {
-  final repository = ref.read(userRepositoryProvider);
-  return repository.changeEmail(newEmail);
+  return ref.read(userRepositoryProvider).changeEmail(newEmail);
+}
+
+@riverpod
+Future<Result> changePassword(Ref ref, {required String newPassword, required String currentPassword}) async {
+  return ref.read(userRepositoryProvider).changePassword(newPassword, currentPassword);
 }
 
 @riverpod

@@ -24,44 +24,55 @@ class _ReAuthPasswordScreenState extends ConsumerState<ReAuthPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Re-authenticate'),
+      ),
       body: SafeArea(
           child: FormBuilder(
             key: keyForm,
-            child: Column(
-              children: [
-                PasswordField(),
-                OutlinedButton(
-                    onPressed: () async{
-                      final messenger = ScaffoldMessenger.of(context);
-                      if(keyForm.currentState?.saveAndValidate() ?? false){
-                        final password = keyForm.currentState?.value['password'];
-                        final Result result = await ref.read(reAuthenticateProvider(email: widget.newEmail, password: password).future);
-                        if(result.success){
-                          final Result result = await ref.read(changeEmailProvider(newEmail: widget.newEmail).future);
-                          if(result.success){
-                            _showEmailChangeSuccessDialog();
-                          }else{
-                            messenger.showSnackBar(SnackBar(content: Text(result.errorMessage ?? 'Something went wrong')));
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                spacing: 12,
+                children: [
+                  Text('To change your email, please re-enter your password.'),
+                  PasswordField(),
+                  SizedBox(
+                    width: double.infinity,
+                    child: FilledButton(
+                        onPressed: () async{
+                          final messenger = ScaffoldMessenger.of(context);
+                          if(keyForm.currentState?.saveAndValidate() ?? false){
+                            final password = keyForm.currentState?.value['password'];
+                            final Result result = await ref.read(reAuthenticateProvider(email: widget.newEmail, password: password).future);
+                            if(result.success){
+                              final Result result = await ref.read(changeEmailProvider(newEmail: widget.newEmail).future);
+                              if(result.success){
+                                _showEmailChangeSuccessDialog();
+                              }else{
+                                messenger.showSnackBar(SnackBar(content: Text(result.errorMessage ?? 'Something went wrong')));
+                              }
+                            }else{
+                              switch(result.code){
+                                case AuthError.wrongPassword:
+                                  final formState = keyForm.currentState;
+                                  formState?.fields['password']?.invalidate('Wrong password. Try again.');
+                                  _passwordFocus.requestFocus();
+                                  messenger.showSnackBar(SnackBar(content: Text('Wrong password. Try again.')));
+                                  break;
+                                case AuthError.networkError:
+                                  messenger.showSnackBar(SnackBar(content: Text('Check your internet connection.')));
+                                  break;
+                                default:
+                                  messenger.showSnackBar(SnackBar(content: Text(result.errorMessage!)));
+                              }
+                            }
                           }
-                        }else{
-                          switch(result.code){
-                            case AuthError.wrongPassword:
-                              final formState = keyForm.currentState;
-                              formState?.fields['password']?.invalidate('Wrong password. Try again.');
-                              _passwordFocus.requestFocus();
-                              messenger.showSnackBar(SnackBar(content: Text('Wrong password. Try again.')));
-                              break;
-                            case AuthError.networkError:
-                              messenger.showSnackBar(SnackBar(content: Text('Check your internet connection.')));
-                              break;
-                            default:
-                              messenger.showSnackBar(SnackBar(content: Text(result.errorMessage!)));
-                          }
-                        }
-                      }
-                    }, child: Text('Next')
-                )
-              ],
+                        }, child: Text('Next')
+                    ),
+                  )
+                ],
+              ),
             ),
           )
       ),
@@ -76,7 +87,7 @@ class _ReAuthPasswordScreenState extends ConsumerState<ReAuthPasswordScreen> {
             title: Text('Success'),
             content: Text('Your email has been changed successfully.'),
             actions: [
-              TextButton(
+              FilledButton(
                 onPressed: () => context.router.popUntilRouteWithName('SettingsRoute'),
                 child: Text('OK'),
               ),

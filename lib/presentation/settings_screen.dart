@@ -24,27 +24,27 @@ class SettingsScreen extends ConsumerWidget {
       ),
       MenuItem(
         label: 'Change password',
-        route: ChangeEmailRoute(),
+        route: ChangePasswordRoute(),
         icon: Icon(Icons.lock_outline),
       ),
       MenuItem(
         label: 'About app',
         route: AboutAppRoute(),
-        icon: Icon(Icons.person_pin_circle_outlined),
+        icon: Icon(Icons.phone_android),
       ),
       MenuItem(
         label: 'Privacy & Security',
         route: PrivacyPolicyRoute(),
-        icon: Icon(Icons.person_pin_circle_outlined),
+        icon: Icon(Icons.privacy_tip_outlined),
       ),
       MenuItem(
         label: 'Notifications',
         route: NotificationsRoute(),
-        icon: Icon(Icons.person_pin_circle_outlined),
+        icon: Icon(Icons.notifications_active_outlined),
       ),
       MenuItem(
         label: 'Sign out',
-        route: null, // No route, handled in the button below
+        route: null,
         icon: Icon(Icons.logout_outlined),
       )
     ];

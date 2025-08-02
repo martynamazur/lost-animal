@@ -7,7 +7,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:lostanimal/presentation/widget/email_field.dart';
 import 'package:lostanimal/presentation/widget/password_field.dart';
+import 'package:lostanimal/presentation/widget/password_rules.dart';
 
+import '../provider/password_input_provider.dart';
 import '../provider/sign_up_form_notifier.dart';
 
 @RoutePage()
@@ -40,29 +42,45 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       );
     });
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Sign up'),
+      ),
       body: SafeArea(
           child: FormBuilder(
             key: _formKey,
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: [
-                    EmailField(),
-                    PasswordField(),
-                    FormBuilderCheckbox(
-                        name: 'accept_terms',
-                        title: Text('Accept terms and conditions'),
-                        validator: FormBuilderValidators.equal(
-                          true,
-                          errorText: 'You must accept terms and conditions to continue'
-                        ),
-                    ),
-                    signUpState.isLoading ? CircularProgressIndicator() 
-                      :OutlinedButton(
-                        onPressed: () => _onHandleSubmit(),
-                        child: Text(widget.isLinkingAccount ? 'Link account' : 'sign up'))
+              child: Center(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    spacing: 16.0,
+                    children: [
+                      EmailField(
+                        label: 'Email',
+                      ),
+                      PasswordField(
+                        onChanged: (value) {
+                          ref.read(passwordInputNotifierProvider.notifier).update(value!);
+                        },
+                      ),
+                      PasswordRules(),
+                      FormBuilderCheckbox(
+                          name: 'accept_terms',
+                          title: Text('Accept terms and conditions'),
+                          validator: FormBuilderValidators.equal(
+                            true,
+                            errorText: 'You must accept terms and conditions to continue'
+                          ),
+                      ),
+                      signUpState.isLoading ? CircularProgressIndicator()
+                        : SizedBox(
+                          width: double.infinity,
+                            child: FilledButton(
+                              onPressed: () => _onHandleSubmit(),
+                              child: Text(widget.isLinkingAccount ? 'Link account' : 'Sign up')),
+                          )
 
-                  ],
+                    ],
+                  ),
                 ),
               )
           )

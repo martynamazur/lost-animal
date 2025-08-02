@@ -51,19 +51,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       body: SafeArea(
           child: FormBuilder(
             key: _formKey,
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                spacing: 12,
-                children: [
-                  LoginHeader(),
-                  LoginForm(formKey: _formKey),
-                  const DividerWithLabel(label: 'Or'),
-                  SocialAuthButtons()
-                ],
+            child: Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  spacing: 16.0,
+                  children: [
+                    LoginHeader(),
+                    LoginForm(formKey: _formKey),
+                    const DividerWithLabel(label: 'Or'),
+                    SocialAuthButtons()
+                  ],
+                ),
               ),
             )
           )

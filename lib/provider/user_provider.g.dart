@@ -100,7 +100,7 @@ final class CreateAccountProvider
   }
 }
 
-String _$createAccountHash() => r'd9713340ad778130cf9225b4c568cb016cd57862';
+String _$createAccountHash() => r'caa1ec1a03b28723dde0000a84f829a830608d9d';
 
 final class CreateAccountFamily extends $Family
     with
@@ -182,7 +182,7 @@ final class SignInProvider
   }
 }
 
-String _$signInHash() => r'2a967fd57dbc6e3e4339468214bc7b5f2c582886';
+String _$signInHash() => r'53c15037afd12eccc1050dd941c27e704db9ab1e';
 
 final class SignInFamily extends $Family
     with
@@ -242,7 +242,7 @@ final class SignOutProvider
   }
 }
 
-String _$signOutHash() => r'2321bde52f098a03358a8bad28f46725e7abd739';
+String _$signOutHash() => r'836ba51808ea291a969819db765bf8af546876e4';
 
 @ProviderFor(signInAnon)
 const signInAnonProvider = SignInAnonProvider._();
@@ -326,7 +326,7 @@ final class ResetPasswordProvider
   }
 }
 
-String _$resetPasswordHash() => r'49ec84e6f38efcc08ea68ebc9f3c942d99b1670a';
+String _$resetPasswordHash() => r'926582ce0e0e87976dcb41cb3e0d1df7fe0c2e2f';
 
 final class ResetPasswordFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Result>, String> {
@@ -395,7 +395,7 @@ final class ChangeEmailProvider
   }
 }
 
-String _$changeEmailHash() => r'cc6386f724479eabf466ae6f6172644c67506ad5';
+String _$changeEmailHash() => r'86c2b6aeceb6a98d75375eb550bd2838c85db2fb';
 
 final class ChangeEmailFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Result>, String> {
@@ -413,6 +413,89 @@ final class ChangeEmailFamily extends $Family
 
   @override
   String toString() => r'changeEmailProvider';
+}
+
+@ProviderFor(changePassword)
+const changePasswordProvider = ChangePasswordFamily._();
+
+final class ChangePasswordProvider
+    extends $FunctionalProvider<AsyncValue<Result>, Result, FutureOr<Result>>
+    with $FutureModifier<Result>, $FutureProvider<Result> {
+  const ChangePasswordProvider._({
+    required ChangePasswordFamily super.from,
+    required ({String newPassword, String currentPassword}) super.argument,
+  }) : super(
+         retry: null,
+         name: r'changePasswordProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$changePasswordHash();
+
+  @override
+  String toString() {
+    return r'changePasswordProvider'
+        ''
+        '$argument';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<Result> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<Result> create(Ref ref) {
+    final argument =
+        this.argument as ({String newPassword, String currentPassword});
+    return changePassword(
+      ref,
+      newPassword: argument.newPassword,
+      currentPassword: argument.currentPassword,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ChangePasswordProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$changePasswordHash() => r'9b148fd288c778bad50bfb3eab1be54d11d76b2f';
+
+final class ChangePasswordFamily extends $Family
+    with
+        $FunctionalFamilyOverride<
+          FutureOr<Result>,
+          ({String newPassword, String currentPassword})
+        > {
+  const ChangePasswordFamily._()
+    : super(
+        retry: null,
+        name: r'changePasswordProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  ChangePasswordProvider call({
+    required String newPassword,
+    required String currentPassword,
+  }) => ChangePasswordProvider._(
+    argument: (newPassword: newPassword, currentPassword: currentPassword),
+    from: this,
+  );
+
+  @override
+  String toString() => r'changePasswordProvider';
 }
 
 @ProviderFor(reAuthenticate)

@@ -21,21 +21,34 @@ class LoginForm extends ConsumerWidget {
     return Column(
       spacing: 12.0,
       children: [
-        EmailField(),
+        EmailField(
+          label: 'Email',
+        ),
         PasswordField(),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: TextButton(
+            onPressed: () async{
+              await context.router.push(ResetPasswordRoute());
+              formKey.currentState?.reset();
+          },
+            child: const Text('Forgot password?'),
+          ),
+        ),
+
         SizedBox(
           width: double.infinity,
           child: FilledButton(
               onPressed:() =>
                   _onSignInByEmail(context, ref),
-              child: Text('Sign in')),
+              child: const Text('Sign in')),
         ),
 
         SizedBox(
           width: double.infinity,
           child: OutlinedButton(
               onPressed: () => context.router.push(SignUpRoute()),
-              child: Text('Are you new here ? Sign up')
+              child: const Text('Are you new here ? Sign up')
           ),
         ),
       ],
@@ -51,7 +64,7 @@ class LoginForm extends ConsumerWidget {
       await authNotifier.onSignInWithEmail(email, password);
 
     }else{
-      messenger.showSnackBar(SnackBar(content: Text('Wypelnij pola')));
+      messenger.showSnackBar(SnackBar(content: Text('Please fill all fields')));
     }
   }
 }

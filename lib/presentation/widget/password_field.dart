@@ -5,7 +5,10 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:lostanimal/presentation/widget/style/decoration_style.dart';
 
 class PasswordField extends StatefulWidget {
-  const PasswordField({super.key});
+  final ValueChanged<String?>? onChanged;
+  final String label;
+  final String name;
+  const PasswordField({super.key, this.onChanged, this.label = 'Password', this.name = 'password'});
 
   @override
   State<PasswordField> createState() => _PasswordFieldState();
@@ -17,10 +20,10 @@ class _PasswordFieldState extends State<PasswordField> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return FormBuilderTextField(
-      name: 'password',
+      name: widget.name,
       obscureText: _obscureText,
       decoration: customInputDecoration(theme).copyWith(
-          labelText: 'Password',
+          labelText: widget.label,
           suffixIcon: IconButton(
               onPressed: () {
                 setState(() {
@@ -36,6 +39,7 @@ class _PasswordFieldState extends State<PasswordField> {
         FormBuilderValidators.required(),
         FormBuilderValidators.minLength(6),
       ]),
+      onChanged: widget.onChanged
     );
   }
 }
