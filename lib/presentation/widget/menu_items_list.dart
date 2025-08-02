@@ -15,7 +15,7 @@ class MenuItemsList extends StatelessWidget {
 
         ...menuItems.map((item){
           return Card(
-            elevation: 1,
+            elevation: 0.5,
             margin: const EdgeInsets.symmetric(vertical: 8),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             child: ListTile(
@@ -32,7 +32,7 @@ class MenuItemsList extends StatelessWidget {
                   backgroundColor: Colors.deepPurple[100],
                   child: item.icon
               ),
-              trailing: Icon(Icons.arrow_forward_ios, size: 16),
+              trailing: Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
             ),
           );
         }),

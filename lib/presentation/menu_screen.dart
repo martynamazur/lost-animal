@@ -33,11 +33,14 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
         route: AddedReportsRoute(),
         icon: Icon(Icons.person_pin_circle_outlined),
       ),
+      /*
       MenuItem(
         label: 'Settings',
         route: SettingsRoute(),
         icon: Icon(Icons.person_pin_circle_outlined),
       ),
+
+       */
     ];
 
     ref.listen<AsyncValue<void>>(authNotifierProvider, (previous, next) {
@@ -54,12 +57,20 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
     });
 
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () => context.router.push(SettingsRoute()),
+              icon: Icon(Icons.settings)
+          )
+        ],
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
-              spacing: 12.0,
+              spacing: 16.0,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 UserProfile(),

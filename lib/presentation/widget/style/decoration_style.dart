@@ -36,9 +36,14 @@ final InputDecoration frame = InputDecoration(
 InputDecoration customInputDecoration(ThemeData theme) {
   return InputDecoration(
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(32),
+      borderSide: BorderSide(
+        color: CupertinoColors.systemGrey4,
+        width: 1,
+      )
     ),
     filled: true,
-    fillColor: theme.colorScheme.surfaceContainerHighest,
+    fillColor: theme.colorScheme.surface,
+    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
   );
 }

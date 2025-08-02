@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:lostanimal/nawigation/auth_guard.dart';
 import 'package:lostanimal/presentation/dashboard_screen.dart';
 import 'package:lostanimal/presentation/inbox_screen.dart';
+import 'package:lostanimal/presentation/widget/change_password.dart';
 
 import '../model/animal_category.dart';
 import '../presentation/about_app_screen.dart';
@@ -59,7 +60,8 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: AnimalCategoryPickerRoute.page),
     AutoRoute(page: AboutAppRoute.page),
     AutoRoute(page: PrivacyPolicyRoute.page),
-    AutoRoute(page: NotificationsRoute.page)
+    AutoRoute(page: NotificationsRoute.page),
+    AutoRoute(page: ChangePasswordRoute.page),
     
   ];
 
