@@ -14,46 +14,90 @@ class ReportScreen extends StatelessWidget {
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(24),
-            child: Card(
-              elevation: 3,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
+            child: SizedBox(
+              height: double.infinity,
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'What do you want to do?',
-                      style: Theme.of(context).textTheme.headlineSmall,
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 32),
-                    OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        textStyle: Theme.of(context).textTheme.titleMedium,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 16.0,
+                    children: [
+                      Text(
+                        'What do you want to do?',
+                        style: Theme.of(context).textTheme.headlineSmall,
+                        textAlign: TextAlign.center,
                       ),
-                      onPressed: () => context.router.push(ReportMissingFormRoute()),
-                      child: const Text('Add missing'),
-                    ),
-                    const SizedBox(height: 16),
-                    OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        textStyle: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      onPressed: () => context.router.push(ReportSeenFromRoute()),
-                      child: const Text('Report an Animal Sighting'),
-                    ),
-                  ],
+                      const SizedBox(height: 16),
+
+
+                      Row(
+                        children: [
+                          //TODO: create a widget for the card
+                          Expanded(
+                            child: SizedBox(
+                              height: 200,
+                              child: GestureDetector(
+                                onTap: () => context.router.push(ReportMissingFormRoute()),
+                                child: Card(
+                                  child: Column(
+                                    spacing: 8.0,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                          'Report Missing',
+                                          style: TextStyle(color: Theme.of(context).colorScheme.primary)
+                                      ),
+                                      CircleAvatar(
+                                        radius: 40,
+                                        backgroundColor: Colors.deepPurple[50],
+                                        child: Icon(
+                                            Icons.search_rounded,
+                                            size: 64,
+                                            color: Theme.of(context).colorScheme.primary
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: SizedBox(
+                              height: 200,
+                              child: GestureDetector(
+                                onTap: () => context.router.push(ReportSeenRoute()),
+                                child: Card(
+                                  child: Column(
+                                    spacing: 8.0,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                          'Report Sighting',
+                                          style: TextStyle(
+                                              color: Theme.of(context).colorScheme.primary
+                                          )
+                                      ),
+                                      CircleAvatar(
+                                        radius: 40,
+                                        backgroundColor: Colors.deepPurple[50],
+                                        child: Icon(
+                                            Icons.remove_red_eye_outlined,
+                                            size: 64,
+                                            color: Theme.of(context).colorScheme.primary
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

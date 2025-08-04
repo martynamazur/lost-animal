@@ -55,7 +55,7 @@ class AppRouter extends RootStackRouter {
     ),
 
     AutoRoute(page: ReportMissingFormRoute.page),
-    AutoRoute(page: ReportSeenFromRoute.page),
+    AutoRoute(page: ReportSeenRoute.page),
     AutoRoute(page: AddedReportsRoute.page),
     AutoRoute(page: AnimalCategoryPickerRoute.page),
     AutoRoute(page: AboutAppRoute.page),

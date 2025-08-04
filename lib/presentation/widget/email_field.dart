@@ -7,7 +7,8 @@ import 'package:lostanimal/presentation/widget/style/decoration_style.dart';
 class EmailField extends StatelessWidget {
   final bool? enabled;
   final String label;
-  const EmailField({super.key, required this.label, this.enabled = true});
+  final IconData? icon;
+  const EmailField({super.key, required this.label, this.enabled = true, this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +18,9 @@ class EmailField extends StatelessWidget {
         enabled: enabled ?? true,
         textInputAction: TextInputAction.next,
         keyboardType: TextInputType.emailAddress,
-        decoration: customInputDecoration(theme).copyWith(
+        decoration: InputDecoration(
           label: Text(label),
+          prefixIcon: icon != null ? Icon(icon, color: enabled == true ? theme.colorScheme.primary : Colors.grey[400] ) : null,
         ),
         validator: enabled == true ? FormBuilderValidators.compose([
           FormBuilderValidators.required(),

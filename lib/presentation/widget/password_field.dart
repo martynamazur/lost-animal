@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:lostanimal/presentation/widget/style/decoration_style.dart';
+import 'package:lostanimal/presentation/widget/style/decoration_style.dart' as DecorationStyle;
 
 class PasswordField extends StatefulWidget {
   final ValueChanged<String?>? onChanged;
@@ -18,12 +19,12 @@ class _PasswordFieldState extends State<PasswordField> {
   bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return FormBuilderTextField(
       name: widget.name,
       obscureText: _obscureText,
-      decoration: customInputDecoration(theme).copyWith(
-          labelText: widget.label,
+      enabled: true,
+      decoration: InputDecoration(
+        labelText: widget.label,
           suffixIcon: IconButton(
               onPressed: () {
                 setState(() {

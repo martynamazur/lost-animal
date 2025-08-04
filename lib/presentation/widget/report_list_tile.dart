@@ -25,7 +25,7 @@ class _ListReportTileState extends ConsumerState<ListReportTile> {
     final hasPicture = widget.report.pictures.isNotEmpty;
 
     return Card(
-      elevation: 2,
+      elevation: 0.5,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
       ),

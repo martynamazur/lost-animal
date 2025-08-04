@@ -55,28 +55,22 @@ class SettingsScreen extends ConsumerWidget {
       body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              spacing: 12,
-              children: [
-                MenuItemsList(
-                  menuItems: menuItems,
-                  onSignOut: () async {
-                    final messenger = ScaffoldMessenger.of(context);
-                    ref.read(signOutProvider.future).then((result) {
-                      if (result.success) {
-                        context.router.replaceAll([LoginRoute()]);
-                      } else {
-                        messenger.showSnackBar(
-                            SnackBar(
-                                content: Text(result.errorMessage ??
-                                'Ups something went wrong. Try again')
-                            ));
-                      }
-                    });
-                  },
-                )
-              ],
+            child: MenuItemsList(
+              menuItems: menuItems,
+              onSignOut: () async {
+                final messenger = ScaffoldMessenger.of(context);
+                ref.read(signOutProvider.future).then((result) {
+                  if (result.success) {
+                    context.router.replaceAll([LoginRoute()]);
+                  } else {
+                    messenger.showSnackBar(
+                        SnackBar(
+                            content: Text(result.errorMessage ??
+                            'Ups something went wrong. Try again')
+                        ));
+                  }
+                });
+              },
             ),
           )
       ),

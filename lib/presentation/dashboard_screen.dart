@@ -26,20 +26,33 @@ class DashboardScreen extends StatelessWidget {
         final tabsRouter = AutoTabsRouter.of(context);
         return Scaffold(
           body: child,
-            bottomNavigationBar: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              currentIndex: tabsRouter.activeIndex,
-              onTap: (index) => tabsRouter.setActiveIndex(index),
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
-              items: [
-                BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
-                BottomNavigationBarItem(label: 'Create', icon: Icon(Icons.add)),
-                BottomNavigationBarItem(label: 'Inbox', icon: Icon(Icons.inbox)),
-                BottomNavigationBarItem(label: 'Menu', icon: Icon(Icons.menu)),
-              ],
-            ),
-
+          bottomNavigationBar: NavigationBar(
+            selectedIndex: tabsRouter.activeIndex,
+            onDestinationSelected: (index) => tabsRouter.setActiveIndex(index),
+            labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+            destinations: const [
+              NavigationDestination(
+                icon: Icon(Icons.home_outlined),
+                selectedIcon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.add_outlined),
+                selectedIcon: Icon(Icons.add),
+                label: 'Create',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.inbox_outlined),
+                selectedIcon: Icon(Icons.inbox),
+                label: 'Inbox',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.menu_outlined),
+                selectedIcon: Icon(Icons.menu),
+                label: 'Menu',
+              ),
+            ],
+          ),
         );
       },
     );

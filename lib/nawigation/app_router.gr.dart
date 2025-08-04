@@ -323,17 +323,17 @@ class ReportRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [ReportSeenFromScreen]
-class ReportSeenFromRoute extends PageRouteInfo<void> {
-  const ReportSeenFromRoute({List<PageRouteInfo>? children})
-    : super(ReportSeenFromRoute.name, initialChildren: children);
+/// [ReportSeenScreen]
+class ReportSeenRoute extends PageRouteInfo<void> {
+  const ReportSeenRoute({List<PageRouteInfo>? children})
+    : super(ReportSeenRoute.name, initialChildren: children);
 
-  static const String name = 'ReportSeenFromRoute';
+  static const String name = 'ReportSeenRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const ReportSeenFromScreen();
+      return const ReportSeenScreen();
     },
   );
 }

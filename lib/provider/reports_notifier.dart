@@ -24,7 +24,7 @@ class ReportsNotifier extends _$ReportsNotifier {
     return ReportsState(
         reports: sortedReports,
         originalList: sortedReports,
-        isAscending: true,
+        isAscending: false,
         categoryFilter: null
     );
   }
