@@ -33,44 +33,57 @@ class _ChangeEmailScreenState extends ConsumerState<ChangeEmailScreen> {
           child: FormBuilder(
             key: _keyForm,
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  spacing: 12,
-                  children: [
-                    EmailField(
-                      label: userEmail ?? 'Current email',
-                      enabled: false,
+              padding: const EdgeInsets.symmetric(vertical:  15.0, horizontal: 16.0),
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Material(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16.0)
                     ),
-                    EmailField(
-                      label: 'New email',
+                    elevation: 0.5,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        spacing: 16,
+                        children: [
+                          EmailField(
+                            icon: Icons.email_outlined,
+                            label: userEmail ?? 'Current email',
+                            enabled: false,
+                          ),
+                          EmailField(
+                            label: 'New email',
+                            icon: Icons.email_outlined,
+                          ),
+                          SizedBox(
+                            width: double.infinity,
+                            child: FilledButton(onPressed: () async{
+                              if(_keyForm.currentState?.saveAndValidate() ?? false){
+                                final email = _keyForm.currentState?.value['email'];
+                                final Result result = await ref.read(changeEmailProvider(newEmail: email).future);
+                                if(result.success){
+                                  _showEmailChangeSuccessDialog();
+                                  context.router.pop();
+                                }else{
+                                  switch(result.code){
+                                    case AuthError.requiresRecentLogin:
+                                      context.router.push(ReAuthPasswordRoute(newEmail: email));
+                                      break;
+
+                                    default:
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text(result.errorMessage ?? 'Error'),
+                                        )
+                                      );
+                                  }
+                                }
+                              }
+                            }, child: Text('Continue')),
+                          )
+                        ],
+                      ),
                     ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: FilledButton(onPressed: () async{
-                        if(_keyForm.currentState?.saveAndValidate() ?? false){
-                          final email = _keyForm.currentState?.value['email'];
-                          final Result result = await ref.read(changeEmailProvider(newEmail: email).future);
-                          if(result.success){
-                            _showEmailChangeSuccessDialog();
-                            context.router.pop();
-                          }else{
-                            switch(result.code){
-                              case AuthError.requiresRecentLogin:
-                                context.router.push(ReAuthPasswordRoute(newEmail: email));
-                                break;
-                
-                              default:
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text(result.errorMessage ?? 'Error'),
-                                  )
-                                );
-                            }
-                          }
-                        }
-                      }, child: Text('Continue')),
-                    )
-                  ],
+                  ),
                 ),
               ),
             ),

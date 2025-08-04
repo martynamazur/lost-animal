@@ -19,18 +19,31 @@ import 'package:lostanimal/utils/validation_helper.dart';
 
 
 @RoutePage()
-class ReportSeenFromScreen extends ConsumerStatefulWidget {
-  const ReportSeenFromScreen({super.key});
+class ReportSeenScreen extends ConsumerStatefulWidget {
+  const ReportSeenScreen({super.key});
 
   @override
-  ConsumerState createState() => _ReportSeenFromScreenState();
+  ConsumerState createState() => _ReportSeenScreenState();
 }
 
-class _ReportSeenFromScreenState extends ConsumerState<ReportSeenFromScreen> {
+class _ReportSeenScreenState extends ConsumerState<ReportSeenScreen> {
   final keyForm = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    final localTheme = Theme.of(context).copyWith(
+      colorScheme: Theme.of(context).colorScheme.copyWith(
+        surfaceContainerHighest: Colors.grey[600],
+        surface: Colors.white,
+      ),
+      inputDecorationTheme: const InputDecorationTheme(
+        filled: true,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(),
+      ),
+    );
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) async{
@@ -70,6 +83,8 @@ class _ReportSeenFromScreenState extends ConsumerState<ReportSeenFromScreen> {
       ),
     );
   }
+
+
 
   Future<bool> _showExitConfirmationDialog(BuildContext context) async {
     return await showDialog<bool>(

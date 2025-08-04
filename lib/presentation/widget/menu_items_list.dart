@@ -11,6 +11,7 @@ class MenuItemsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      spacing: 12,
       children: [
 
         ...menuItems.map((item){
@@ -29,7 +30,7 @@ class MenuItemsList extends StatelessWidget {
               },
               leading: CircleAvatar(
                   radius: 16,
-                  backgroundColor: Colors.deepPurple[100],
+                  backgroundColor: Colors.deepPurple[50],
                   child: item.icon
               ),
               trailing: Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),

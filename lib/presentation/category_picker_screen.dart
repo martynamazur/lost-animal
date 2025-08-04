@@ -35,7 +35,7 @@ class AnimalCategoryPickerScreen extends StatelessWidget {
             crossAxisSpacing: 16,
             children: AnimalCategory.values.map((category) {
               return Card(
-                elevation: 2,
+                elevation: 0.5,
                 child: InkWell(
                   onTap: () => onCategorySelected(category),
                   child: Column(

@@ -37,11 +37,17 @@ class _CategoryState extends ConsumerState<Category> {
               ),
             ),
             onPressed: () => _showBottomSheetCategory(selectedCategory),
-            child: Text(
-              selectedCategory != AnimalCategory.unknown
-                  ? selectedCategory.name
-                  : 'Choose category',
-              style: Theme.of(context).textTheme.bodyLarge,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  selectedCategory != AnimalCategory.unknown
+                      ? selectedCategory.name
+                      : 'Choose category',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                Icon(Icons.arrow_forward_ios)
+              ],
             ),
           ),
         ),

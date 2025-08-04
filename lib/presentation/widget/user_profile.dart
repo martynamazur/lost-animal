@@ -12,18 +12,23 @@ class UserProfile extends ConsumerStatefulWidget {
 }
 
 class _UserProfileState extends ConsumerState<UserProfile> {
+  bool get isAnonymous => FirebaseAuth.instance.currentUser?.isAnonymous ?? false;
+
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
     return Column(
+      spacing: 12,
       children: [
         CircleAvatar(
           radius: 40,
           backgroundImage: user?.photoURL != null ? NetworkImage(user!.photoURL!) : AssetImage('assets/appIcon.png') as ImageProvider,
         ),
-        Text(user?.displayName ?? 'Anonymous User', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        Text(user?.email ?? 'No email provided', style: TextStyle(fontSize: 14, color: Colors.grey)),
-        Card(
+        Text((user?.displayName?.isNotEmpty ?? false) ? user!.displayName! : 'Anonymous User', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        if(isAnonymous == false) Text(user?.email ?? 'No email provided', style: TextStyle(fontSize: 14, color: Colors.grey)),
+
+        if(isAnonymous == false)
+          Card(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           elevation: 0.5,
           child: Padding(
@@ -31,6 +36,7 @@ class _UserProfileState extends ConsumerState<UserProfile> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                //TODO: Add actual statistics from the database
                 StatisticTile(
                   icon: Icons.search,
                   label: 'Found',
