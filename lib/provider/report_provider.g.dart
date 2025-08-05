@@ -309,5 +309,74 @@ final class GetAllReportsProvider
 
 String _$getAllReportsHash() => r'8378e8bc04206297a5253c56a48a2cbd6cd143bd';
 
+@ProviderFor(getReportById)
+const getReportByIdProvider = GetReportByIdFamily._();
+
+final class GetReportByIdProvider
+    extends $FunctionalProvider<AsyncValue<Report?>, Report?, FutureOr<Report?>>
+    with $FutureModifier<Report?>, $FutureProvider<Report?> {
+  const GetReportByIdProvider._({
+    required GetReportByIdFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'getReportByIdProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$getReportByIdHash();
+
+  @override
+  String toString() {
+    return r'getReportByIdProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<Report?> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<Report?> create(Ref ref) {
+    final argument = this.argument as String;
+    return getReportById(ref, reportId: argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetReportByIdProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$getReportByIdHash() => r'd80e3cdee4cc79b1bc1ad61133b1f85aa46b9d19';
+
+final class GetReportByIdFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<Report?>, String> {
+  const GetReportByIdFamily._()
+    : super(
+        retry: null,
+        name: r'getReportByIdProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  GetReportByIdProvider call({required String reportId}) =>
+      GetReportByIdProvider._(argument: reportId, from: this);
+
+  @override
+  String toString() => r'getReportByIdProvider';
+}
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

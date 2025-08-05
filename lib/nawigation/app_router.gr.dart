@@ -148,6 +148,57 @@ class DashboardRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FullscreenImageViewerScreen]
+class FullscreenImageViewerRoute
+    extends PageRouteInfo<FullscreenImageViewerRouteArgs> {
+  FullscreenImageViewerRoute({
+    Key? key,
+    required String imageUrl,
+    List<PageRouteInfo>? children,
+  }) : super(
+         FullscreenImageViewerRoute.name,
+         args: FullscreenImageViewerRouteArgs(key: key, imageUrl: imageUrl),
+         initialChildren: children,
+       );
+
+  static const String name = 'FullscreenImageViewerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<FullscreenImageViewerRouteArgs>();
+      return FullscreenImageViewerScreen(
+        key: args.key,
+        imageUrl: args.imageUrl,
+      );
+    },
+  );
+}
+
+class FullscreenImageViewerRouteArgs {
+  const FullscreenImageViewerRouteArgs({this.key, required this.imageUrl});
+
+  final Key? key;
+
+  final String imageUrl;
+
+  @override
+  String toString() {
+    return 'FullscreenImageViewerRouteArgs{key: $key, imageUrl: $imageUrl}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! FullscreenImageViewerRouteArgs) return false;
+    return key == other.key && imageUrl == other.imageUrl;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ imageUrl.hashCode;
+}
+
+/// generated route for
 /// [HomeScreen]
 class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute({List<PageRouteInfo>? children})
@@ -288,6 +339,53 @@ class ReAuthPasswordRouteArgs {
 
   @override
   int get hashCode => newEmail.hashCode ^ key.hashCode;
+}
+
+/// generated route for
+/// [ReportDetailsScreen]
+class ReportDetailsRoute extends PageRouteInfo<ReportDetailsRouteArgs> {
+  ReportDetailsRoute({
+    required String reportId,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+         ReportDetailsRoute.name,
+         args: ReportDetailsRouteArgs(reportId: reportId, key: key),
+         initialChildren: children,
+       );
+
+  static const String name = 'ReportDetailsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ReportDetailsRouteArgs>();
+      return ReportDetailsScreen(args.reportId, key: args.key);
+    },
+  );
+}
+
+class ReportDetailsRouteArgs {
+  const ReportDetailsRouteArgs({required this.reportId, this.key});
+
+  final String reportId;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'ReportDetailsRouteArgs{reportId: $reportId, key: $key}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ReportDetailsRouteArgs) return false;
+    return reportId == other.reportId && key == other.key;
+  }
+
+  @override
+  int get hashCode => reportId.hashCode ^ key.hashCode;
 }
 
 /// generated route for

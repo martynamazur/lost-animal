@@ -54,6 +54,9 @@ class _ReportSeenScreenState extends ConsumerState<ReportSeenScreen> {
         }
       },
       child: Scaffold(
+        appBar: AppBar(
+          title: Text('Report Seen'),
+        ),
         body: SafeArea(
             child: Form(
               key: keyForm,

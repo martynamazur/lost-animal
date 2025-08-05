@@ -39,3 +39,8 @@ Future<List<Report>> getUserSeenReports(Ref ref) async {
 Stream<List<Report>> getAllReports(Ref ref) {
   return ref.read(reportRepositoryProvider).getAllReports();
 }
+
+@riverpod
+Future<Report?> getReportById(Ref ref, {required String reportId}) async {
+  return ref.read(reportRepositoryProvider).getReportById(reportId);
+}
