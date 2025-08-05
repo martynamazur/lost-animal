@@ -5,19 +5,21 @@ import 'package:lostanimal/nawigation/auth_guard.dart';
 import 'package:lostanimal/presentation/dashboard_screen.dart';
 import 'package:lostanimal/presentation/inbox_screen.dart';
 import 'package:lostanimal/presentation/widget/change_password.dart';
+import 'package:lostanimal/presentation/widget/report_details_screen.dart';
 
 import '../model/animal_category.dart';
 import '../presentation/about_app_screen.dart';
 import '../presentation/added_reports_screen.dart';
 import '../presentation/category_picker_screen.dart';
 import '../presentation/change_email_screen.dart';
+import '../presentation/full_screen_image_viewer.dart';
 import '../presentation/home_screen.dart';
 import '../presentation/login_screen.dart';
 import '../presentation/menu_screen.dart';
 import '../presentation/notifications_screen.dart';
 import '../presentation/privacy_policy_screen.dart';
 import '../presentation/reauth_password_screen.dart';
-import '../presentation/report_form_screen.dart';
+import '../presentation/report_missing_form_screen.dart';
 import '../presentation/report_screen.dart';
 import '../presentation/report_seen_from_screen.dart';
 import '../presentation/reset_password_screen.dart';
@@ -62,6 +64,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: PrivacyPolicyRoute.page),
     AutoRoute(page: NotificationsRoute.page),
     AutoRoute(page: ChangePasswordRoute.page),
+    AutoRoute(page: ReportDetailsRoute.page),
+    AutoRoute(page: FullscreenImageViewerRoute.page),
+    
+  
     
   ];
 

@@ -82,5 +82,19 @@ class ReportRepository{
 
     });
   }
+
+  Future<Report?> getReportById(String reportId) async{
+    try{
+      final docs = await _collection.doc(reportId).get();
+      if (docs.exists) {
+        return Report.fromJson(docs.data()!);
+      } else {
+        throw Exception('Report not found');
+      }
+    }on FirebaseException catch(e){
+
+    }
+    return null;
+  }
 }
 

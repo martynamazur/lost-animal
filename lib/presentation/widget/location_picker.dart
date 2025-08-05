@@ -43,7 +43,10 @@ class _LocationPickerState extends ConsumerState<LocationPicker> {
         child: Column(
           spacing: 12,
           children: [
-            Text('Tap on the map to select a location.', style: Theme.of(context).textTheme.bodyMedium,),
+            Text(
+              'Tap on the map to select a location.',
+              style: Theme.of(context).textTheme.bodyMedium
+            ),
             if (_pickedLocation != null)
               TextFormField(
                 controller: _cityController,
@@ -53,7 +56,7 @@ class _LocationPickerState extends ConsumerState<LocationPicker> {
                     borderRadius: BorderRadius.circular(16),
                   ),
                   filled: true,
-                  fillColor: colorScheme.surfaceVariant,
+                  fillColor: colorScheme.surfaceContainerHighest,
                 ),
                 style: Theme.of(context).textTheme.bodyLarge,
               ),

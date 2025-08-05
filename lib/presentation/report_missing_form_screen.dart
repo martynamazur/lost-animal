@@ -42,6 +42,9 @@ class _ReportMissingFormScreenState extends ConsumerState<ReportMissingFormScree
         }
       },
       child: Scaffold(
+        appBar: AppBar(
+          title: Text('Report Missing'),
+        ),
         body: SafeArea(
             child: Form(
               key: keyForm,
