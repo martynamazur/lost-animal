@@ -17,7 +17,7 @@ class SignUpFormNotifier extends _$SignUpFormNotifier {
     return;
   }
 
-  Future<void> signUp({required String emailAddress,required String password}) async{
+  Future<void> signUp({required String emailAddress,required String password,required String name}) async{
     state = const AsyncLoading();
     try {
       final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -27,6 +27,7 @@ class SignUpFormNotifier extends _$SignUpFormNotifier {
 
       final user = credential.user;
       await user?.sendEmailVerification();
+      await credential.user!.updateDisplayName(name);
       state = const AsyncData(null);
 
     } on FirebaseAuthException catch (e) {
@@ -49,10 +50,12 @@ class SignUpFormNotifier extends _$SignUpFormNotifier {
     }
   }
 
-  Future<void> linkAnonymousAccount({required String emailAddress,required String password}) async{
-      final AuthCredential credential = EmailAuthProvider.credential(email: emailAddress, password: password);
+  Future<void> linkAnonymousAccount({required String emailAddress,required String password, required String name}) async{
+      final credential = EmailAuthProvider.credential(email: emailAddress, password: password);
+
       final Result result = await ref.read(linkWithCredentialProvider(credential).future);
       if(result.success){
+        await FirebaseAuth.instance.currentUser!.updateDisplayName(name);
         state = AsyncData(null);
       }else{
         state = AsyncError(result.errorMessage ?? 'Something went wrong', StackTrace.current);

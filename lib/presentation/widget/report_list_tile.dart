@@ -27,7 +27,11 @@ class _ListReportTileState extends ConsumerState<ListReportTile> {
     final hasPicture = widget.report.pictures.isNotEmpty;
 
     return InkWell(
-      onTap: () => context.router.push(ReportDetailsRoute(reportId: widget.report.id!)),
+      onTap: () => context.router.push(
+          ReportDetailsRoute(
+              reportId: widget.report.id!,
+              reportAuthorDisplayName: widget.report.reportAuthorDisplayName
+          )),
       child: Card(
         elevation: 0.5,
         shape: RoundedRectangleBorder(

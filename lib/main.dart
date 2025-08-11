@@ -31,13 +31,13 @@ Future<void> main() async {
     mapsImplementation.useAndroidViewSurface = false;
   }
 
-/*
+
   await FirebaseAppCheck.instance.activate(
     androidProvider: AndroidProvider.debug,
   );
   await FirebaseAppCheck.instance.setTokenAutoRefreshEnabled(true);
 
- */
+
   runApp(ProviderScope(
       child: MyApp())
   );

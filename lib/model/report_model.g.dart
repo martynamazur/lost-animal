@@ -33,10 +33,11 @@ _Report _$ReportFromJson(Map<String, dynamic> json) => _Report(
   reward: (json['reward'] as num?)?.toDouble(),
   additionalInfo: json['additionalInfo'] as String?,
   phoneNumber: json['phoneNumber'] as String?,
-  userId: json['userId'] as String?,
   latitude: (json['latitude'] as num?)?.toDouble(),
   longitude: (json['longitude'] as num?)?.toDouble(),
   cityName: json['cityName'] as String?,
+  reportAuthorDisplayName: json['reportAuthorDisplayName'] as String,
+  userId: json['userId'] as String,
 );
 
 Map<String, dynamic> _$ReportToJson(_Report instance) => <String, dynamic>{
@@ -52,10 +53,11 @@ Map<String, dynamic> _$ReportToJson(_Report instance) => <String, dynamic>{
   'reward': instance.reward,
   'additionalInfo': instance.additionalInfo,
   'phoneNumber': instance.phoneNumber,
-  'userId': instance.userId,
   'latitude': instance.latitude,
   'longitude': instance.longitude,
   'cityName': instance.cityName,
+  'reportAuthorDisplayName': instance.reportAuthorDisplayName,
+  'userId': instance.userId,
 };
 
 const _$AnimalCategoryEnumMap = {

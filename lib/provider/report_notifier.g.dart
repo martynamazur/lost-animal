@@ -38,7 +38,7 @@ final class ReportNotifierProvider
   }
 }
 
-String _$reportNotifierHash() => r'31853b3c9a3236c2337e7147aa8f484985a7f01c';
+String _$reportNotifierHash() => r'69269b0b726fe572886f79e31d95bda0c71a5c0f';
 
 abstract class _$ReportNotifier extends $Notifier<Report> {
   Report build();

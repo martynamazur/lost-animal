@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,6 +9,7 @@ import 'package:lostanimal/presentation/widget/bottom_contact_bar.dart';
 import 'package:lostanimal/presentation/widget/details_filled_card.dart';
 import 'package:lostanimal/presentation/widget/details_outlined_card.dart';
 import 'package:lostanimal/presentation/widget/image_gallery.dart';
+import 'package:lostanimal/provider/report_details_notifier.dart';
 import 'package:lostanimal/provider/report_provider.dart';
 import 'package:lostanimal/utils/count_passed_time.dart';
 import 'package:lostanimal/utils/format_data.dart';
@@ -17,7 +19,8 @@ import '../../model/report_model.dart';
 @RoutePage()
 class ReportDetailsScreen extends ConsumerStatefulWidget {
   final String reportId;
-  const ReportDetailsScreen(this.reportId, {super.key});
+  final String reportAuthorDisplayName;
+  const ReportDetailsScreen(this.reportId, this.reportAuthorDisplayName, {super.key});
 
   @override
   ConsumerState createState() => _ReportDetailsScreenState();
@@ -28,7 +31,8 @@ class _ReportDetailsScreenState extends ConsumerState<ReportDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final report = ref.watch(getReportByIdProvider(reportId: widget.reportId));
+    final report = ref.watch(reportDetailsNotifierProvider(widget.reportId));
+    final currentUserId = FirebaseAuth.instance.currentUser?.uid;
 
     return Scaffold(
       appBar: AppBar(
@@ -124,12 +128,19 @@ class _ReportDetailsScreenState extends ConsumerState<ReportDetailsScreen> {
                             ]),
                         )
                     ),
-                    BottomContactBar()
+                    if(currentUserId != report.userId)
+                      BottomContactBar(
+                          widget.reportId,
+                          report.userId,
+                          report.reportAuthorDisplayName
+
+                      ),
 
                   ],
                 ),
               );
             },
+          //TODO: use custom error widget
             error: (error, stackTrace) {
               showDialog(
                 context: context,

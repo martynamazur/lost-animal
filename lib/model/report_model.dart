@@ -28,10 +28,13 @@ abstract class Report with _$Report {
     double? reward,
     String? additionalInfo,
     String? phoneNumber,
-    String? userId,
     double? latitude,
     double? longitude,
-    String? cityName
+    String? cityName,
+
+    required String reportAuthorDisplayName,
+
+    required String userId
 
   }) = _Report;
 
@@ -40,6 +43,7 @@ abstract class Report with _$Report {
 
   factory Report.empty() => Report(
       id: '',
+      userId: '',
       pictures: [],
       category: AnimalCategory.unknown,
       gender: Gender.unknown,
@@ -50,10 +54,10 @@ abstract class Report with _$Report {
       breed: '',
       phoneNumber: '',
       type: '',
-      userId: '',
       latitude: 0.0,
       longitude: 0.0,
       cityName: '',
-      hasChip: false
+      hasChip: false,
+      reportAuthorDisplayName: ''
   );
 }

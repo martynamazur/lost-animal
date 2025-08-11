@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Report implements DiagnosticableTreeMixin {
 
- String? get id; DateTime get missingSince; String get type;@JsonKey(unknownEnumValue: AnimalCategory.unknown) AnimalCategory get category;@JsonKey(unknownEnumValue: Gender.unknown) Gender get gender; List<String> get pictures; bool? get hasChip; String? get coloration; String? get breed; double? get reward; String? get additionalInfo; String? get phoneNumber; String? get userId; double? get latitude; double? get longitude; String? get cityName;
+ String? get id; DateTime get missingSince; String get type;@JsonKey(unknownEnumValue: AnimalCategory.unknown) AnimalCategory get category;@JsonKey(unknownEnumValue: Gender.unknown) Gender get gender; List<String> get pictures; bool? get hasChip; String? get coloration; String? get breed; double? get reward; String? get additionalInfo; String? get phoneNumber; double? get latitude; double? get longitude; String? get cityName; String get reportAuthorDisplayName; String get userId;
 /// Create a copy of Report
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,21 +30,21 @@ $ReportCopyWith<Report> get copyWith => _$ReportCopyWithImpl<Report>(this as Rep
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'Report'))
-    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('missingSince', missingSince))..add(DiagnosticsProperty('type', type))..add(DiagnosticsProperty('category', category))..add(DiagnosticsProperty('gender', gender))..add(DiagnosticsProperty('pictures', pictures))..add(DiagnosticsProperty('hasChip', hasChip))..add(DiagnosticsProperty('coloration', coloration))..add(DiagnosticsProperty('breed', breed))..add(DiagnosticsProperty('reward', reward))..add(DiagnosticsProperty('additionalInfo', additionalInfo))..add(DiagnosticsProperty('phoneNumber', phoneNumber))..add(DiagnosticsProperty('userId', userId))..add(DiagnosticsProperty('latitude', latitude))..add(DiagnosticsProperty('longitude', longitude))..add(DiagnosticsProperty('cityName', cityName));
+    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('missingSince', missingSince))..add(DiagnosticsProperty('type', type))..add(DiagnosticsProperty('category', category))..add(DiagnosticsProperty('gender', gender))..add(DiagnosticsProperty('pictures', pictures))..add(DiagnosticsProperty('hasChip', hasChip))..add(DiagnosticsProperty('coloration', coloration))..add(DiagnosticsProperty('breed', breed))..add(DiagnosticsProperty('reward', reward))..add(DiagnosticsProperty('additionalInfo', additionalInfo))..add(DiagnosticsProperty('phoneNumber', phoneNumber))..add(DiagnosticsProperty('latitude', latitude))..add(DiagnosticsProperty('longitude', longitude))..add(DiagnosticsProperty('cityName', cityName))..add(DiagnosticsProperty('reportAuthorDisplayName', reportAuthorDisplayName))..add(DiagnosticsProperty('userId', userId));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Report&&(identical(other.id, id) || other.id == id)&&(identical(other.missingSince, missingSince) || other.missingSince == missingSince)&&(identical(other.type, type) || other.type == type)&&(identical(other.category, category) || other.category == category)&&(identical(other.gender, gender) || other.gender == gender)&&const DeepCollectionEquality().equals(other.pictures, pictures)&&(identical(other.hasChip, hasChip) || other.hasChip == hasChip)&&(identical(other.coloration, coloration) || other.coloration == coloration)&&(identical(other.breed, breed) || other.breed == breed)&&(identical(other.reward, reward) || other.reward == reward)&&(identical(other.additionalInfo, additionalInfo) || other.additionalInfo == additionalInfo)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.cityName, cityName) || other.cityName == cityName));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Report&&(identical(other.id, id) || other.id == id)&&(identical(other.missingSince, missingSince) || other.missingSince == missingSince)&&(identical(other.type, type) || other.type == type)&&(identical(other.category, category) || other.category == category)&&(identical(other.gender, gender) || other.gender == gender)&&const DeepCollectionEquality().equals(other.pictures, pictures)&&(identical(other.hasChip, hasChip) || other.hasChip == hasChip)&&(identical(other.coloration, coloration) || other.coloration == coloration)&&(identical(other.breed, breed) || other.breed == breed)&&(identical(other.reward, reward) || other.reward == reward)&&(identical(other.additionalInfo, additionalInfo) || other.additionalInfo == additionalInfo)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.cityName, cityName) || other.cityName == cityName)&&(identical(other.reportAuthorDisplayName, reportAuthorDisplayName) || other.reportAuthorDisplayName == reportAuthorDisplayName)&&(identical(other.userId, userId) || other.userId == userId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,missingSince,type,category,gender,const DeepCollectionEquality().hash(pictures),hasChip,coloration,breed,reward,additionalInfo,phoneNumber,userId,latitude,longitude,cityName);
+int get hashCode => Object.hash(runtimeType,id,missingSince,type,category,gender,const DeepCollectionEquality().hash(pictures),hasChip,coloration,breed,reward,additionalInfo,phoneNumber,latitude,longitude,cityName,reportAuthorDisplayName,userId);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'Report(id: $id, missingSince: $missingSince, type: $type, category: $category, gender: $gender, pictures: $pictures, hasChip: $hasChip, coloration: $coloration, breed: $breed, reward: $reward, additionalInfo: $additionalInfo, phoneNumber: $phoneNumber, userId: $userId, latitude: $latitude, longitude: $longitude, cityName: $cityName)';
+  return 'Report(id: $id, missingSince: $missingSince, type: $type, category: $category, gender: $gender, pictures: $pictures, hasChip: $hasChip, coloration: $coloration, breed: $breed, reward: $reward, additionalInfo: $additionalInfo, phoneNumber: $phoneNumber, latitude: $latitude, longitude: $longitude, cityName: $cityName, reportAuthorDisplayName: $reportAuthorDisplayName, userId: $userId)';
 }
 
 
@@ -55,7 +55,7 @@ abstract mixin class $ReportCopyWith<$Res>  {
   factory $ReportCopyWith(Report value, $Res Function(Report) _then) = _$ReportCopyWithImpl;
 @useResult
 $Res call({
- String? id, DateTime missingSince, String type,@JsonKey(unknownEnumValue: AnimalCategory.unknown) AnimalCategory category,@JsonKey(unknownEnumValue: Gender.unknown) Gender gender, List<String> pictures, bool? hasChip, String? coloration, String? breed, double? reward, String? additionalInfo, String? phoneNumber, String? userId, double? latitude, double? longitude, String? cityName
+ String? id, DateTime missingSince, String type,@JsonKey(unknownEnumValue: AnimalCategory.unknown) AnimalCategory category,@JsonKey(unknownEnumValue: Gender.unknown) Gender gender, List<String> pictures, bool? hasChip, String? coloration, String? breed, double? reward, String? additionalInfo, String? phoneNumber, double? latitude, double? longitude, String? cityName, String reportAuthorDisplayName, String userId
 });
 
 
@@ -72,7 +72,7 @@ class _$ReportCopyWithImpl<$Res>
 
 /// Create a copy of Report
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? missingSince = null,Object? type = null,Object? category = null,Object? gender = null,Object? pictures = null,Object? hasChip = freezed,Object? coloration = freezed,Object? breed = freezed,Object? reward = freezed,Object? additionalInfo = freezed,Object? phoneNumber = freezed,Object? userId = freezed,Object? latitude = freezed,Object? longitude = freezed,Object? cityName = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? missingSince = null,Object? type = null,Object? category = null,Object? gender = null,Object? pictures = null,Object? hasChip = freezed,Object? coloration = freezed,Object? breed = freezed,Object? reward = freezed,Object? additionalInfo = freezed,Object? phoneNumber = freezed,Object? latitude = freezed,Object? longitude = freezed,Object? cityName = freezed,Object? reportAuthorDisplayName = null,Object? userId = null,}) {
   return _then(_self.copyWith(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,missingSince: null == missingSince ? _self.missingSince : missingSince // ignore: cast_nullable_to_non_nullable
@@ -86,11 +86,12 @@ as String?,breed: freezed == breed ? _self.breed : breed // ignore: cast_nullabl
 as String?,reward: freezed == reward ? _self.reward : reward // ignore: cast_nullable_to_non_nullable
 as double?,additionalInfo: freezed == additionalInfo ? _self.additionalInfo : additionalInfo // ignore: cast_nullable_to_non_nullable
 as String?,phoneNumber: freezed == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
-as String?,userId: freezed == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as String?,latitude: freezed == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
 as double?,longitude: freezed == longitude ? _self.longitude : longitude // ignore: cast_nullable_to_non_nullable
 as double?,cityName: freezed == cityName ? _self.cityName : cityName // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,reportAuthorDisplayName: null == reportAuthorDisplayName ? _self.reportAuthorDisplayName : reportAuthorDisplayName // ignore: cast_nullable_to_non_nullable
+as String,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
@@ -101,7 +102,7 @@ as String?,
 @JsonSerializable()
 
 class _Report with DiagnosticableTreeMixin implements Report {
-  const _Report({this.id, required this.missingSince, required this.type, @JsonKey(unknownEnumValue: AnimalCategory.unknown) this.category = AnimalCategory.unknown, @JsonKey(unknownEnumValue: Gender.unknown) this.gender = Gender.unknown, final  List<String> pictures = const [], this.hasChip, this.coloration, this.breed, this.reward, this.additionalInfo, this.phoneNumber, this.userId, this.latitude, this.longitude, this.cityName}): _pictures = pictures;
+  const _Report({this.id, required this.missingSince, required this.type, @JsonKey(unknownEnumValue: AnimalCategory.unknown) this.category = AnimalCategory.unknown, @JsonKey(unknownEnumValue: Gender.unknown) this.gender = Gender.unknown, final  List<String> pictures = const [], this.hasChip, this.coloration, this.breed, this.reward, this.additionalInfo, this.phoneNumber, this.latitude, this.longitude, this.cityName, required this.reportAuthorDisplayName, required this.userId}): _pictures = pictures;
   factory _Report.fromJson(Map<String, dynamic> json) => _$ReportFromJson(json);
 
 @override final  String? id;
@@ -122,10 +123,11 @@ class _Report with DiagnosticableTreeMixin implements Report {
 @override final  double? reward;
 @override final  String? additionalInfo;
 @override final  String? phoneNumber;
-@override final  String? userId;
 @override final  double? latitude;
 @override final  double? longitude;
 @override final  String? cityName;
+@override final  String reportAuthorDisplayName;
+@override final  String userId;
 
 /// Create a copy of Report
 /// with the given fields replaced by the non-null parameter values.
@@ -141,21 +143,21 @@ Map<String, dynamic> toJson() {
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'Report'))
-    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('missingSince', missingSince))..add(DiagnosticsProperty('type', type))..add(DiagnosticsProperty('category', category))..add(DiagnosticsProperty('gender', gender))..add(DiagnosticsProperty('pictures', pictures))..add(DiagnosticsProperty('hasChip', hasChip))..add(DiagnosticsProperty('coloration', coloration))..add(DiagnosticsProperty('breed', breed))..add(DiagnosticsProperty('reward', reward))..add(DiagnosticsProperty('additionalInfo', additionalInfo))..add(DiagnosticsProperty('phoneNumber', phoneNumber))..add(DiagnosticsProperty('userId', userId))..add(DiagnosticsProperty('latitude', latitude))..add(DiagnosticsProperty('longitude', longitude))..add(DiagnosticsProperty('cityName', cityName));
+    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('missingSince', missingSince))..add(DiagnosticsProperty('type', type))..add(DiagnosticsProperty('category', category))..add(DiagnosticsProperty('gender', gender))..add(DiagnosticsProperty('pictures', pictures))..add(DiagnosticsProperty('hasChip', hasChip))..add(DiagnosticsProperty('coloration', coloration))..add(DiagnosticsProperty('breed', breed))..add(DiagnosticsProperty('reward', reward))..add(DiagnosticsProperty('additionalInfo', additionalInfo))..add(DiagnosticsProperty('phoneNumber', phoneNumber))..add(DiagnosticsProperty('latitude', latitude))..add(DiagnosticsProperty('longitude', longitude))..add(DiagnosticsProperty('cityName', cityName))..add(DiagnosticsProperty('reportAuthorDisplayName', reportAuthorDisplayName))..add(DiagnosticsProperty('userId', userId));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Report&&(identical(other.id, id) || other.id == id)&&(identical(other.missingSince, missingSince) || other.missingSince == missingSince)&&(identical(other.type, type) || other.type == type)&&(identical(other.category, category) || other.category == category)&&(identical(other.gender, gender) || other.gender == gender)&&const DeepCollectionEquality().equals(other._pictures, _pictures)&&(identical(other.hasChip, hasChip) || other.hasChip == hasChip)&&(identical(other.coloration, coloration) || other.coloration == coloration)&&(identical(other.breed, breed) || other.breed == breed)&&(identical(other.reward, reward) || other.reward == reward)&&(identical(other.additionalInfo, additionalInfo) || other.additionalInfo == additionalInfo)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.cityName, cityName) || other.cityName == cityName));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Report&&(identical(other.id, id) || other.id == id)&&(identical(other.missingSince, missingSince) || other.missingSince == missingSince)&&(identical(other.type, type) || other.type == type)&&(identical(other.category, category) || other.category == category)&&(identical(other.gender, gender) || other.gender == gender)&&const DeepCollectionEquality().equals(other._pictures, _pictures)&&(identical(other.hasChip, hasChip) || other.hasChip == hasChip)&&(identical(other.coloration, coloration) || other.coloration == coloration)&&(identical(other.breed, breed) || other.breed == breed)&&(identical(other.reward, reward) || other.reward == reward)&&(identical(other.additionalInfo, additionalInfo) || other.additionalInfo == additionalInfo)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.cityName, cityName) || other.cityName == cityName)&&(identical(other.reportAuthorDisplayName, reportAuthorDisplayName) || other.reportAuthorDisplayName == reportAuthorDisplayName)&&(identical(other.userId, userId) || other.userId == userId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,missingSince,type,category,gender,const DeepCollectionEquality().hash(_pictures),hasChip,coloration,breed,reward,additionalInfo,phoneNumber,userId,latitude,longitude,cityName);
+int get hashCode => Object.hash(runtimeType,id,missingSince,type,category,gender,const DeepCollectionEquality().hash(_pictures),hasChip,coloration,breed,reward,additionalInfo,phoneNumber,latitude,longitude,cityName,reportAuthorDisplayName,userId);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'Report(id: $id, missingSince: $missingSince, type: $type, category: $category, gender: $gender, pictures: $pictures, hasChip: $hasChip, coloration: $coloration, breed: $breed, reward: $reward, additionalInfo: $additionalInfo, phoneNumber: $phoneNumber, userId: $userId, latitude: $latitude, longitude: $longitude, cityName: $cityName)';
+  return 'Report(id: $id, missingSince: $missingSince, type: $type, category: $category, gender: $gender, pictures: $pictures, hasChip: $hasChip, coloration: $coloration, breed: $breed, reward: $reward, additionalInfo: $additionalInfo, phoneNumber: $phoneNumber, latitude: $latitude, longitude: $longitude, cityName: $cityName, reportAuthorDisplayName: $reportAuthorDisplayName, userId: $userId)';
 }
 
 
@@ -166,7 +168,7 @@ abstract mixin class _$ReportCopyWith<$Res> implements $ReportCopyWith<$Res> {
   factory _$ReportCopyWith(_Report value, $Res Function(_Report) _then) = __$ReportCopyWithImpl;
 @override @useResult
 $Res call({
- String? id, DateTime missingSince, String type,@JsonKey(unknownEnumValue: AnimalCategory.unknown) AnimalCategory category,@JsonKey(unknownEnumValue: Gender.unknown) Gender gender, List<String> pictures, bool? hasChip, String? coloration, String? breed, double? reward, String? additionalInfo, String? phoneNumber, String? userId, double? latitude, double? longitude, String? cityName
+ String? id, DateTime missingSince, String type,@JsonKey(unknownEnumValue: AnimalCategory.unknown) AnimalCategory category,@JsonKey(unknownEnumValue: Gender.unknown) Gender gender, List<String> pictures, bool? hasChip, String? coloration, String? breed, double? reward, String? additionalInfo, String? phoneNumber, double? latitude, double? longitude, String? cityName, String reportAuthorDisplayName, String userId
 });
 
 
@@ -183,7 +185,7 @@ class __$ReportCopyWithImpl<$Res>
 
 /// Create a copy of Report
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? missingSince = null,Object? type = null,Object? category = null,Object? gender = null,Object? pictures = null,Object? hasChip = freezed,Object? coloration = freezed,Object? breed = freezed,Object? reward = freezed,Object? additionalInfo = freezed,Object? phoneNumber = freezed,Object? userId = freezed,Object? latitude = freezed,Object? longitude = freezed,Object? cityName = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? missingSince = null,Object? type = null,Object? category = null,Object? gender = null,Object? pictures = null,Object? hasChip = freezed,Object? coloration = freezed,Object? breed = freezed,Object? reward = freezed,Object? additionalInfo = freezed,Object? phoneNumber = freezed,Object? latitude = freezed,Object? longitude = freezed,Object? cityName = freezed,Object? reportAuthorDisplayName = null,Object? userId = null,}) {
   return _then(_Report(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,missingSince: null == missingSince ? _self.missingSince : missingSince // ignore: cast_nullable_to_non_nullable
@@ -197,11 +199,12 @@ as String?,breed: freezed == breed ? _self.breed : breed // ignore: cast_nullabl
 as String?,reward: freezed == reward ? _self.reward : reward // ignore: cast_nullable_to_non_nullable
 as double?,additionalInfo: freezed == additionalInfo ? _self.additionalInfo : additionalInfo // ignore: cast_nullable_to_non_nullable
 as String?,phoneNumber: freezed == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
-as String?,userId: freezed == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as String?,latitude: freezed == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
 as double?,longitude: freezed == longitude ? _self.longitude : longitude // ignore: cast_nullable_to_non_nullable
 as double?,cityName: freezed == cityName ? _self.cityName : cityName // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,reportAuthorDisplayName: null == reportAuthorDisplayName ? _self.reportAuthorDisplayName : reportAuthorDisplayName // ignore: cast_nullable_to_non_nullable
+as String,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 

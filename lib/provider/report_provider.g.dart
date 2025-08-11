@@ -378,5 +378,75 @@ final class GetReportByIdFamily extends $Family
   String toString() => r'getReportByIdProvider';
 }
 
+@ProviderFor(getReportFirstPhoto)
+const getReportFirstPhotoProvider = GetReportFirstPhotoFamily._();
+
+final class GetReportFirstPhotoProvider
+    extends $FunctionalProvider<AsyncValue<String>, String, FutureOr<String>>
+    with $FutureModifier<String>, $FutureProvider<String> {
+  const GetReportFirstPhotoProvider._({
+    required GetReportFirstPhotoFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'getReportFirstPhotoProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$getReportFirstPhotoHash();
+
+  @override
+  String toString() {
+    return r'getReportFirstPhotoProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<String> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<String> create(Ref ref) {
+    final argument = this.argument as String;
+    return getReportFirstPhoto(ref, reportId: argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetReportFirstPhotoProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$getReportFirstPhotoHash() =>
+    r'8394e7f1baef1c8843c98118d12b19e704599d3c';
+
+final class GetReportFirstPhotoFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<String>, String> {
+  const GetReportFirstPhotoFamily._()
+    : super(
+        retry: null,
+        name: r'getReportFirstPhotoProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  GetReportFirstPhotoProvider call({required String reportId}) =>
+      GetReportFirstPhotoProvider._(argument: reportId, from: this);
+
+  @override
+  String toString() => r'getReportFirstPhotoProvider';
+}
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
