@@ -23,6 +23,7 @@ class ReportRepository{
     final docRef = FirebaseFirestore.instance.collection(collectionPath).doc();
     await docRef.set({
       'createdAt': FieldValue.serverTimestamp(),
+      'authorId': _userId,
     });
     return docRef.id;
   }
@@ -95,6 +96,24 @@ class ReportRepository{
 
     }
     return null;
+  }
+
+  Future<String> getReportFirstPhoto(String reportId) async {
+    try {
+      final doc = await _collection.doc(reportId).get();
+      if (doc.exists) {
+        final data = doc.data();
+        if (data != null && data.containsKey('pictures') && data['pictures'].isNotEmpty) {
+          return data['pictures'][0];
+        } else {
+          throw Exception('No photos found for this report');
+        }
+      } else {
+        throw Exception('Report not found');
+      }
+    } on FirebaseException catch (e) {
+      throw Exception('Error fetching report photos: $e');
+    }
   }
 }
 

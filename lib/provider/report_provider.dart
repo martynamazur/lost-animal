@@ -44,3 +44,8 @@ Stream<List<Report>> getAllReports(Ref ref) {
 Future<Report?> getReportById(Ref ref, {required String reportId}) async {
   return ref.read(reportRepositoryProvider).getReportById(reportId);
 }
+
+@riverpod
+Future<String> getReportFirstPhoto(Ref ref, {required String reportId}) async {
+  return ref.read(reportRepositoryProvider).getReportFirstPhoto(reportId);
+}

@@ -8,10 +8,12 @@ import 'package:lostanimal/presentation/widget/change_password.dart';
 import 'package:lostanimal/presentation/widget/report_details_screen.dart';
 
 import '../model/animal_category.dart';
+import '../model/chat_model.dart';
 import '../presentation/about_app_screen.dart';
 import '../presentation/added_reports_screen.dart';
 import '../presentation/category_picker_screen.dart';
 import '../presentation/change_email_screen.dart';
+import '../presentation/chat_screen.dart';
 import '../presentation/full_screen_image_viewer.dart';
 import '../presentation/home_screen.dart';
 import '../presentation/login_screen.dart';
@@ -25,6 +27,8 @@ import '../presentation/report_seen_from_screen.dart';
 import '../presentation/reset_password_screen.dart';
 import '../presentation/settings_screen.dart';
 import '../presentation/sign_up_screen.dart';
+import 'package:collection/collection.dart';
+
 
 part 'app_router.gr.dart';
 
@@ -66,6 +70,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: ChangePasswordRoute.page),
     AutoRoute(page: ReportDetailsRoute.page),
     AutoRoute(page: FullscreenImageViewerRoute.page),
+    AutoRoute(page: ChatRoute.page)
     
   
     

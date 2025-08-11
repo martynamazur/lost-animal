@@ -132,6 +132,81 @@ class ChangePasswordRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ChatScreen]
+class ChatRoute extends PageRouteInfo<ChatRouteArgs> {
+  ChatRoute({
+    required String reportId,
+    required String authorId,
+    required String reportAuthorDisplayName,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+         ChatRoute.name,
+         args: ChatRouteArgs(
+           reportId: reportId,
+           authorId: authorId,
+           reportAuthorDisplayName: reportAuthorDisplayName,
+           key: key,
+         ),
+         initialChildren: children,
+       );
+
+  static const String name = 'ChatRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ChatRouteArgs>();
+      return ChatScreen(
+        args.reportId,
+        args.authorId,
+        args.reportAuthorDisplayName,
+        key: args.key,
+      );
+    },
+  );
+}
+
+class ChatRouteArgs {
+  const ChatRouteArgs({
+    required this.reportId,
+    required this.authorId,
+    required this.reportAuthorDisplayName,
+    this.key,
+  });
+
+  final String reportId;
+
+  final String authorId;
+
+  final String reportAuthorDisplayName;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'ChatRouteArgs{reportId: $reportId, authorId: $authorId, reportAuthorDisplayName: $reportAuthorDisplayName, key: $key}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ChatRouteArgs) return false;
+    return reportId == other.reportId &&
+        authorId == other.authorId &&
+        reportAuthorDisplayName == other.reportAuthorDisplayName &&
+        key == other.key;
+  }
+
+  @override
+  int get hashCode =>
+      reportId.hashCode ^
+      authorId.hashCode ^
+      reportAuthorDisplayName.hashCode ^
+      key.hashCode;
+}
+
+/// generated route for
 /// [DashboardScreen]
 class DashboardRoute extends PageRouteInfo<void> {
   const DashboardRoute({List<PageRouteInfo>? children})
@@ -346,11 +421,16 @@ class ReAuthPasswordRouteArgs {
 class ReportDetailsRoute extends PageRouteInfo<ReportDetailsRouteArgs> {
   ReportDetailsRoute({
     required String reportId,
+    required String reportAuthorDisplayName,
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
          ReportDetailsRoute.name,
-         args: ReportDetailsRouteArgs(reportId: reportId, key: key),
+         args: ReportDetailsRouteArgs(
+           reportId: reportId,
+           reportAuthorDisplayName: reportAuthorDisplayName,
+           key: key,
+         ),
          initialChildren: children,
        );
 
@@ -360,32 +440,45 @@ class ReportDetailsRoute extends PageRouteInfo<ReportDetailsRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<ReportDetailsRouteArgs>();
-      return ReportDetailsScreen(args.reportId, key: args.key);
+      return ReportDetailsScreen(
+        args.reportId,
+        args.reportAuthorDisplayName,
+        key: args.key,
+      );
     },
   );
 }
 
 class ReportDetailsRouteArgs {
-  const ReportDetailsRouteArgs({required this.reportId, this.key});
+  const ReportDetailsRouteArgs({
+    required this.reportId,
+    required this.reportAuthorDisplayName,
+    this.key,
+  });
 
   final String reportId;
+
+  final String reportAuthorDisplayName;
 
   final Key? key;
 
   @override
   String toString() {
-    return 'ReportDetailsRouteArgs{reportId: $reportId, key: $key}';
+    return 'ReportDetailsRouteArgs{reportId: $reportId, reportAuthorDisplayName: $reportAuthorDisplayName, key: $key}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! ReportDetailsRouteArgs) return false;
-    return reportId == other.reportId && key == other.key;
+    return reportId == other.reportId &&
+        reportAuthorDisplayName == other.reportAuthorDisplayName &&
+        key == other.key;
   }
 
   @override
-  int get hashCode => reportId.hashCode ^ key.hashCode;
+  int get hashCode =>
+      reportId.hashCode ^ reportAuthorDisplayName.hashCode ^ key.hashCode;
 }
 
 /// generated route for

@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:lostanimal/nawigation/app_router.dart';
+import 'package:lostanimal/presentation/widget/NameField.dart';
+import 'package:lostanimal/presentation/widget/dialog_confirmation.dart';
 import 'package:lostanimal/presentation/widget/email_field.dart';
 import 'package:lostanimal/presentation/widget/password_field.dart';
 import 'package:lostanimal/presentation/widget/password_rules.dart';
@@ -33,6 +36,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       next.whenOrNull(
           data:  (_){
             _showConfirmationDialog();
+            context.router.replaceAll([const DashboardRoute()]);
           },
           error: (err,stack){
             ScaffoldMessenger.of(context).showSnackBar(
@@ -54,6 +58,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   child: Column(
                     spacing: 16.0,
                     children: [
+                      NameField(label: 'Your Name*'),
                       EmailField(
                         label: 'Email',
                       ),
@@ -94,29 +99,26 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       final formData = _formKey.currentState!.value;
       final emailAddress = formData['email'];
       final password = formData['password'];
+      final name = formData['name'];
       if(widget.isLinkingAccount){
-        await signUpNotifier.linkAnonymousAccount(emailAddress:emailAddress,password:password);
+        await signUpNotifier.linkAnonymousAccount(emailAddress:emailAddress,password:password, name: name);
       }else{
-        await signUpNotifier.signUp(emailAddress:emailAddress,password: password);
+        await signUpNotifier.signUp(emailAddress:emailAddress,password: password, name: name);
       }
     }
   }
 
   void _showConfirmationDialog(){
     showDialog(
-        context: context, 
+        context: context,
+        barrierDismissible: true,
         builder: (context){
-          return AlertDialog(
-            title: Text('Account created'),
-            content: Text(
-                widget.isLinkingAccount
-                    ? 'Your anonymous account has been linked successfully.'
-                    : 'Your account has been successfully created. We’ve sent you a verification email...'
-            ),
-            actions: [
-              //TODO : naviagte based on linked , not linked sign up
-              OutlinedButton(onPressed: () => context.pop(), child: Text('Ok'))
-            ],
+          return DialogConfirmation(
+              title: 'Account created',
+              message: widget.isLinkingAccount
+                  ? 'Your anonymous account has been linked successfully.'
+                  : 'Your account has been successfully created. We’ve sent you a verification email...',
+              icon: Icons.check_circle_outline
           );
         }
     );

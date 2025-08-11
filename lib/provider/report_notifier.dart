@@ -104,6 +104,11 @@ class ReportNotifier extends _$ReportNotifier {
     state = state.copyWith(type: type);
   }
 
+  void updateAuthorDisplayName(String name){
+    state = state.copyWith(reportAuthorDisplayName: name);
+  }
+
+
   Future<void> updateLocation(double lat, double lng, String cityName) async{
     state = state.copyWith(
       latitude: lat,
@@ -114,6 +119,8 @@ class ReportNotifier extends _$ReportNotifier {
 
 
   Future<void> saveToFirestore(String type) async {
+    final authorDisplayName = FirebaseAuth.instance.currentUser?.displayName ?? 'Unknown';
+    updateAuthorDisplayName(authorDisplayName);
     updateType(type);
     final reportId = await ref.read(createReportProvider(collectionPath: 'reports').future);
     final userUuid = FirebaseAuth.instance.currentUser!.uid;

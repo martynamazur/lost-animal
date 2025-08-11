@@ -1,41 +1,51 @@
-import 'package:flutter/cupertino.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lostanimal/nawigation/app_router.dart';
+import '../../model/chat_model.dart';
+import '../../provider/inbox_provider.dart';
 
-class BottomContactBar extends StatelessWidget {
-  const BottomContactBar({super.key});
+
+class BottomContactBar extends ConsumerWidget {
+  final String reportId;
+  final String authorId;
+  final String displayNameAuthor;
+
+  BottomContactBar(this.reportId, this.authorId, this.displayNameAuthor, {super.key});
+
+
 
   @override
-  Widget build(BuildContext context) {
-    return  Padding(
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        spacing: 8.0,
         children: [
           OutlinedButton.icon(
-              onPressed: () {},
-              label: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.phone),
-                    SizedBox(width: 8),
-                    Text('Call')
-              ])
+            onPressed: () {
+              // TODO: Call action
+            },
+            icon: const Icon(Icons.phone),
+            label: const Text('Call'),
           ),
+
+          const SizedBox(width: 8),
 
           Expanded(
             child: FilledButton.icon(
-                onPressed: () {},
-                label: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.messenger_outline),
-                      SizedBox(width: 8),
-                      Text('Send message')
-                ])
+              onPressed: () async {
+                context.router.push(
+                    ChatRoute(
+                        reportId: reportId,
+                        authorId: authorId,
+                        reportAuthorDisplayName: displayNameAuthor,
+                    ));
+              },
+              icon: const Icon(Icons.messenger_outline),
+              label: const Text('Send message'),
             ),
           ),
-
         ],
       ),
     );
