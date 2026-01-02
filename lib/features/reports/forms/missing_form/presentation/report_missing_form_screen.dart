@@ -4,19 +4,22 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../shared/widgets/chip.dart';
-import '../../../shared/widgets/contact.dart';
-import '../../../shared/widgets/exit_confirmation_dialog.dart';
-import '../../../shared/widgets/save_report_btn.dart';
-import '../../gallery/widgets/build_image_gallery.dart';
-import '../provider/report_notifier.dart';
-import '../widgets/breed.dart';
-import '../widgets/category.dart';
-import '../widgets/datetime_picker_button.dart';
-import '../widgets/description.dart';
-import '../widgets/gender.dart';
-import '../widgets/location_picker.dart';
-import '../widgets/reward.dart';
+import '../../../../../shared/widgets/chip.dart';
+import '../../../../../shared/widgets/contact.dart';
+import '../../../../../shared/widgets/exit_confirmation_dialog.dart';
+import '../../../../../shared/widgets/save_report_btn.dart';
+import '../../../../gallery/widgets/build_image_gallery.dart';
+
+import '../../../shared/widgets/breed.dart';
+import '../../../shared/widgets/category.dart';
+import '../../../shared/widgets/datetime_picker_button.dart';
+import '../../../shared/widgets/description.dart';
+import '../../../shared/widgets/gender.dart';
+import '../../../shared/widgets/location_picker.dart';
+import '../../../shared/widgets/reward.dart';
+import '../../report_notifier.dart';
+
+
 
 @RoutePage()
 class ReportMissingFormScreen extends ConsumerStatefulWidget {

@@ -1,9 +1,10 @@
 import 'dart:async';
 
-import 'package:lostanimal/features/reports/provider/report_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:lostanimal/shared/models/report_model.dart';
+
+import '../../../shared/provider/report_provider.dart';
 
 part 'user_seen_reports_notifier.g.dart';
 

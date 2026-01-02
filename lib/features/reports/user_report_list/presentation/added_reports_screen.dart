@@ -1,10 +1,11 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lostanimal/features/reports/presentation/report_list.dart';
+import 'package:lostanimal/features/reports/user_report_list/presentation/widgets/report_list.dart';
 
-import '../provider/user_missing_reports_notifier.dart';
-import '../provider/user_seen_reports_notifier.dart';
+import '../../forms/missing_form/provider/user_missing_reports_notifier.dart';
+import '../../forms/sighting_form/provider/user_seen_reports_notifier.dart';
+
 
 @RoutePage()
 class AddedReportsScreen extends ConsumerStatefulWidget {

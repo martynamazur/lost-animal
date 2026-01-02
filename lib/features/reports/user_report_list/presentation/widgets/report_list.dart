@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../shared/models/report_model.dart';
-import '../widgets/report_list_tile.dart';
+import '../../../../../shared/models/report_model.dart';
+import 'report_list_tile.dart';
 
 class ReportList extends ConsumerWidget {
   final AsyncValue list;

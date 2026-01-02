@@ -8,7 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:lostanimal/shared/utils/format_data.dart';
 
-import '../../../core/router/app_router.dart';
+import '../../../../../core/router/app_router.dart';
 
 class ListReportTile extends ConsumerStatefulWidget {
   final Report report;
