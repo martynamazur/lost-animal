@@ -1,13 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lostanimal/shared/utils/validation_helper.dart';
 
-import 'package:lostanimal/features/reports/forms/report_notifier.dart';
-import 'package:lostanimal/shared/widgets/style/decoration_style.dart';
-
-class Contact extends ConsumerWidget {
-  const Contact({super.key});
+class Description extends ConsumerWidget {
+  final void Function(String value) onSaved;
+  final String headline;
+  const Description(this.onSaved, this.headline, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,29 +17,16 @@ class Contact extends ConsumerWidget {
       spacing: 12,
       children: [
         Text(
-          'Contact Information',
+          headline,
           style: theme.textTheme.titleMedium?.copyWith(
             color: colorScheme.onSurface,
             fontWeight: FontWeight.w600,
           ),
         ),
         TextFormField(
-          keyboardType: TextInputType.phone,
-          onSaved: (value) {
-            safeCallIfNotEmpty(
-              value,
-              (trimmedValue) => ref
-                  .read(reportNotifierProvider.notifier)
-                  .updatePhoneNumber(trimmedValue),
-            );
-          },
+          maxLines: 4,
           decoration: InputDecoration(
-            labelText: 'Phone Number',
-            hintText: 'Enter your phone number',
-            prefixIcon: Icon(
-              Icons.phone_outlined,
-              color: colorScheme.onSurfaceVariant,
-            ),
+            hintText: 'Enter detailed information...',
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
               borderSide: BorderSide(color: colorScheme.outline),
@@ -58,16 +43,17 @@ class Contact extends ConsumerWidget {
             ),
             filled: true,
             fillColor: colorScheme.surfaceContainerHighest,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 16,
-            ),
-            labelStyle: TextStyle(color: colorScheme.onSurfaceVariant),
+            contentPadding: const EdgeInsets.all(16),
             hintStyle: TextStyle(
               color: colorScheme.onSurfaceVariant.withOpacity(0.7),
             ),
           ),
           style: TextStyle(color: colorScheme.onSurface),
+          onSaved: (value) {
+            if (value != null && value.trim().isNotEmpty) {
+              onSaved(value.trim());
+            }
+          },
         ),
       ],
     );

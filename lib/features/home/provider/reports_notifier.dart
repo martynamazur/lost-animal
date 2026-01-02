@@ -1,9 +1,10 @@
 import 'package:lostanimal/shared/models/animal_category.dart';
 import 'package:lostanimal/shared/models/reports_state_model.dart';
-import 'package:lostanimal/features/reports/provider/report_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:lostanimal/shared/models/report_model.dart';
+
+import '../../reports/shared/provider/report_provider.dart';
 
 part 'reports_notifier.g.dart';
 

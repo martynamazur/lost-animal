@@ -5,7 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:lostanimal/features/reports/provider/report_notifier.dart';
+import 'package:lostanimal/features/reports/forms/report_notifier.dart';
 import 'package:lostanimal/features/map/data/location_service.dart';
 
 import 'package:lostanimal/features/map/provider/location_permission_provider.dart';

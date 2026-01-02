@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:lostanimal/features/reports/provider/report_notifier.dart';
+import 'package:lostanimal/features/reports/forms/report_notifier.dart';
 
 class Reward extends ConsumerStatefulWidget {
   const Reward({super.key});

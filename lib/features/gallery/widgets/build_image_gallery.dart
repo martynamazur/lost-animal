@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:developer' as developer;
 
-import '../../reports/provider/report_notifier.dart';
+import '../../reports/forms/report_notifier.dart';
 import '../provider/gallery_notifier.dart';
 
 class BuildImageGallery extends ConsumerStatefulWidget {
@@ -43,7 +43,7 @@ class _BuildImageGalleryState extends ConsumerState<BuildImageGallery> {
                       imageUrl: url,
                       fit: BoxFit.cover,
                       placeholder: (context, url) => Container(
-                        color: colorScheme.surfaceVariant,
+                        color: colorScheme.surfaceContainerHighest,
                         child: const Center(child: CircularProgressIndicator()),
                       ),
                       errorWidget: (context, url, error) => Container(

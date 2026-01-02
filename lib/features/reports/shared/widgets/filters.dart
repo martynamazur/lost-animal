@@ -2,10 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:lostanimal/features/reports/provider/reports_notifier.dart';
+import 'package:lostanimal/features/home/provider/reports_notifier.dart';
 import 'package:lostanimal/shared/models/animal_category.dart';
 
-import '../../../core/router/app_router.dart';
+import '../../../../core/router/app_router.dart';
 
 class Filters extends ConsumerStatefulWidget {
   const Filters({super.key});

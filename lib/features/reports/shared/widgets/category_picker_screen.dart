@@ -1,7 +1,8 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
-import '../../../shared/models/animal_category.dart';
-import '../../../shared/utils/format_text.dart';
+
+import '../../../../shared/models/animal_category.dart';
+import '../../../../shared/utils/format_text.dart';
 
 @RoutePage()
 class AnimalCategoryPickerScreen extends StatelessWidget {

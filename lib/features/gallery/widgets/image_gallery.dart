@@ -31,8 +31,12 @@ class _ImageGalleryState extends State<ImageGallery> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
+    if (widget.imageUrls.isEmpty) {
+      return _buildImagePlaceholder(context);
+    }
+
     return Column(
-      spacing: 8.0,
       children: [
         SizedBox(
           height: 300,
@@ -58,6 +62,13 @@ class _ImageGalleryState extends State<ImageGallery> {
                       imageUrl,
                       fit: BoxFit.cover,
                       width: double.infinity,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return _buildLoadingPlaceholder(context);
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        return _buildErrorPlaceholder(context);
+                      },
                     ),
                   ),
                 ),
@@ -65,6 +76,7 @@ class _ImageGalleryState extends State<ImageGallery> {
             },
           ),
         ),
+        const SizedBox(height: 8),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(widget.imageUrls.length, (index) {
@@ -84,6 +96,117 @@ class _ImageGalleryState extends State<ImageGallery> {
           }),
         ),
       ],
+    );
+  }
+
+  Widget _buildImagePlaceholder(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Container(
+      height: 300,
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: theme.colorScheme.outline.withValues(alpha: 0.3),
+          width: 1,
+        ),
+      ),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.primaryContainer,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(
+                Icons.pets,
+                size: 48,
+                color: theme.colorScheme.onPrimaryContainer,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'No photos available',
+              style: theme.textTheme.titleMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              'Photos help identify pets faster',
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant.withValues(
+                  alpha: 0.7,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLoadingPlaceholder(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Container(
+      color: theme.colorScheme.surfaceContainerHighest,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircularProgressIndicator(
+              color: theme.colorScheme.primary,
+              strokeWidth: 2,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Loading image...',
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildErrorPlaceholder(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Container(
+      color: theme.colorScheme.surfaceContainerHighest,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.errorContainer,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(
+                Icons.broken_image_outlined,
+                size: 32,
+                color: theme.colorScheme.onErrorContainer,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'Image unavailable',
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

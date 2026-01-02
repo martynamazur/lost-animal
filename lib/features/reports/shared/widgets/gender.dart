@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:lostanimal/shared/models/gender.dart';
-import 'package:lostanimal/features/reports/provider/report_notifier.dart';
+import 'package:lostanimal/features/reports/forms/report_notifier.dart';
 
 class GenderDropDown extends ConsumerWidget {
   const GenderDropDown({super.key});

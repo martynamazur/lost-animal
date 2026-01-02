@@ -23,6 +23,7 @@ class EmailField extends StatelessWidget {
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         label: Text(label),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         prefixIcon: icon != null
             ? Icon(
                 icon,

@@ -2,11 +2,12 @@ import 'dart:developer' as developer;
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lostanimal/shared/models/animal_category.dart';
-import 'package:lostanimal/features/reports/provider/report_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:lostanimal/shared/models/gender.dart';
 import 'package:lostanimal/shared/models/report_model.dart';
+
+import '../shared/provider/report_provider.dart';
 
 part 'report_notifier.g.dart';
 

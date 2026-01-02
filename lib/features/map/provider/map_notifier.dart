@@ -3,7 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../shared/models/report_model.dart';
 import '../../../shared/utils/marker_utils.dart';
-import '../../reports/provider/reports_notifier.dart';
+import '../../home/provider/reports_notifier.dart';
 
 part 'map_notifier.g.dart';
 

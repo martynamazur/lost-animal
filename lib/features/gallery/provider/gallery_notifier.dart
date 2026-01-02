@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../reports/provider/report_notifier.dart';
+import '../../reports/forms/report_notifier.dart';
 
 part 'gallery_notifier.g.dart';
 
