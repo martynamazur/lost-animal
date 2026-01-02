@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DetailsFilledCard extends StatelessWidget {
@@ -6,6 +5,7 @@ class DetailsFilledCard extends StatelessWidget {
   final String? subText;
   final IconData icon;
   final String? type;
+
   const DetailsFilledCard({
     super.key,
     required this.icon,
@@ -16,26 +16,46 @@ class DetailsFilledCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    // Określenie kolorów na podstawie typu
+    Color? cardColor;
+    Color? contentColor;
+
+    switch (type) {
+      case 'seen':
+        cardColor = colorScheme.primary;
+        contentColor = colorScheme.onPrimary;
+        break;
+      case 'found':
+        cardColor = colorScheme.tertiary;
+        contentColor = colorScheme.onTertiary;
+        break;
+      case 'missing':
+        cardColor = colorScheme.error;
+        contentColor = colorScheme.onError;
+        break;
+      default:
+        cardColor = colorScheme.surfaceContainerHighest;
+        contentColor = colorScheme.onSurface;
+    }
+
     return Card(
       elevation: 0.5,
-      color: switch (type) {
-        null => null,
-        'seen' => Theme.of(context).colorScheme.primary,
-        'found' => Colors.lightGreen,
-        'missing' => Theme.of(context).colorScheme.error,
-        _ => Theme.of(context).colorScheme.primary,
-      },
+      color: cardColor,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Row(
-          spacing: 4,
           children: [
-            Icon(icon, color: type != null ? Colors.white : Colors.black),
+            Icon(icon, color: contentColor, size: 20),
+            const SizedBox(width: 8),
             Expanded(
               child: Text(
                 text,
-                style: TextStyle(
-                  color: type != null ? Colors.white : Colors.black,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: contentColor,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),

@@ -25,10 +25,10 @@ abstract class Report with _$Report {
 
     @Default([]) List<String> pictures,
     bool? hasChip,
-    String? coloration,
+    @Default('') String coloration,
     String? breed,
     double? reward,
-    String? additionalInfo,
+    @Default('') String additionalInfo,
     String? phoneNumber,
     double? latitude,
     double? longitude,
