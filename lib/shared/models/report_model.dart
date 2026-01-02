@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:lostanimal/features/reports/forms/form_type.dart';
 
 import 'animal_category.dart';
 import 'gender.dart';
@@ -13,7 +14,7 @@ abstract class Report with _$Report {
   const factory Report({
     String? id,
     required DateTime missingSince,
-    required String type,
+    required FormType type,
 
     @Default(AnimalCategory.unknown)
     @JsonKey(unknownEnumValue: AnimalCategory.unknown)
@@ -53,7 +54,7 @@ abstract class Report with _$Report {
     additionalInfo: '',
     breed: '',
     phoneNumber: '',
-    type: '',
+    type: FormType.none,
     latitude: 0.0,
     longitude: 0.0,
     cityName: '',

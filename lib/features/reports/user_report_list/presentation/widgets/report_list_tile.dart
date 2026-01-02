@@ -87,7 +87,7 @@ class _ListReportTileState extends ConsumerState<ListReportTile> {
                             vertical: 2,
                           ),
                           child: Text(
-                            widget.report.type,
+                            widget.report.type.name,
                             style: TextStyle(
                               color: Theme.of(context).colorScheme.onPrimary,
                             ),

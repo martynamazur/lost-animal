@@ -14,12 +14,12 @@ import '../../features/chat/presentation/chat_screen.dart';
 import '../../features/home/dashboard_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/inbox/presentation/inbox_screen.dart';
-import '../../features/reports/presentation/added_reports_screen.dart';
-import '../../features/reports/presentation/category_picker_screen.dart';
-import '../../features/reports/presentation/report_missing_form_screen.dart';
-import '../../features/reports/presentation/report_screen.dart';
-import '../../features/reports/presentation/report_seen_from_screen.dart';
-import '../../features/reports/widgets/report_details_screen.dart';
+import '../../features/reports/forms/missing_form/presentation/report_missing_form_screen.dart';
+import '../../features/reports/forms/sighting_form/presentation/report_seen_from_screen.dart';
+import '../../features/reports/shared/widgets/category_picker_screen.dart';
+import '../../features/reports/user_report_list/presentation/added_reports_screen.dart';
+import '../../features/reports/report/report_screen.dart';
+import '../../features/reports/report_details/presentation/report_details_screen.dart';
 import '../../features/settings/presentation/privacy_policy_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
 import '../../features/settings/presentation/about_app_screen.dart';
@@ -50,7 +50,7 @@ class AppRouter extends RootStackRouter {
       children: [
         AutoRoute(page: HomeRoute.page),
         AutoRoute(page: ReportRoute.page),
-        AutoRoute(page: InboxRoute.page),
+        AutoRoute(page: InboxRoute.page, guards: []),
         AutoRoute(page: MenuRoute.page),
       ],
     ),

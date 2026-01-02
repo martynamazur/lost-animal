@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lostanimal/features/reports/forms/form_type.dart';
 import 'package:lostanimal/shared/widgets/save_report_btn.dart';
 import 'package:lostanimal/features/gallery/widgets/build_image_gallery.dart';
 import 'package:lostanimal/shared/widgets/contact.dart';
@@ -112,7 +113,7 @@ class _ReportSeenScreenState extends ConsumerState<ReportSeenScreen> {
           child: SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: SaveReportBtn(keyForm, 'seen'),
+              child: SaveReportBtn(keyForm, FormType.sighting),
             ),
           ),
         ),

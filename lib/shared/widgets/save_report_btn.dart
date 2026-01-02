@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/experimental/mutation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lostanimal/features/reports/forms/form_type.dart';
 import 'package:lostanimal/shared/widgets/mutation_provider.dart';
 import 'package:lostanimal/features/reports/forms/report_notifier.dart';
 import 'package:riverpod/experimental/mutation.dart';
@@ -10,7 +11,7 @@ import '../../core/router/app_router.dart';
 
 class SaveReportBtn extends ConsumerWidget {
   final GlobalKey<FormState> formKey;
-  final String formType;
+  final FormType formType;
   const SaveReportBtn(this.formKey, this.formType, {super.key});
 
   @override
@@ -23,7 +24,7 @@ class SaveReportBtn extends ConsumerWidget {
     ref.listen(saveFormMutation, (previous, next) {
       if (next case MutationSuccess()) {
         if (context.mounted) {
-          context.router.replace(AddedReportsRoute());
+          context.router.replace(AddedReportsRoute(initialIndex: formType == FormType.sighting ? 0 : 1));
         }
       } else if (next case MutationError(:final error)) {
         if (context.mounted) {
@@ -41,7 +42,6 @@ class SaveReportBtn extends ConsumerWidget {
       }
     });
 
-    //Co wyswietlam w roznych stanach
     return switch (saveForm) {
       MutationIdle() => SizedBox(
         width: double.infinity,

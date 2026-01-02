@@ -1,6 +1,7 @@
 import 'dart:developer' as developer;
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:lostanimal/features/reports/forms/form_type.dart';
 import 'package:lostanimal/shared/models/animal_category.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -95,7 +96,7 @@ class ReportNotifier extends _$ReportNotifier {
     state = state.copyWith(cityName: newCityName);
   }
 
-  void updateType(String type) {
+  void updateType(FormType type) {
     state = state.copyWith(type: type);
   }
 
@@ -107,7 +108,7 @@ class ReportNotifier extends _$ReportNotifier {
     state = state.copyWith(latitude: lat, longitude: lng, cityName: cityName);
   }
 
-  Future<void> saveToFirestore(String type) async {
+  Future<void> saveToFirestore(FormType type) async {
     final authorDisplayName =
         FirebaseAuth.instance.currentUser?.displayName ?? 'Unknown';
     updateAuthorDisplayName(authorDisplayName);

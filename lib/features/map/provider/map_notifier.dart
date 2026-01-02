@@ -38,7 +38,7 @@ class MapNotifier extends _$MapNotifier {
         if (hasImage) {
           try {
             markerIcon = await createCustomMarkerWithRoundedImage(
-              report.type,
+              report.type.name,
               report.pictures.first,
             );
           } catch (_) {
@@ -52,7 +52,7 @@ class MapNotifier extends _$MapNotifier {
           markerId: MarkerId(report.id!),
           position: LatLng(report.latitude!, report.longitude!),
           infoWindow: InfoWindow(
-            title: report.type,
+            title: report.type.name,
             snippet: report.cityName ?? '',
           ),
           icon: markerIcon,

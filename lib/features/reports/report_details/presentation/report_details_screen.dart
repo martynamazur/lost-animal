@@ -63,7 +63,7 @@ class _ReportDetailsScreenState extends ConsumerState<ReportDetailsScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ReportStatusBadge(type: report.type),
+                        ReportStatusBadge(type: report.type.name),
 
                         const SizedBox(height: 20),
 

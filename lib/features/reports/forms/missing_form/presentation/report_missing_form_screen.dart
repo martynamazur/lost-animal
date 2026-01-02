@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lostanimal/features/reports/forms/form_type.dart';
 
 import '../../../../../shared/widgets/chip.dart';
 import '../../../../../shared/widgets/contact.dart';
@@ -127,7 +128,7 @@ class _ReportMissingFormScreenState
           child: SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: SaveReportBtn(keyForm, 'missing'),
+              child: SaveReportBtn(keyForm, FormType.missing),
             ),
           ),
         ),

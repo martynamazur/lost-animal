@@ -31,7 +31,9 @@ class MenuItemsList extends StatelessWidget {
               },
               leading: CircleAvatar(
                 radius: 16,
-                backgroundColor: Colors.deepPurple[50],
+                backgroundColor: Theme.of(
+                  context,
+                ).colorScheme.surfaceContainerHighest,
                 child: item.icon,
               ),
               trailing: Icon(
