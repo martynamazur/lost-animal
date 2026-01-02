@@ -5,6 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/router/app_router.dart';
+import 'core/theme/app_theme.dart';
 import 'features/map/data/permission_service.dart';
 import 'firebase_options.dart';
 import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
@@ -43,24 +44,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: _appRouter.config(),
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        textTheme: const TextTheme(
-          titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          titleMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-          bodyMedium: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-        ),
-        inputDecorationTheme: InputDecorationTheme(
-          filled: true,
-          fillColor: Colors.deepPurple.shade50,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(24)),
-        ),
-        iconTheme: IconThemeData(
-          color: Colors.grey.shade700,
-          //size: 24,
-        ),
-      ),
+      title: 'Lost Animal',
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.dark,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
