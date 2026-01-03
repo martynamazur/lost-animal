@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../../shared/models/report_model.dart';
+import '../../../../../shared/report_list_tile_skeleton.dart';
 import 'report_list_tile.dart';
 
 class ReportList extends ConsumerWidget {
@@ -38,7 +40,22 @@ class ReportList extends ConsumerWidget {
             }
           },
           error: (_, _) => Text('Something went wrong'),
-          loading: () => Center(child: CircularProgressIndicator()),
+          loading: () {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: ListView.separated(
+                controller: controller,
+                itemCount: 6,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return const ListReportTileSkeleton();
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const SizedBox(height: 12);
+                },
+              ),
+            );
+          },
         ),
       ),
     );

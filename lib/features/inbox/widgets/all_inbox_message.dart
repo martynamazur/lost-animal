@@ -1,9 +1,9 @@
-import 'dart:developer' as developer;
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../shared/components/empty_states/empty_states.dart';
+import '../../../shared/inbox_message_skeleton.dart';
 import '../provider/inbox_provider.dart';
 import 'inbox_message_card.dart';
 
@@ -15,7 +15,6 @@ class AllInboxMessage extends ConsumerWidget {
     final chats = ref.watch(getUserChatsProvider);
     return chats.when(
       data: (chats) {
-        developer.log('Number of chats: ${chats.length}', name: 'InboxScreen');
         if (chats.isNotEmpty) {
           return Padding(
             padding: const EdgeInsets.all(16.0),
@@ -32,7 +31,6 @@ class AllInboxMessage extends ConsumerWidget {
           return MessagesEmptyState(
             onStartChat: () {
               // TODO: Navigate to new chat screen
-              developer.log('Start new chat pressed', name: 'InboxScreen');
             },
             onRefresh: () {
               // Refresh the chats list
@@ -44,8 +42,17 @@ class AllInboxMessage extends ConsumerWidget {
         }
       },
       error: (e, st) => Center(child: Text('Error:, $e')),
-      loading: () =>
-          MessagesEmptyState(isLoading: true, showStartChatButton: false),
+      loading: () => Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView.separated(
+          shrinkWrap: true,
+          itemCount: 5,
+          itemBuilder: (context, index) {
+            return const InboxMessageSkeleton();
+          },
+          separatorBuilder: (context, index) => const SizedBox(height: 8),
+        ),
+      ),
     );
   }
 }
