@@ -1,15 +1,16 @@
 import 'dart:developer' as developer;
 
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../map/provider/location_permission_provider.dart';
 import '../../map/widgets/map.dart';
-import '../../reports/presentation/report_list.dart';
-import '../../reports/provider/reports_notifier.dart';
-import '../../reports/widgets/filters.dart';
+
+import '../../reports/shared/widgets/filters.dart';
+import '../../reports/user_report_list/presentation/widgets/report_list.dart';
+
+import '../provider/reports_notifier.dart';
 
 @RoutePage()
 class HomeScreen extends ConsumerStatefulWidget {

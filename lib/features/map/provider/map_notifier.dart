@@ -4,19 +4,12 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../shared/models/report_model.dart';
 import '../../../shared/utils/marker_utils.dart';
 import '../../home/provider/reports_notifier.dart';
+import '../../reports/forms/form_type.dart';
 
 part 'map_notifier.g.dart';
 
-/*
-State as what ?
-List of Markers ?
-build fetching only report list from another notifier ?
- */
-
 @riverpod
 class MapNotifier extends _$MapNotifier {
-  double _currentZoom = 10.0;
-
   @override
   FutureOr<List<Marker>> build() async {
     final reports = await ref.watch(reportsNotifierProvider.future);
@@ -29,7 +22,7 @@ class MapNotifier extends _$MapNotifier {
         final hasImage = report.pictures.isNotEmpty;
 
         BitmapDescriptor markerColor = BitmapDescriptor.defaultMarkerWithHue(
-          report.type == 'seen'
+          report.type == FormType.seen || report.type.name == 'seen'
               ? BitmapDescriptor.hueBlue
               : BitmapDescriptor.hueRose,
         );

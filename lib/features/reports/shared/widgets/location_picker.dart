@@ -1,5 +1,3 @@
-import 'dart:developer' as developer;
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -95,8 +93,6 @@ class _LocationPickerState extends ConsumerState<LocationPicker> {
                           onTap: (position) async {
                             final double lng = position.longitude;
                             final double lat = position.latitude;
-                            developer.log('Latifude $lat');
-                            developer.log('Long $lng');
                             final cityName = await LocationService.getCityName(
                               lat,
                               lng,
@@ -167,7 +163,6 @@ class _LocationPickerState extends ConsumerState<LocationPicker> {
       ref
           .read(reportNotifierProvider.notifier)
           .updateLocation(pos.latitude, pos.longitude, cityName);
-      developer.log('City name getCurrentLoc $cityName');
     }
     return loc;
   }

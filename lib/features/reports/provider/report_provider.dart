@@ -1,5 +1,3 @@
-import 'dart:developer' as developer;
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lostanimal/features/reports/data/report_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -20,7 +18,6 @@ Future<Result> updateReport(
   String collectionPath,
   Report report,
 ) async {
-  developer.log('CollectionPath $collectionPath');
   return ref
       .read(reportRepositoryProvider)
       .updateReport(collectionPath, report);

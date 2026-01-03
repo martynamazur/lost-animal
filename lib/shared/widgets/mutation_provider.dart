@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/experimental/mutation.dart';
 import 'package:lostanimal/shared/models/result_model.dart';
 
-import 'package:lostanimal/features/reports/provider/report_notifier.dart';
+import '../../features/reports/forms/report_notifier.dart';
 
 //final saveFormMutation = Mutation<void>();
 

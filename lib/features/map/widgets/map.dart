@@ -27,7 +27,6 @@ class _MapState extends ConsumerState<ReportsMap> {
 
   @override
   Widget build(BuildContext context) {
-    //final markers = ref.watch(reportsNotifierProvider.notifier).getReportsMarks();
     final markersAsync = ref.watch(mapNotifierProvider);
 
     return Positioned.fill(
@@ -53,9 +52,12 @@ class _MapState extends ConsumerState<ReportsMap> {
                 onCameraIdle: () async {
                   if (_mapController != null) {
                     final zoom = await _mapController!.getZoomLevel();
-                    //ref.read(mapNotifierProvider.notifier).updateZoomLevel(zoom);
                   }
                 },
+                mapType: MapType.normal,
+                myLocationEnabled: true,
+                myLocationButtonEnabled: true,
+                zoomControlsEnabled: true,
                 zoomGesturesEnabled: true,
                 scrollGesturesEnabled: true,
                 rotateGesturesEnabled: true,
@@ -63,8 +65,17 @@ class _MapState extends ConsumerState<ReportsMap> {
                 markers: Set.from(markers),
               );
             },
-            error: (err, stack) => Text('error'),
-            loading: () => CircularProgressIndicator(),
+            error: (err, stack) => Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.error, size: 48, color: Colors.red),
+                  SizedBox(height: 16),
+                  Text('Error loading map'),
+                ],
+              ),
+            ),
+            loading: () => Center(child: CircularProgressIndicator()),
           );
         },
       ),
@@ -72,13 +83,19 @@ class _MapState extends ConsumerState<ReportsMap> {
   }
 
   Future<LatLng?> _getCurrentLocation() async {
-    final granted = await ref.read(permissionServiceProvider).requestLocation();
-    if (!granted) return null;
+    try {
+      final granted = await ref
+          .read(permissionServiceProvider)
+          .requestLocation();
+      if (!granted) return null;
 
-    final pos = await LocationService.getCurrentPositionSafe();
-    if (pos == null) return null;
+      final pos = await LocationService.getCurrentPositionSafe();
+      if (pos == null) return null;
 
-    final loc = LatLng(pos.latitude, pos.longitude);
-    return loc;
+      final loc = LatLng(pos.latitude, pos.longitude);
+      return loc;
+    } catch (e) {
+      return null;
+    }
   }
 }

@@ -3,6 +3,7 @@ import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../shared/components/empty_states/empty_states.dart';
 import '../provider/inbox_provider.dart';
 import 'inbox_message_card.dart';
 
@@ -28,11 +29,23 @@ class AllInboxMessage extends ConsumerWidget {
             ),
           );
         } else {
-          return Center(child: Text('No messages found'));
+          return MessagesEmptyState(
+            onStartChat: () {
+              // TODO: Navigate to new chat screen
+              developer.log('Start new chat pressed', name: 'InboxScreen');
+            },
+            onRefresh: () {
+              // Refresh the chats list
+              ref.invalidate(getUserChatsProvider);
+            },
+            showStartChatButton: true,
+            isLoading: false,
+          );
         }
       },
       error: (e, st) => Center(child: Text('Error:, $e')),
-      loading: () => const Center(child: CircularProgressIndicator()),
+      loading: () =>
+          MessagesEmptyState(isLoading: true, showStartChatButton: false),
     );
   }
 }

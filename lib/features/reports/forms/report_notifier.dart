@@ -1,5 +1,3 @@
-import 'dart:developer' as developer;
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lostanimal/features/reports/forms/form_type.dart';
 import 'package:lostanimal/shared/models/animal_category.dart';
@@ -8,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:lostanimal/shared/models/gender.dart';
 import 'package:lostanimal/shared/models/report_model.dart';
 
-import '../shared/provider/report_provider.dart';
+import '../provider/report_provider.dart';
 
 part 'report_notifier.g.dart';
 
@@ -120,8 +118,6 @@ class ReportNotifier extends _$ReportNotifier {
     updateId(reportId);
     updateUuid(userUuid);
 
-    developer.log('Report id $reportId');
-    developer.log('Linki ${state.pictures.length}');
     final report = state;
 
     await ref.read(updateReportProvider('reports', report).future);

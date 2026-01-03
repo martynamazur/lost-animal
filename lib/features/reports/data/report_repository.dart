@@ -18,12 +18,18 @@ class ReportRepository {
   }
 
   Future<String> createReport(String collectionPath) async {
-    final docRef = FirebaseFirestore.instance.collection(collectionPath).doc();
-    await docRef.set({
-      'createdAt': FieldValue.serverTimestamp(),
-      'authorId': _userId,
-    });
-    return docRef.id;
+    try {
+      final docRef = FirebaseFirestore.instance
+          .collection(collectionPath)
+          .doc();
+      await docRef.set({
+        'createdAt': FieldValue.serverTimestamp(),
+        'authorId': _userId,
+      });
+      return docRef.id;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<Result> updateReport(String collectionPath, Report report) async {
@@ -49,10 +55,23 @@ class ReportRepository {
           .where('userId', isEqualTo: _userId)
           .get();
 
-      return snapshot.docs
-          .map((report) => Report.fromJson(report.data()))
+      final reports = snapshot.docs
+          .map((doc) {
+            try {
+              final data = doc.data();
+              return Report.fromJson(data);
+            } catch (e) {
+              return null;
+            }
+          })
+          .where((report) => report != null)
+          .cast<Report>()
           .toList();
+
+      return reports;
     } on FirebaseException catch (e) {
+      return [];
+    } catch (e) {
       return [];
     }
   }
@@ -63,10 +82,24 @@ class ReportRepository {
           .where('type', isEqualTo: 'seen')
           .where('userId', isEqualTo: _userId)
           .get();
-      return snapshot.docs
-          .map((report) => Report.fromJson(report.data()))
+
+      final reports = snapshot.docs
+          .map((doc) {
+            try {
+              final data = doc.data();
+              return Report.fromJson(data);
+            } catch (e) {
+              return null;
+            }
+          })
+          .where((report) => report != null)
+          .cast<Report>()
           .toList();
+
+      return reports;
     } on FirebaseException catch (e) {
+      return [];
+    } catch (e) {
       return [];
     }
   }
@@ -75,11 +108,24 @@ class ReportRepository {
     return _collection
         .snapshots()
         .map((snapshot) {
-          return snapshot.docs
-              .map((doc) => Report.fromJson(doc.data()))
+          final reports = snapshot.docs
+              .map((doc) {
+                try {
+                  final data = doc.data();
+                  return Report.fromJson(data);
+                } catch (e) {
+                  return null;
+                }
+              })
+              .where((report) => report != null)
+              .cast<Report>()
               .toList();
+
+          return reports;
         })
-        .handleError((error) {});
+        .handleError((error) {
+          // Handle stream errors silently
+        });
   }
 
   Future<Report?> getReportById(String reportId) async {

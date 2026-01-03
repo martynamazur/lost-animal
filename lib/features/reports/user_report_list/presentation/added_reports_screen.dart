@@ -11,7 +11,6 @@ class AddedReportsScreen extends ConsumerStatefulWidget {
   const AddedReportsScreen({this.initialIndex = 0, super.key});
   final int initialIndex;
 
-
   @override
   ConsumerState createState() => _AddedReportsScreenState();
 }

@@ -20,11 +20,14 @@ class SaveReportBtn extends ConsumerWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    //Obserwuje stan mutacji i nawiguje/wyswietlac snacbara
     ref.listen(saveFormMutation, (previous, next) {
       if (next case MutationSuccess()) {
         if (context.mounted) {
-          context.router.replace(AddedReportsRoute(initialIndex: formType == FormType.sighting ? 0 : 1));
+          context.router.replace(
+            AddedReportsRoute(
+              initialIndex: formType == FormType.sighting ? 0 : 1,
+            ),
+          );
         }
       } else if (next case MutationError(:final error)) {
         if (context.mounted) {

@@ -1,5 +1,3 @@
-import 'dart:developer' as developer;
-
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -11,9 +9,7 @@ class LocationService {
         final placemark = placemarks.first;
         return placemark.locality ?? placemark.administrativeArea;
       }
-    } catch (e) {
-      developer.log('Błąd geokodowania: $e');
-    }
+    } catch (e) {}
     return null;
   }
 
@@ -37,7 +33,6 @@ class LocationService {
 
       return await Geolocator.getCurrentPosition(locationSettings: settings);
     } catch (e, st) {
-      developer.log('Błąd lokalizacji', error: e, stackTrace: st);
       return null;
     }
   }

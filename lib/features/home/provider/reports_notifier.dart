@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:lostanimal/shared/models/report_model.dart';
 
-import '../../reports/shared/provider/report_provider.dart';
+import '../../reports/provider/report_provider.dart';
 
 part 'reports_notifier.g.dart';
 
@@ -29,13 +29,12 @@ class ReportsNotifier extends _$ReportsNotifier {
   }
 
   void filterByCategory(AnimalCategory category) {
+    final filteredReports = state.value!.originalList
+        .where((r) => r.category == category)
+        .toList();
+
     state = AsyncData(
-      state.value!.copyWith(
-        categoryFilter: category,
-        reports: state.value!.originalList
-            .where((r) => r.category == category)
-            .toList(),
-      ),
+      state.value!.copyWith(categoryFilter: category, reports: filteredReports),
     );
   }
 

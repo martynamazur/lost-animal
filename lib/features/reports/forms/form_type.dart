@@ -1,1 +1,1 @@
-enum FormType { missing, sighting , none}
+enum FormType { missing, sighting, seen, none }

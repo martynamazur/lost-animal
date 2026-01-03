@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../widgets/all_inbox_message.dart';
+import '../widgets/unread_inbox_message.dart';
 
 @RoutePage()
 class InboxScreen extends ConsumerStatefulWidget {
@@ -30,9 +31,7 @@ class _InboxScreenState extends ConsumerState<InboxScreen> {
             ],
           ),
         ),
-        body: TabBarView(
-          children: [AllInboxMessage(), Text('widget unread messages')],
-        ),
+        body: TabBarView(children: [AllInboxMessage(), UnreadInboxMessage()]),
       ),
     );
   }
