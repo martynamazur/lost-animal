@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "lostanimal": "lostanimal-cf04e",
+    "default": "lostanimal-cf04e"
+  },
+  "targets": {},
+  "etags": {}
+}
