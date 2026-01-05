@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-import 'components/skeleton_layout/skeleton_info_row.dart';
+import 'skeleton_info_row.dart';
 
 class ListReportTileSkeleton extends StatelessWidget {
   const ListReportTileSkeleton({super.key});

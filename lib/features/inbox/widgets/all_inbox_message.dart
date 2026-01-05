@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../shared/components/empty_states/empty_states.dart';
-import '../../../shared/inbox_message_skeleton.dart';
+import '../../../shared/components/skeleton_layout/inbox_message_skeleton.dart';
 import '../provider/inbox_provider.dart';
 import 'inbox_message_card.dart';
 

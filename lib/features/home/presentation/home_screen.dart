@@ -9,6 +9,7 @@ import '../../map/widgets/map.dart';
 
 import '../../reports/shared/widgets/filters.dart';
 import '../../reports/user_report_list/presentation/widgets/report_list.dart';
+import '../../notifications/notification_service.dart';
 
 import '../provider/reports_notifier.dart';
 

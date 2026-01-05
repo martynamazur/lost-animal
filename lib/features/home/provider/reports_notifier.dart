@@ -2,8 +2,6 @@ import 'package:lostanimal/shared/models/animal_category.dart';
 import 'package:lostanimal/shared/models/reports_state_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:lostanimal/shared/models/report_model.dart';
-
 import '../../reports/provider/report_provider.dart';
 
 part 'reports_notifier.g.dart';
@@ -16,6 +14,9 @@ class ReportsNotifier extends _$ReportsNotifier {
   @override
   FutureOr<ReportsState> build() async {
     final reports = await ref.watch(getAllReportsProvider.future);
+
+    //delay for demo purposes
+    await Future.delayed(const Duration(seconds: 5));
 
     final sortedReports = [...reports]
       ..sort((a, b) => b.missingSince.compareTo(a.missingSince));

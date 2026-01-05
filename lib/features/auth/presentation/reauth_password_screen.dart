@@ -2,11 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 
-import '../../../shared/models/auth_error_model.dart';
-import '../../../shared/models/result_model.dart';
-import '../../user/provider/user_provider.dart';
-import '../widgets/password_field.dart';
+import '../provider/auth_notifier.dart';
 
 @RoutePage()
 class ReAuthPasswordScreen extends ConsumerStatefulWidget {
@@ -20,6 +18,54 @@ class ReAuthPasswordScreen extends ConsumerStatefulWidget {
 class _ReAuthPasswordScreenState extends ConsumerState<ReAuthPasswordScreen> {
   final keyForm = GlobalKey<FormBuilderState>();
   late FocusNode _passwordFocus;
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _passwordFocus = FocusNode();
+
+    // Listen to auth state changes
+    ref.listenManual(authNotifierProvider, (previous, next) {
+      if (!mounted) return;
+
+      next.when(
+        data: (_) {
+          if (_isLoading) {
+            _isLoading = false;
+            _showEmailChangeSuccessDialog();
+          }
+        },
+        error: (error, _) {
+          if (_isLoading) {
+            setState(() => _isLoading = false);
+            final errorMessage = error.toString();
+
+            if (errorMessage.contains('Wrong password')) {
+              final formState = keyForm.currentState;
+              formState?.fields['password']?.invalidate(
+                'Wrong password. Try again.',
+              );
+              _passwordFocus.requestFocus();
+            }
+
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(errorMessage)));
+          }
+        },
+        loading: () {
+          // Loading handled by _isLoading flag
+        },
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    _passwordFocus.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,76 +93,42 @@ class _ReAuthPasswordScreenState extends ConsumerState<ReAuthPasswordScreen> {
                         fontWeight: FontWeight.normal,
                       ),
                     ),
-                    PasswordField(),
+                    FormBuilderTextField(
+                      name: 'password',
+                      focusNode: _passwordFocus,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: FormBuilderValidators.required(),
+                    ),
                     SizedBox(
                       width: double.infinity,
                       child: FilledButton(
-                        onPressed: () async {
-                          final messenger = ScaffoldMessenger.of(context);
-                          if (keyForm.currentState?.saveAndValidate() ??
-                              false) {
-                            final password =
-                                keyForm.currentState?.value['password'];
-                            final Result result = await ref.read(
-                              reAuthenticateProvider(
-                                email: widget.newEmail,
-                                password: password,
-                              ).future,
-                            );
-                            if (result.success) {
-                              final Result result = await ref.read(
-                                changeEmailProvider(
-                                  newEmail: widget.newEmail,
-                                ).future,
-                              );
-                              if (result.success) {
-                                _showEmailChangeSuccessDialog();
-                              } else {
-                                messenger.showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      result.errorMessage ??
-                                          'Something went wrong',
-                                    ),
-                                  ),
-                                );
-                              }
-                            } else {
-                              switch (result.code) {
-                                case AuthError.wrongPassword:
-                                  final formState = keyForm.currentState;
-                                  formState?.fields['password']?.invalidate(
-                                    'Wrong password. Try again.',
-                                  );
-                                  _passwordFocus.requestFocus();
-                                  messenger.showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Wrong password. Try again.',
-                                      ),
-                                    ),
-                                  );
-                                  break;
-                                case AuthError.networkError:
-                                  messenger.showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Check your internet connection.',
-                                      ),
-                                    ),
-                                  );
-                                  break;
-                                default:
-                                  messenger.showSnackBar(
-                                    SnackBar(
-                                      content: Text(result.errorMessage!),
-                                    ),
-                                  );
-                              }
-                            }
-                          }
-                        },
-                        child: Text('Next'),
+                        onPressed: _isLoading
+                            ? null
+                            : () async {
+                                if (keyForm.currentState?.saveAndValidate() ??
+                                    false) {
+                                  setState(() => _isLoading = true);
+
+                                  final password =
+                                      keyForm.currentState?.value['password'];
+
+                                  // First re-authenticate, then change email
+                                  await _performReAuthAndChangeEmail(password);
+                                }
+                              },
+                        child: _isLoading
+                            ? SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : Text('Next'),
                       ),
                     ),
                   ],
@@ -146,5 +158,26 @@ class _ReAuthPasswordScreenState extends ConsumerState<ReAuthPasswordScreen> {
         );
       },
     );
+  }
+}
+
+Future<void> _performReAuthAndChangeEmail(String password) async {
+  try {
+    // Step 1: Re-authenticate
+    await ref
+        .read(authNotifierProvider.notifier)
+        .onReAuthenticate(widget.newEmail, password);
+
+    // Step 2: Change email (will be handled by listener)
+    await ref
+        .read(authNotifierProvider.notifier)
+        .onChangeEmail(widget.newEmail);
+  } catch (e) {
+    if (mounted) {
+      setState(() => _isLoading = false);
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('An unexpected error occurred')));
+    }
   }
 }

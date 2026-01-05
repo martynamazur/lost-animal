@@ -5,10 +5,8 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/router/app_router.dart';
-import '../../../shared/models/auth_error_model.dart';
-import '../../../shared/models/result_model.dart';
 import '../../../shared/widgets/dialog_confirmation.dart';
-import '../../user/provider/user_provider.dart';
+import '../provider/auth_notifier.dart';
 import '../widgets/email_field.dart';
 
 @RoutePage()
@@ -21,6 +19,46 @@ class ChangeEmailScreen extends ConsumerStatefulWidget {
 
 class _ChangeEmailScreenState extends ConsumerState<ChangeEmailScreen> {
   final _keyForm = GlobalKey<FormBuilderState>();
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Listen to auth state changes
+    ref.listenManual(authNotifierProvider, (previous, next) {
+      if (!mounted) return;
+
+      next.when(
+        data: (_) {
+          if (_isLoading) {
+            _isLoading = false;
+            _showEmailChangeSuccessDialog();
+            context.router.pop();
+          }
+        },
+        error: (error, _) {
+          if (_isLoading) {
+            _isLoading = false;
+            final errorMessage = error.toString();
+
+            if (errorMessage == 'requires-recent-login') {
+              final newEmail = _keyForm.currentState?.value['email'];
+              context.router.push(ReAuthPasswordRoute(newEmail: newEmail));
+            } else {
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(errorMessage)));
+            }
+          }
+        },
+        loading: () {
+          // Loading state is handled by _isLoading flag
+        },
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final userEmail = FirebaseAuth.instance.currentUser?.email;
@@ -58,40 +96,30 @@ class _ChangeEmailScreenState extends ConsumerState<ChangeEmailScreen> {
                         SizedBox(
                           width: double.infinity,
                           child: FilledButton(
-                            onPressed: () async {
-                              if (_keyForm.currentState?.saveAndValidate() ??
-                                  false) {
-                                final email =
-                                    _keyForm.currentState?.value['email'];
-                                final Result result = await ref.read(
-                                  changeEmailProvider(newEmail: email).future,
-                                );
-                                if (result.success) {
-                                  _showEmailChangeSuccessDialog();
-                                  context.router.pop();
-                                } else {
-                                  switch (result.code) {
-                                    case AuthError.requiresRecentLogin:
-                                      context.router.push(
-                                        ReAuthPasswordRoute(newEmail: email),
-                                      );
-                                      break;
+                            onPressed: _isLoading
+                                ? null
+                                : () async {
+                                    if (_keyForm.currentState
+                                            ?.saveAndValidate() ??
+                                        false) {
+                                      setState(() => _isLoading = true);
 
-                                    default:
-                                      ScaffoldMessenger.of(
-                                        context,
-                                      ).showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            result.errorMessage ?? 'Error',
-                                          ),
-                                        ),
-                                      );
-                                  }
-                                }
-                              }
-                            },
-                            child: Text('Continue'),
+                                      final newEmail =
+                                          _keyForm.currentState?.value['email'];
+                                      ref
+                                          .read(authNotifierProvider.notifier)
+                                          .onChangeEmail(newEmail);
+                                    }
+                                  },
+                            child: _isLoading
+                                ? SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                    ),
+                                  )
+                                : Text('Continue'),
                           ),
                         ),
                       ],

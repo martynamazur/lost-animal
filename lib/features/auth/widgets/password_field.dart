@@ -28,6 +28,7 @@ class _PasswordFieldState extends State<PasswordField> {
       enabled: true,
       decoration: InputDecoration(
         labelText: widget.label,
+        border: const OutlineInputBorder(),
         suffixIcon: IconButton(
           onPressed: () {
             setState(() {

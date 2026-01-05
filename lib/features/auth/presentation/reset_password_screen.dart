@@ -1,11 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../shared/widgets/dialog_confirmation.dart';
-import '../../user/provider/user_provider.dart';
+import '../provider/auth_notifier.dart';
 import '../widgets/email_field.dart';
 
 @RoutePage()
@@ -37,21 +36,11 @@ class ResetPasswordScreen extends ConsumerWidget {
                         final messenger = ScaffoldMessenger.of(context);
                         if (_keyForm.currentState?.saveAndValidate() ?? false) {
                           final email = _keyForm.currentState?.value['email'];
-                          final result = await ref.read(
-                            resetPasswordProvider(emailAddress: email).future,
-                          );
-                          if (result.success) {
-                            _showConfirmationDialog(context);
-                            context.router.pop();
-                          } else {
-                            messenger.showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  result.errorMessage ?? 'Unknown error',
-                                ),
-                              ),
-                            );
-                          }
+                          await ref
+                              .read(authNotifierProvider.notifier)
+                              .onResetPassword(email);
+                          _showConfirmationDialog(context);
+                          context.router.pop();
                         }
                       },
                       child: Text('Reset'),

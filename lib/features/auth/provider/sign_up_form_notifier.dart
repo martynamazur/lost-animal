@@ -5,6 +5,8 @@ import 'package:lostanimal/shared/models/result_model.dart';
 import 'package:lostanimal/features/user/provider/user_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../notifications/fcm_token_service.dart';
+
 part 'sign_up_form_notifier.g.dart';
 
 @riverpod
@@ -30,6 +32,10 @@ class SignUpFormNotifier extends _$SignUpFormNotifier {
       final user = credential.user;
       await user?.sendEmailVerification();
       await credential.user!.updateDisplayName(name);
+
+      // Inicjalizuj FCM token po udanej rejestracji
+      await FCMTokenService.initialize();
+
       state = const AsyncData(null);
     } on FirebaseAuthException catch (e) {
       final authError = authErrorFromCode(e.code);
@@ -62,11 +68,14 @@ class SignUpFormNotifier extends _$SignUpFormNotifier {
       password: password,
     );
 
-    final Result result = await ref.read(
-      linkWithCredentialProvider(credential).future,
-    );
+    final Result result = await ref
+        .read(authRepositoryProvider)
+        .linkWithCredential(credential);
     if (result.success) {
       await FirebaseAuth.instance.currentUser!.updateDisplayName(name);
+
+      await FCMTokenService.initialize();
+
       state = AsyncData(null);
     } else {
       state = AsyncError(

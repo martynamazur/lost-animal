@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../../shared/models/report_model.dart';
-import '../../../../../shared/report_list_tile_skeleton.dart';
+import '../../../../../shared/components/skeleton_layout/report_list_tile_skeleton.dart';
 import 'report_list_tile.dart';
 
 class ReportList extends ConsumerWidget {

@@ -18,6 +18,8 @@ class MessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     final formattedTime = DateFormat.Hm().format(time);
 
     final isMe = message.senderId == currentUserId;
@@ -30,7 +32,9 @@ class MessageBubble extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         constraints: const BoxConstraints(maxWidth: 250),
         decoration: BoxDecoration(
-          color: isMe ? Theme.of(context).primaryColor : Colors.grey[300],
+          color: isMe
+              ? colorScheme.primary
+              : colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.only(
             topLeft: const Radius.circular(12),
             topRight: const Radius.circular(12),
@@ -44,7 +48,9 @@ class MessageBubble extends StatelessWidget {
           children: [
             Text(
               message.text,
-              style: TextStyle(color: isMe ? Colors.white : Colors.black87),
+              style: TextStyle(
+                color: isMe ? colorScheme.onPrimary : colorScheme.onSurface,
+              ),
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
@@ -53,19 +59,27 @@ class MessageBubble extends StatelessWidget {
                 Text(
                   formattedTime,
                   style: TextStyle(
-                    color: isMe ? Colors.white70 : Colors.black54,
+                    color: isMe
+                        ? colorScheme.onPrimary.withOpacity(0.7)
+                        : colorScheme.onSurface.withOpacity(0.6),
                     fontSize: 10,
                   ),
                 ),
                 Icon(
                   Icons.check,
                   size: 10,
-                  color: isMe ? Colors.blue : Colors.white,
+                  color: isMe
+                      ? colorScheme.onPrimary.withOpacity(0.8)
+                      : colorScheme.primary,
                 ),
                 Icon(
                   Icons.check,
                   size: 10,
-                  color: isRead ? Colors.blue : Colors.white,
+                  color: isRead
+                      ? (isMe ? colorScheme.onPrimary : colorScheme.primary)
+                      : (isMe
+                            ? colorScheme.onPrimary.withOpacity(0.3)
+                            : colorScheme.outline),
                 ),
               ],
             ),

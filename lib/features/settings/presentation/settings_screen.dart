@@ -1,9 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lostanimal/features/auth/presentation/change_email_screen.dart';
+import 'package:lostanimal/features/auth/provider/auth_notifier.dart';
 import 'package:lostanimal/features/user/widgets/menu_items_list.dart';
-import 'package:lostanimal/features/user/provider/user_provider.dart';
 
 import 'package:lostanimal/shared/models/menu_item_model.dart';
 
@@ -55,21 +54,8 @@ class SettingsScreen extends ConsumerWidget {
           child: MenuItemsList(
             menuItems: menuItems,
             onSignOut: () async {
-              final messenger = ScaffoldMessenger.of(context);
-              ref.read(signOutProvider.future).then((result) {
-                if (result.success) {
-                  context.router.replaceAll([DashboardRoute()]);
-                } else {
-                  messenger.showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        result.errorMessage ??
-                            'Ups something went wrong. Try again',
-                      ),
-                    ),
-                  );
-                }
-              });
+              await ref.read(authNotifierProvider.notifier).onSignOut();
+              context.router.replaceAll([DashboardRoute()]);
             },
           ),
         ),

@@ -1,18 +1,15 @@
-import 'dart:developer' as developer;
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lostanimal/shared/models/auth_error_model.dart';
 
 import 'package:lostanimal/shared/widgets/dialog_confirmation.dart';
 import 'package:lostanimal/features/auth/widgets/password_field.dart';
 import 'package:lostanimal/features/auth/widgets/password_rules.dart';
-import 'package:lostanimal/features/user/provider/user_provider.dart';
-
-import 'package:lostanimal/shared/models/result_model.dart';
+import 'package:lostanimal/features/auth/provider/auth_notifier.dart';
 import 'package:lostanimal/features/auth/provider/password_input_provider.dart';
+
+import '../provider/auth_notifier.dart';
 
 @RoutePage()
 class ChangePasswordScreen extends ConsumerStatefulWidget {
@@ -70,54 +67,28 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                                 final newPassword =
                                     _keyForm.currentState?.value['newPassword'];
 
-                                final Result result = await ref.read(
-                                  changePasswordProvider(
-                                    currentPassword: currentPassword,
-                                    newPassword: newPassword,
-                                  ).future,
+                                await ref
+                                    .read(authNotifierProvider.notifier)
+                                    .onChangePassword(
+                                      currentPassword,
+                                      newPassword,
+                                    );
+
+                                final authState = ref.read(
+                                  authNotifierProvider,
                                 );
-                                if (result.success) {
-                                  developer.log('SUCCESS: Password changed');
-                                  _showPasswordChangeSuccessDialog();
-                                  context.router.pop();
-                                } else {
-                                  switch (result.code) {
-                                    case AuthError.wrongPassword:
-                                      ScaffoldMessenger.of(
-                                        context,
-                                      ).showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Incorrect current password.',
-                                          ),
-                                        ),
-                                      );
-                                      break;
-
-                                    case AuthError.networkError:
-                                      ScaffoldMessenger.of(
-                                        context,
-                                      ).showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Check your internet connection.',
-                                          ),
-                                        ),
-                                      );
-
-                                    default:
-                                      ScaffoldMessenger.of(
-                                        context,
-                                      ).showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            result.errorMessage ??
-                                                'Unknown error. Please try again.',
-                                          ),
-                                        ),
-                                      );
-                                  }
-                                }
+                                authState.when(
+                                  data: (_) {
+                                    _showPasswordChangeSuccessDialog();
+                                    context.router.pop();
+                                  },
+                                  error: (error, _) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text(error.toString())),
+                                    );
+                                  },
+                                  loading: () {},
+                                );
                               }
                             },
                             child: Text('Continue'),
