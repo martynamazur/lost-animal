@@ -27,8 +27,8 @@ App core functionality
 
 
 <div align="center">
-   <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/login.jpg" alt="Home Screen" width="300" />
-  <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/about_app.jpg" alt="Home Screen List" width="300" />
+   <video src="https://github.com/martynamazur/lost-animal/blob/master/screenshots/Screen_recording_20260108_203822.webm" width="300" autoplay loop muted playsinline></video>
+   <video src="https://github.com/martynamazur/lost-animal/blob/master/screenshots/Screen_Recording_20260108_203909_One%20UI%20Home.mp4" width="300" autoplay loop muted playsinline></video>
  
 </div>
 
