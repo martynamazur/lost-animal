@@ -86,9 +86,15 @@ App core functionality
 
 
 <div align="center">
-   <img src="" alt="Home Screen" width="300" />
-  <img src="" alt="Home Screen List" width="300" />
- 
+  <img
+    src="https://github.com/martynamazur/lost-animal/blob/master/screenshots/login_page.png?raw=true"
+    width="300"
+  />
+  <img
+    src="https://github.com/martynamazur/lost-animal/blob/master/screenshots/singup_screen.png?raw=true"
+    width="300"
+  />
 </div>
+
 
 
