@@ -38,7 +38,6 @@ App core functionality
 </div>
 
 
-///tu ok
 <div align="center">
    <img src="https://github.com/martynamazur/lost-animal/blob/master/screenshots/inbox_mixed_state.png" alt="Home Screen" width="300" />
   <img src="https://github.com/martynamazur/lost-animal/blob/master/screenshots/inbox_unread_notification.png" alt="Home Screen List" width="300" />
@@ -57,8 +56,8 @@ App core functionality
 
 
 <div align="center">
-   <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/report_list_home.jpg" alt="Home Screen" width="300" />
-  <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/home_filtered.jpg" alt="Home Screen List" width="300" />
+   <img src="https://github.com/martynamazur/lost-animal/blob/master/screenshots/report_screen1.png" alt="Home Screen" width="300" />
+  <img src="https://github.com/martynamazur/lost-animal/blob/master/screenshots/report_screen2.png" alt="Home Screen List" width="300" />
  
 </div>
 
