@@ -52,54 +52,39 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Column(
-                spacing: 16.0,
+                spacing: 24.0,
                 children: [
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(24),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Theme.of(context).colorScheme.primaryContainer,
-                          Theme.of(context).colorScheme.secondaryContainer,
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
+                  Column(
+                    children: [
+                      Icon(
+                        Icons.pets,
+                        size: 48,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.pets,
-                          size: 48,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        const SizedBox(height: 12),
-                        Text(
-                          'Join Our Community',
-                          style: Theme.of(context).textTheme.headlineSmall
-                              ?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.onPrimaryContainer,
-                              ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Help reunite lost pets with their families and connect with fellow animal lovers',
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyMedium
-                              ?.copyWith(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onPrimaryContainer
-                                    .withOpacity(0.8),
-                              ),
-                        ),
-                      ],
-                    ),
+                      const SizedBox(height: 12),
+                      Text(
+                        'Join Our Community',
+                        style: Theme.of(context).textTheme.headlineSmall
+                            ?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onPrimaryContainer,
+                            ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Help reunite lost pets with their families and connect with fellow animal lovers',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyMedium
+                            ?.copyWith(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimaryContainer
+                                  .withOpacity(0.8),
+                            ),
+                      ),
+                    ],
                   ),
 
                   NameField(label: 'Your Name*'),
