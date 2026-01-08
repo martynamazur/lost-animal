@@ -49,10 +49,10 @@ App core functionality
   <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/create_report%20pt2.jpg" alt="Home Screen List" width="300" />
 </div>
 
-
+///tu ok
 <div align="center">
-   <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/create_report_pt3.jpg" alt="Home Screen" width="300" />
-  <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/create_report.jpg" alt="Home Screen List" width="300" />
+   <img src="https://github.com/martynamazur/lost-animal/blob/master/screenshots/inbox_mixed_state.png" alt="Home Screen" width="300" />
+  <img src="https://github.com/martynamazur/lost-animal/blob/master/screenshots/inbox_unread_notification.png" alt="Home Screen List" width="300" />
 
 <div align="center">
    <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/new_menu_user.jpg" alt="Home Screen" width="300" />
