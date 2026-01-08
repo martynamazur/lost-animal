@@ -1,11 +1,20 @@
+### Tech Stack
 
-![Riverpod](https://img.shields.io/badge/riverpod-3.0.0--dev.16-blue?logo=dart)
-![Freezed](https://img.shields.io/badge/freezed-3.0.6-blue?logo=dart)
-![Json Serializable](https://img.shields.io/badge/json__serializable-6.9.5-blue?logo=dart)
-![Auto Route](https://img.shields.io/badge/auto__route-10.1.0%2B1-blue?logo=dart)
-![Cloud Firestore](https://img.shields.io/badge/cloud__firestore-5.6.10-orange?logo=firebase)
-![Firebase Auth](https://img.shields.io/badge/firebase__auth-5.6.0-orange?logo=firebase)
-![Firebase Storage](https://img.shields.io/badge/firebase__storage-12.4.8-orange?logo=firebase)
+**State management & architecture**  
+![Riverpod](...)
+![Freezed](...)
+![Auto Route](...)
+
+**Backend & notifications**  
+![Firebase Auth](...)
+![Cloud Firestore](...)
+![Firebase Messaging](...)
+![Local Notifications](...)
+
+**Maps & location**  
+![Google Maps](...)
+![Geolocator](...)
+
 ## lostanimal
 Lost Animal - helping you report and find missing or seen animals in your neighborhood
 
