@@ -22,7 +22,20 @@ App core functionality
 - Reporting a missing pet
 - Reporting a seen animal
 
+## Update: January 2026
+- Added notifications FCM
 
+
+<div align="center">
+  <img
+    src="https://github.com/martynamazur/lost-animal/blob/master/screenshots/home_screen.gif?raw=true"
+    width="300"
+  />
+  <img
+    src="https://github.com/martynamazur/lost-animal/blob/master/screenshots/home_sc.gif?raw=true"
+    width="300"
+  />
+</div>
 
 
 ///tu ok
