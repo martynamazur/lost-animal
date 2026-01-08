@@ -1,19 +1,21 @@
-### Tech Stack
+###  Tech Stack
 
 **State management & architecture**  
-![Riverpod](...)
-![Freezed](...)
-![Auto Route](...)
+![Riverpod](https://img.shields.io/badge/riverpod-3.0.0--dev.16-blue?logo=dart)  
+![Freezed](https://img.shields.io/badge/freezed-3.0.6-blue?logo=dart)  
+![JSON Serializable](https://img.shields.io/badge/json__serializable-6.9.5-blue?logo=dart)  
+![Auto Route](https://img.shields.io/badge/auto__route-10.3.0-blue?logo=dart)
 
 **Backend & notifications**  
-![Firebase Auth](...)
-![Cloud Firestore](...)
-![Firebase Messaging](...)
-![Local Notifications](...)
+![Firebase Auth](https://img.shields.io/badge/firebase__auth-5.7.0-orange?logo=firebase)  
+![Cloud Firestore](https://img.shields.io/badge/cloud__firestore-5.6.12-orange?logo=firebase)  
+![Firebase Messaging](https://img.shields.io/badge/firebase__messaging-15.1.4-orange?logo=firebase)  
+![Local Notifications](https://img.shields.io/badge/flutter__local__notifications-18.0.1-blue)
 
 **Maps & location**  
-![Google Maps](...)
-![Geolocator](...)
+![Google Maps](https://img.shields.io/badge/google__maps__flutter-2.14.0-green?logo=googlemaps)  
+![Geolocator](https://img.shields.io/badge/geolocator-14.0.2-green)
+
 
 ## lostanimal
 Lost Animal - helping you report and find missing or seen animals in your neighborhood
