@@ -62,51 +62,28 @@ App core functionality
 </div>
 
 <div align="center">
-   <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/missing_details.jpg" alt="Home Screen" width="300" />
-  <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/seen_details.jpg" alt="Home Screen List" width="300" />
- 
+  <img
+    src="https://github.com/martynamazur/lost-animal/blob/master/screenshots/report%20form/Screenshot_20260108_215030.png?raw=true"
+    width="300"
+  />
+  <img
+    src="https://github.com/martynamazur/lost-animal/blob/master/screenshots/report%20form/Screenshot_20260108_215039.png?raw=true"
+    width="300"
+  />
 </div>
 
 <div align="center">
-   <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/create_report_pt1.jpg" alt="Home Screen" width="300" />
-  <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/create_report%20pt2.jpg" alt="Home Screen List" width="300" />
+  <img
+    src="https://github.com/martynamazur/lost-animal/blob/master/screenshots/report%20form/Screenshot_20260108_215154.png?raw=true"
+    width="300"
+  />
+  <img
+    src="https://github.com/martynamazur/lost-animal/blob/master/screenshots/report%20form/Screenshot_20260108_215319.png?raw=true"
+    width="300"
+  />
 </div>
 
 
-
-<div align="center">
-   <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/new_menu_user.jpg" alt="Home Screen" width="300" />
-  <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/anon_menu.jpg" alt="Home Screen List" width="300" />
- 
-</div>
-
-<div align="center">
-   <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/new_myreports_misisng.jpg" alt="Home Screen" width="300" />
-  <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/new_myreports_seen%20(1).jpg" alt="Home Screen List" width="300" />
- 
-</div>
-
-<div align="center">
-  <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/settings.jpg" alt="Home Screen List" width="300" />
- 
-</div>
-<div align="center">
-   <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/change_email_fill.jpg" alt="Home Screen" width="300" />
-  <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/change_email_full.jpg" alt="Home Screen List" width="300" />
- 
-</div>
-
-<div align="center">
-   <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/change_pass_full.jpg" alt="Home Screen List" width="300" />
-   <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/change_pass_filled.jpg" alt="Home Screen" width="300" />
-   <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/change_passs_dialog.jpg" alt="Home Screen List" width="300" />
- 
-</div>
-<div align="center">
-   <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/reauth.jpg" alt="Home Screen" width="300" />
-  <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/inbox.jpg" alt="Home Screen List" width="300" />
- 
-</div>
 
 <div align="center">
    <img src="" alt="Home Screen" width="300" />
