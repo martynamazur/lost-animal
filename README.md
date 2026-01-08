@@ -25,16 +25,22 @@ App core functionality
 
 
 
-
+///tu ok
 <div align="center">
-  <video width="300" autoplay loop muted playsinline>
-    <source src="https://raw.githubusercontent.com/martynamazur/lost-animal/master/screenshots/Screen_recording_20260108_203822.webm" type="video/webm">
-  </video>
-
-  <video width="300" autoplay loop muted playsinline>
-    <source src="https://raw.githubusercontent.com/martynamazur/lost-animal/master/screenshots/Screen_Recording_20260108_203909_One%20UI%20Home.mp4" type="video/mp4">
-  </video>
+   <img src="https://github.com/martynamazur/lost-animal/blob/master/screenshots/inbox_mixed_state.png" alt="Home Screen" width="300" />
+  <img src="https://github.com/martynamazur/lost-animal/blob/master/screenshots/inbox_unread_notification.png" alt="Home Screen List" width="300" />
+  
+<div align="center">
+  <img
+    src="https://github.com/martynamazur/lost-animal/blob/master/screenshots/Screen_Recording_20260108_203909_One%20UI%20Home%20(1).gif?raw=true"
+    width="300"
+  />
+  <img
+    src="https://github.com/martynamazur/lost-animal/blob/master/screenshots/Screen_recording_20260108_203822.gif?raw=true"
+    width="300"
+  />
 </div>
+
 
 
 <div align="center">
@@ -54,10 +60,7 @@ App core functionality
   <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/create_report%20pt2.jpg" alt="Home Screen List" width="300" />
 </div>
 
-///tu ok
-<div align="center">
-   <img src="https://github.com/martynamazur/lost-animal/blob/master/screenshots/inbox_mixed_state.png" alt="Home Screen" width="300" />
-  <img src="https://github.com/martynamazur/lost-animal/blob/master/screenshots/inbox_unread_notification.png" alt="Home Screen List" width="300" />
+
 
 <div align="center">
    <img src="https://hhvriufzsfvhjtoijfsx.supabase.co/storage/v1/object/public/appscreenshot/lostanimal/M3/new_menu_user.jpg" alt="Home Screen" width="300" />
